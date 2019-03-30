@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "847320820206",
+    "firebase_url": "https://project-parkingsyetem.firebaseio.com",
+    "project_id": "project-parkingsyetem",
+    "storage_bucket": "project-parkingsyetem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847320820206:android:3f16d0aa55c6d8e1",
+        "android_client_info": {
+          "package_name": "com.example.parkingsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847320820206-pqeu32lavdom7nk8507f9alveg0lma26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.parkingsystem",
+            "certificate_hash": "b93dc6acb153934dc23073b71f412b184ff81440"
+          }
+        },
+        {
+          "client_id": "847320820206-te8h690bp9bncv876no6t254qp54j90u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4XQM8-WbXvvDgTfIdw2Br3kgPGthlImI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847320820206-te8h690bp9bncv876no6t254qp54j90u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
