@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.button1) Button btn1;
     @BindView(R.id.button2) Button btn2;
     @BindView(R.id.button3) Button btn3;
+    @BindView(R.id.firebase_test) Button firebase_test_btn;
 
     @OnClick(R.id.button1)
     void  button1Click() {
@@ -31,27 +34,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     @OnClick(R.id.button2)
     void buttonClick2() {
-        Firebase_assist fire_assistant = new Firebase_assist();
+        Intent intent = new Intent(this, test.class);
+        startActivity(intent);
 
-        assistant random = new assistant();
-        for ( int i = 0; i < 5; i++ ) {
-            String num = random.generate_random_num();
-            String str = random.generate_random_str();
-            HashMap<String, String> Date = random.get_day();
-
-            try {
-                fire_assistant.write_db_day_count("parking_spots", str, Date.get("day"), Date.get("time"), num);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @OnClick(R.id.button3)
     void buttonClick3() {
-        Firebase_assist fire_assistant = new Firebase_assist();
-        fire_assistant.get_allcount_from_spot("parking_spots");
+
+    }
+
+    @OnClick(R.id.firebase_test)
+    void buttonClick4() {
+        Intent intent = new Intent(this, DB_test.class);
+        startActivity(intent);
     }
 }

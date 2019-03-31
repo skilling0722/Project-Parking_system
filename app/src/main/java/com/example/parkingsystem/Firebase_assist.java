@@ -9,53 +9,77 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Firebase_assist {
     private DatabaseReference mDatabase;
-    static  int total_count;
+
     public Firebase_assist() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("/parking_spots");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
 
-    public void write_db_day_count(String parking_spots, String parking_spot, String day, String time,String num) {
-        Data_form parking_info = new Data_form(num);
-        mDatabase.child(parking_spot).child(day).child(time).setValue(parking_info);
+    public void writeDB_for_analysis(String analysis, String parking_spot, int date, int time, boolean use) {
+        Data_for_analysis parking_info = new Data_for_analysis(date, time, use);
+        mDatabase.child(analysis).child(parking_spot).push().setValue(parking_info);
     }
 
-    public void write_db_allcount(String parking_spots, String parking_spot, String day){
-        mDatabase.child(parking_spots).child(parking_spot).child(day);
-    }
-
-    public void get_allcount_from_spot(String parking_spots){
-        total_count = 0;
-        for (int i = 0; i < 24; i++){
-            get_from_database(Integer.toString(i));
-        }
-        Log.d("testt", "total_count: " + total_count);
-    }
-
-    public void get_from_database(String time) {
-        mDatabase.child("b").child("20190331").child(time).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getDB_for_analysis(String analysis) {
+        mDatabase.child(analysis).child("a").orderByChild("use").equalTo(false).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
-
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        Log.d("testt", String.valueOf(snapshot.getValue()));
-                        String count_val = String.valueOf(snapshot.getValue());
-                        total_count += Integer.parseInt(count_val);
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Data_for_analysis data = snapshot.getValue(Data_for_analysis.class);
+                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("testt", "fail");
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
     }
+
+    public void writeDB_for_check(String check, String parking_spots, String spot, boolean use) {
+        Map<String, Object> spot_box = new HashMap<>();
+        Map<String, Boolean> temp = null;
+
+        Data_for_check parking_info = new Data_for_check(use);
+        temp = parking_info.convert_map();
+
+        spot_box.put(spot, temp);
+        mDatabase.child(check).child(parking_spots).updateChildren(spot_box);
+    }
+
+    public void getDB_for_check(String check) {
+        mDatabase.child(check).child("a").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Data_for_check data = snapshot.getValue(Data_for_check.class);
+                        Log.d("testt", "for check, extract data: " + snapshot.getKey() + data.isUse());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("testt", "for check, fail");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 }

@@ -1,9 +1,11 @@
 package com.example.parkingsystem;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -11,8 +13,11 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.security.KeyStore;
 import java.util.ArrayList;
@@ -29,7 +34,12 @@ public class test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        View_linechart();
+        try {
+            View_linechart_DB();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("testt", "draw fail");
+        }
     }
 
 
@@ -64,6 +74,54 @@ public class test extends AppCompatActivity {
         LineData lineData = new LineData(linetype);
 
         linechart.setData(lineData);
+    }
+
+    private void View_linechart_DB() {
+        final LineChart linechart = (LineChart) findViewById(R.id.chart1);
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("analysis").child("a").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Entry> yData = new ArrayList<>();
+                float i = 0;
+                int count = 0;
+
+                try {
+                    Log.d("testt", "View_linechart_DB start");
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        i++;
+
+                        Data_for_analysis data = snapshot.getValue(Data_for_analysis.class);
+                        Log.d("testt", "read data: " + data.getDate() + ", " + data.getTime() + ", " + data.isUse());
+                        if (data.isUse()){
+                            count ++;
+                        }
+
+                        yData.add(new Entry(i, count));
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("testt", "View_linechart_DB fail");
+                }
+
+                Log.d("testt", "i의 값: " + i);
+                Log.d("testt", "count의 값: "+count);
+
+                LineDataSet line_dataset = new LineDataSet(yData, "응가");
+                LineData data = new LineData(line_dataset);
+                linechart.setData(data);
+                linechart.notifyDataSetChanged();
+                linechart.invalidate();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
