@@ -72,14 +72,15 @@ public class parking_check extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listview_item item = (listview_item) parent.getItemAtPosition(position);
-                String title = item.getSpot_title();
-                String text = item.getRemain_title();
+                String spot = item.getSpot_title();
+                String remain = item.getRemain_title();
                 Drawable iconDrawable = item.getIcon();
 
-                Intent intent = new Intent(getApplicationContext(), test.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), spot_check.class);
+                intent.putExtra("spot", spot);
+                intent.putExtra("remain", remain);
 
-                Log.d("testt", "tt" + title + text);
+                startActivity(intent);
             }
         });
     }

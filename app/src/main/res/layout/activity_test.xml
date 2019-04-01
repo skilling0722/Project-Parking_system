@@ -55,6 +55,11 @@
                 android:textAlignment="center"
                 android:text="분석2" />
 
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart2"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+
             <TextView
                 android:id="@+id/textview3"
                 android:layout_width="match_parent"

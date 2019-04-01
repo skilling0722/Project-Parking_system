@@ -54,7 +54,7 @@ public class DB_test extends AppCompatActivity {
         Firebase_assist fire_assistant = new Firebase_assist();
         assistant random = new assistant();
 
-        for ( int i = 0; i < 100; i++) {
+        for ( int i = 0; i < 500; i++) {
             String str = random.generate_random_str();
             HashMap<String, Integer> Date = random.get_day();
             boolean bool = random.generate_random_boolean();
