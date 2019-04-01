@@ -91,6 +91,22 @@
                 android:id="@+id/day_usage_barchart"
                 android:layout_width="match_parent"
                 android:layout_height="400dp" />
+
+            <TextView
+                android:id="@+id/textview5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:minHeight="15dp"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:text="전체기간 요일별" />
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/week_usage_horizontalbarchart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
         </LinearLayout>
     </ScrollView>
 

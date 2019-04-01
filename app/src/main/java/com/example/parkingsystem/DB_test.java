@@ -18,6 +18,8 @@ public class DB_test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_test);
         ButterKnife.bind(this);
+
+
     }
 
     @BindView(R.id.write_check_btn) Button write_check_btn;

@@ -2,8 +2,10 @@ package com.example.parkingsystem;
 
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -18,6 +20,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.EntryXComparator;
 
@@ -28,6 +31,7 @@ public class Draw_chart {
     LineChart linechart;
     PieChart pieChart;
     BarChart barChart;
+    HorizontalBarChart horizontalbarchart;
 
     ArrayList<Entry> lineData;
     ArrayList<PieEntry> pieData;
@@ -59,6 +63,14 @@ public class Draw_chart {
 
     public void setBarChart(BarChart barChart) {
         this.barChart = barChart;
+    }
+
+    public HorizontalBarChart getHorizontalbarchart() {
+        return horizontalbarchart;
+    }
+
+    public void setHorizontalbarchart(HorizontalBarChart horizontalbarchart) {
+        this.horizontalbarchart = horizontalbarchart;
     }
 
     public ArrayList<Entry> getLineData() {
@@ -106,6 +118,8 @@ public class Draw_chart {
 
         LineData data = new LineData(line_dataset);
         data.setValueTextColor(Color.WHITE);
+        data.setValueTextSize(13f);
+        data.setValueFormatter(new DefaultValueFormatter(0));
 
         linechart.setData(data);
         linechart.notifyDataSetChanged();
@@ -129,8 +143,9 @@ public class Draw_chart {
         dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
 
         PieData data = new PieData((dataSet));
-        data.setValueTextSize(15f);
+        data.setValueTextSize(13f);
         data.setValueTextColor(Color.BLACK);
+        data.setValueFormatter(new DefaultValueFormatter(0));
 
         pieChart.setData(data);
         pieChart.notifyDataSetChanged();
@@ -160,11 +175,44 @@ public class Draw_chart {
 
         BarData data = new BarData(dataSet);
         data.setValueTextColor(Color.WHITE);
+        data.setValueTextSize(13f);
+        data.setValueFormatter(new DefaultValueFormatter(0));
 
         barChart.setData(data);
         barChart.setFitBars(false);
+        barChart.notifyDataSetChanged();
         barChart.animateXY(1000,1000);
         barChart.invalidate();
     }
 
+    public void Draw_horizontalbarchart() {
+        horizontalbarchart.getDescription().setEnabled(false);
+        Collections.sort(barData, new EntryXComparator());
+        BarDataSet dataSet = new BarDataSet(barData, "이용횟수");
+
+        Legend legend = horizontalbarchart.getLegend();
+        legend.setTextColor(Color.WHITE);
+
+        XAxis xAxis = horizontalbarchart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.WHITE);
+
+        YAxis yaxisleft = horizontalbarchart.getAxisLeft();
+        yaxisleft.setTextColor(Color.WHITE);
+
+        YAxis yaxisright = horizontalbarchart.getAxisRight();
+        yaxisright.setDrawLabels(false);
+        yaxisright.setDrawAxisLine(false);
+        yaxisright.setDrawGridLines(false);
+
+        BarData data = new BarData(dataSet);
+        data.setValueTextColor(Color.WHITE);
+        data.setValueTextSize(13f);
+        data.setValueFormatter(new DefaultValueFormatter(0));
+        horizontalbarchart.setData(data);
+        horizontalbarchart.notifyDataSetChanged();
+        horizontalbarchart.invalidate();
+    }
+
 }
+

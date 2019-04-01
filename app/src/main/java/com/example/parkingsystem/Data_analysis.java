@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -35,6 +36,7 @@ public class Data_analysis extends AppCompatActivity {
     @BindView(R.id.day_usage_chart) PieChart day_usage_chart;
     @BindView(R.id.day_usage_linechart) LineChart day_usage_linechart;
     @BindView(R.id.day_usage_barchart) BarChart day_usage_barchart;
+    @BindView(R.id.week_usage_horizontalbarchart) HorizontalBarChart week_usage_horizontalbarchart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +117,11 @@ public class Data_analysis extends AppCompatActivity {
                         bar_chart.setBarData(barData);
                         bar_chart.setBarChart(day_usage_barchart);
                         bar_chart.Draw_barchart();
+
+                        Draw_chart horizontalbar_chart = new Draw_chart();
+                        horizontalbar_chart.setBarData(barData);
+                        horizontalbar_chart.setHorizontalbarchart(week_usage_horizontalbarchart);
+                        horizontalbar_chart.Draw_horizontalbarchart();
 
                     } catch (Exception e) {
                         e.printStackTrace();
