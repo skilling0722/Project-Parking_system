@@ -1,13 +1,11 @@
 package com.example.parkingsystem;
 
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -21,6 +19,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.EntryXComparator;
 
@@ -186,6 +185,7 @@ public class Draw_chart {
     }
 
     public void Draw_horizontalbarchart() {
+        final String[] week = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         horizontalbarchart.getDescription().setEnabled(false);
         Collections.sort(barData, new EntryXComparator());
         BarDataSet dataSet = new BarDataSet(barData, "이용횟수");
@@ -196,6 +196,16 @@ public class Draw_chart {
         XAxis xAxis = horizontalbarchart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.WHITE);
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float day, AxisBase axis) {
+                int intValue = (int) day;
+                if (week.length > intValue && intValue >= 0) {
+                    return week[intValue];
+                }
+                return "";
+            }
+        });
 
         YAxis yaxisleft = horizontalbarchart.getAxisLeft();
         yaxisleft.setTextColor(Color.WHITE);

@@ -2,7 +2,9 @@ package com.example.parkingsystem;
 
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
@@ -62,14 +64,48 @@ public class assistant {
         date = Integer.parseInt("2019" + generate_random_month() + generate_random_day() );
         //////////////////
 
-
-
         HashMap<String, Integer> map = new HashMap<>();
         map.put("date", date);
         Log.d("testt", "랜덤 날짜: " + date);
         map.put("time", time);
 
         return map;
+    }
+
+    public int get_dayofweek(String inputdate) throws ParseException {
+//        String dayofweek = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date = dateFormat.parse(inputdate);
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int day_num = calendar.get(Calendar.DAY_OF_WEEK);
+
+//        switch (day_num) {
+//            case 1:
+//                dayofweek = "Sun";
+//                break;
+//            case 2:
+//                dayofweek = "Mon";
+//                break;
+//            case 3:
+//                dayofweek = "Tue";
+//                break;
+//            case 4:
+//                dayofweek = "Wed";
+//                break;
+//            case 5:
+//                dayofweek = "Thu";
+//                break;
+//            case 6:
+//                dayofweek = "Fri";
+//                break;
+//            case 7:
+//                dayofweek = "Sat";
+//                break;
+//        }
+        return day_num;
     }
 
 }
