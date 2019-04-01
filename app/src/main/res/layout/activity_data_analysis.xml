@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".test">
+    tools:context=".Data_analysis">
 
     <ScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/scrollView1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -29,7 +29,7 @@
 
 
             <TextView
-                android:id="@+id/textview1"
+                android:id="@+id/month_usage_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -37,15 +37,15 @@
                 android:minHeight="15dp"
                 android:textSize="20dp"
                 android:textAlignment="center"
-                android:text="분석1" />
+                android:text="2019년 월별" />
 
             <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart1"
+                android:id="@+id/month_usage_chart"
                 android:layout_width="match_parent"
                 android:layout_height="400dp" />
 
             <TextView
-                android:id="@+id/textview2"
+                android:id="@+id/day_usage_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -53,10 +53,10 @@
                 android:minHeight="15dp"
                 android:textSize="20dp"
                 android:textAlignment="center"
-                android:text="분석2" />
+                android:text="전체기간 시간대별" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart2"
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/day_usage_chart"
                 android:layout_width="match_parent"
                 android:layout_height="400dp" />
 
@@ -69,7 +69,44 @@
                 android:minHeight="15dp"
                 android:textSize="20dp"
                 android:textAlignment="center"
-                android:text="분석3" />
+                android:text="전체기간 시간대별" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/day_usage_linechart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+
+            <TextView
+                android:id="@+id/textview4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:minHeight="15dp"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:text="전체기간 시간대별" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/day_usage_barchart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+
+            <TextView
+                android:id="@+id/textview5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:minHeight="15dp"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:text="전체기간 요일별" />
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/week_usage_horizontalbarchart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
         </LinearLayout>
     </ScrollView>
 

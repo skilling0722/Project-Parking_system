@@ -9,6 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".spot_check"></activity>
+        <activity android:name=".ParkingList_Activity" />
+        <activity android:name=".DB_test" />
+        <activity android:name=".parking_check" />
+        <activity android:name=".Data_analysis" />
+        <activity android:name=".test" />
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -18,9 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".test" />
-        <activity android:name=".MainActivity"/>
-
     </application>
 
 </manifest>
