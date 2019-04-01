@@ -199,7 +199,7 @@ public class Draw_chart {
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float day, AxisBase axis) {
-                int intValue = (int) day;
+                int intValue = (int) day - 1;
                 if (week.length > intValue && intValue >= 0) {
                     return week[intValue];
                 }
