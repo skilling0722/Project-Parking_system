@@ -18,8 +18,6 @@ public class DB_test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_test);
         ButterKnife.bind(this);
-
-
     }
 
     @BindView(R.id.write_check_btn) Button write_check_btn;
@@ -34,7 +32,7 @@ public class DB_test extends AppCompatActivity {
         for (int i = 0; i< 30; i++) {
             String str = random.generate_random_str();
             boolean bool = random.generate_random_boolean();
-            int num = random.generate_random_num();
+            int num = random.generate_random_time();
 
             try {
                 firebase_assist.writeDB_for_check("check", str, Integer.toString(num), bool);

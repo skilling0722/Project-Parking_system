@@ -168,8 +168,6 @@ public class Data_analysis extends AppCompatActivity {
         }
     }
 
-
-
     public HashMap<Integer, String> get_reg_for_month_analysis(int year) {
         HashMap<Integer, String> map = new HashMap<>();
         for ( int i = 1; i <= 12; i++) {
@@ -181,7 +179,6 @@ public class Data_analysis extends AppCompatActivity {
         }
         return map;
     }
-
 
     public HashMap<Integer, Integer> init_month_count_map() {
         HashMap<Integer, Integer> map = new HashMap<>();

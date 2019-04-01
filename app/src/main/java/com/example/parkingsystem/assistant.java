@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class assistant {
 
-    public int generate_random_num() {
+    public int generate_random_time() {
         Random random = new Random();
         int randomNum = random.nextInt(24);
         return randomNum;
@@ -60,7 +60,7 @@ public class assistant {
         int time = Integer.parseInt(time_format.format(day));
 
         //////////////////      날짜, 시간 랜덤 생성 테스트용
-        time = generate_random_num();
+        time = generate_random_time();
         date = Integer.parseInt("2019" + generate_random_month() + generate_random_day() );
         //////////////////
 
@@ -73,7 +73,6 @@ public class assistant {
     }
 
     public int get_dayofweek(String inputdate) throws ParseException {
-//        String dayofweek = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date = dateFormat.parse(inputdate);
         
@@ -81,30 +80,6 @@ public class assistant {
         calendar.setTime(date);
 
         int day_num = calendar.get(Calendar.DAY_OF_WEEK);
-
-//        switch (day_num) {
-//            case 1:
-//                dayofweek = "Sun";
-//                break;
-//            case 2:
-//                dayofweek = "Mon";
-//                break;
-//            case 3:
-//                dayofweek = "Tue";
-//                break;
-//            case 4:
-//                dayofweek = "Wed";
-//                break;
-//            case 5:
-//                dayofweek = "Thu";
-//                break;
-//            case 6:
-//                dayofweek = "Fri";
-//                break;
-//            case 7:
-//                dayofweek = "Sat";
-//                break;
-//        }
         return day_num;
     }
 
