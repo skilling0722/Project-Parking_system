@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button3)
     void buttonClick3() {
-
+        Intent intent = new Intent(this, Data_analysis.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.firebase_test)

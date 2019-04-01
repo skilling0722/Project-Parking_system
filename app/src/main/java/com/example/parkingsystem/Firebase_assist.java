@@ -26,8 +26,10 @@ public class Firebase_assist {
         mDatabase.child(analysis).child(parking_spot).push().setValue(parking_info);
     }
 
+
+
     public void getDB_for_analysis(String analysis) {
-        mDatabase.child(analysis).child("a").orderByChild("use").equalTo(false).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child(analysis).child("a").orderByChild("time").equalTo(8).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {

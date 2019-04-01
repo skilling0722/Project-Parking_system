@@ -25,17 +25,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class test extends AppCompatActivity {
-    @BindView(R.id.chart1) LineChart chart1;
+    @BindView(R.id.chart1) LineChart linechart;
+    @BindView(R.id.chart2) LineChart linechart2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        ButterKnife.bind(this);
 
         try {
             View_linechart_DB();
+            View_linechart();
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("testt", "draw fail");
@@ -45,8 +49,6 @@ public class test extends AppCompatActivity {
 
 
     private void View_linechart() {
-        LineChart linechart = (LineChart) findViewById(R.id.chart1);
-
         ArrayList<Entry> vals = new ArrayList<Entry>();
 
         for (int i = 0; i < 100; i++) {
@@ -59,26 +61,24 @@ public class test extends AppCompatActivity {
         linetype.setCircleRadius(3);
         linetype.setCircleColor(Color.parseColor("#FFA1BC4A"));
 
-        XAxis xAxis = linechart.getXAxis();
+        XAxis xAxis = linechart2.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        xAxis.setTextColor(ContextCompat.getColor("#FFA1BC4A");
 
-        YAxis yaxisleft = linechart.getAxisLeft();
+        YAxis yaxisleft = linechart2.getAxisLeft();
 //        yaxisleft.setTextColor(ContextCompat.getColor(getContent));
 
-        YAxis yaxisright = linechart.getAxisRight();
+        YAxis yaxisright = linechart2.getAxisRight();
         yaxisright.setDrawLabels(false);
         yaxisright.setDrawAxisLine(false);
         yaxisright.setDrawGridLines(false);
 
         LineData lineData = new LineData(linetype);
 
-        linechart.setData(lineData);
+        linechart2.setData(lineData);
     }
 
     private void View_linechart_DB() {
-        final LineChart linechart = (LineChart) findViewById(R.id.chart1);
-
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("analysis").child("a").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -110,6 +110,15 @@ public class test extends AppCompatActivity {
                 Log.d("testt", "count의 값: "+count);
 
                 LineDataSet line_dataset = new LineDataSet(yData, "응가");
+
+                XAxis xAxis = linechart.getXAxis();
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+                YAxis yaxisright = linechart.getAxisRight();
+                yaxisright.setDrawLabels(false);
+                yaxisright.setDrawAxisLine(false);
+                yaxisright.setDrawGridLines(false);
+
                 LineData data = new LineData(line_dataset);
                 linechart.setData(data);
                 linechart.notifyDataSetChanged();

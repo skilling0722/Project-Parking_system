@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
+            android:background="@color/colorPrimaryDark"
             android:minHeight="100dp"
             tools:srcCompat="@drawable/ic_launcher" />
 
@@ -62,7 +63,7 @@
 
             <Button
                 android:id="@+id/button1"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="80dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
@@ -80,7 +81,7 @@
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="80dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
@@ -99,7 +100,7 @@
 
             <Button
                 android:id="@+id/button3"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="80dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
@@ -118,7 +119,7 @@
 
             <Button
                 android:id="@+id/firebase_test"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="80dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
