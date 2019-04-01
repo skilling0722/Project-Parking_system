@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -35,12 +37,48 @@ public class Data_analysis extends AppCompatActivity {
     @BindView(R.id.day_usage_chart) PieChart day_usage_chart;
     @BindView(R.id.day_usage_linechart) LineChart day_usage_linechart;
     @BindView(R.id.day_usage_barchart) BarChart day_usage_barchart;
+    @BindView(R.id.week_usage_horizontalbarchart) HorizontalBarChart week_usage_horizontalbarchart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_analysis);
         ButterKnife.bind(this);
+
+        try {
+            week_usage_analysis(new Callback_week_usage() {
+                @Override
+                public void onCallback_week_usage(HashMap<Integer, Integer> map) {
+                    ArrayList<BarEntry> barData = new ArrayList<>();
+
+                    TreeMap<Integer, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
+                    Iterator<Integer> iterator_key = for_sort.keySet().iterator(); //키값 기준 오름차순 정렬
+
+                    try {
+                        for (Integer key : map.keySet()) {
+//                            Log.d("testt", "가져온 week_map: " + key + "  " + map.get(key));
+                            barData.add(new BarEntry(key, map.get(key)));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("testt", "input data to chart from map fail");
+                    }
+
+                    try {
+                        Draw_chart horizontalbar_chart = new Draw_chart();
+                        horizontalbar_chart.setBarData(barData);
+                        horizontalbar_chart.setHorizontalbarchart(week_usage_horizontalbarchart);
+                        horizontalbar_chart.Draw_horizontalbarchart();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("testt", "draw fail");
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("testt", "week_usage_analysis fail");
+        }
 
         try {
             month_usage_analysis(new Callback_month_usage() {
@@ -116,6 +154,8 @@ public class Data_analysis extends AppCompatActivity {
                         bar_chart.setBarChart(day_usage_barchart);
                         bar_chart.Draw_barchart();
 
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "day_usage_chart draw fail");
@@ -159,6 +199,14 @@ public class Data_analysis extends AppCompatActivity {
         return map;
     }
 
+    public HashMap<Integer, Integer> init_week_count_map() {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for ( int i = 1; i <= 7; i ++) {
+            map.put(i, 0);
+        }
+        return map;
+    }
+
     public void month_usage_analysis(final  Callback_month_usage callback, int year) {
         final HashMap<Integer, String> reg_month_map = get_reg_for_month_analysis(year);
 
@@ -171,7 +219,7 @@ public class Data_analysis extends AppCompatActivity {
                     month_count = init_month_count_map();
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Data_for_analysis data = snapshot.getValue(Data_for_analysis.class);
-                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse());
+//                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse());
 
                         for ( int i = 1; i <= 12; i++ ) {
                             if ((""+data.getDate()).matches(reg_month_map.get(i))) {
@@ -184,9 +232,9 @@ public class Data_analysis extends AppCompatActivity {
                     Log.d("testt", "month_usage_analysis get DB fail");
                 }
 
-                for ( int i = 1; i <= 12; i++ ) {
-                    Log.d("testt", "월: " +  i + ", month_count " +month_count.get(i));
-                }
+//                for ( int i = 1; i <= 12; i++ ) {
+//                    Log.d("testt", "월: " +  i + ", month_count " +month_count.get(i));
+//                }
                 callback.onCallback_month_usage(month_count);
             }
 
@@ -218,9 +266,9 @@ public class Data_analysis extends AppCompatActivity {
                     Log.d("testt", "day_usage_analysis get DB fail");
                 }
 
-                for ( int i = 0; i <= 23; i++ ) {
-                    Log.d("testt", "시간: " +  i + ", day_count " + day_count.get(i));
-                }
+//                for ( int i = 0; i <= 23; i++ ) {
+//                    Log.d("testt", "시간: " +  i + ", day_count " + day_count.get(i));
+//                }
                 callback.onCallback_day_usage(day_count);
             }
 
@@ -233,5 +281,39 @@ public class Data_analysis extends AppCompatActivity {
 
     public interface Callback_day_usage {
         void onCallback_day_usage(HashMap<Integer, Integer> map);
+    }
+
+    public void week_usage_analysis(final Callback_week_usage callback) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("analysis").child("a").orderByChild("use").equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<Integer, Integer> week_count = null;
+                assistant assistant = new assistant();
+                try {
+                    week_count = init_week_count_map();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Data_for_analysis data = snapshot.getValue(Data_for_analysis.class);
+//                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse());
+                        int day_of_week = assistant.get_dayofweek(Integer.toString(data.getDate()));
+//                        Log.d("testt", "변환 요일   "+day_of_week);
+                        week_count.put(day_of_week, week_count.get(day_of_week) + 1);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("testt", "week_usage_analysis get DB fail");
+                }
+                callback.onCallback_week_usage(week_count);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public interface Callback_week_usage {
+        void onCallback_week_usage(HashMap<Integer, Integer> map);
     }
 }
