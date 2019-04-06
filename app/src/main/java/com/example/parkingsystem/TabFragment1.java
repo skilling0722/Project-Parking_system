@@ -15,7 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
 import com.google.firebase.database.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeMap;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +36,7 @@ import com.google.firebase.database.annotations.Nullable;
  * create an instance of this fragment.
  */
 public class TabFragment1 extends Fragment {
+    @BindView(R.id.month_usage_chart) LineChart month_usage_chart;
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,6 +65,44 @@ public class TabFragment1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_fragment1, container, false);
+        ButterKnife.bind(this, view);
+
+        Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
+        try {
+            analysis_assistant.month_usage_analysis(new Data_analysis_assistant.Callback_month_usage() {
+                @Override
+                public void onCallback_month_usage(HashMap<Integer, Integer> map) {
+                    ArrayList<Entry> yData = new ArrayList<>();
+
+                    TreeMap<Integer, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
+                    Iterator<Integer> iterator_key = for_sort.keySet().iterator(); //키값 기준 오름차순 정렬
+
+                    try {
+                        for (Integer key : map.keySet()) {
+//                            Log.d("testt", "가져온 month_map: " + key + "  " + map.get(key));
+                            yData.add(new Entry(key, map.get(key)));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("testt", "input data to chart from map fail");
+                    }
+
+                    try {
+                        Draw_chart line_chart = new Draw_chart();
+                        line_chart.setLineData(yData);
+                        line_chart.setLinechart(month_usage_chart);
+                        line_chart.Draw_linechart();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("testt", "draw fail");
+                    }
+                }
+            }, 2019);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("testt", "month_usage_analysis fail");
+        }
+
         return view;
     }
 
