@@ -1,5 +1,9 @@
 package com.example.parkingsystem;
 
+/*
+ * 일별 데이터에 대한 분석
+ * */
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;

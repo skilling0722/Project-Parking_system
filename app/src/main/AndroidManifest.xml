@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Data_analysis_Activity"></activity>
+        <activity android:name=".Config_Activity"></activity>
+        <activity android:name=".Data_analysis_Activity" />
         <activity android:name=".spot_check" />
         <activity android:name=".ParkingList_Activity" />
         <activity android:name=".DB_test" />
