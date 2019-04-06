@@ -15,13 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".menu_analysis"></activity>
+        <activity android:name=".Config_Activity"></activity>
+        <activity android:name=".Data_analysis_Activity" />
         <activity android:name=".spot_check" />
         <activity android:name=".DB_test" />
         <activity android:name=".parking_check" />
         <activity android:name=".Data_analysis" />
         <activity android:name=".test" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
