@@ -38,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button2)
     void buttonClick2() {
-        Intent intent = new Intent(this, menu_analysis.class);
+  //      Intent intent = new Intent(this, test.class);
+//        startActivity(intent);
+        Intent intent = new Intent(this, Data_analysis_Activity.class);
         startActivity(intent);
+
     }
 
     @OnClick(R.id.button3)
