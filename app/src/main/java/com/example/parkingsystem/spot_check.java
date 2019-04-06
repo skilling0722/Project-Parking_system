@@ -16,13 +16,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.BufferedOutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,9 +64,11 @@ public class spot_check extends AppCompatActivity {
     }
 
     private void create_recyclerview(HashMap<String, Boolean> spot_info) {
+        Set keyset = spot_info.keySet();
+
         ArrayList<recyclerview_item> items = new ArrayList<>();
 
-        for ( Object e : spot_info.keySet() ) {
+        for ( Object e : keyset ) {
             Log.d("testt", e + ": " + spot_info.get(e));
             items.add(new recyclerview_item((String) e, spot_info.get(e)));
         }
@@ -89,6 +88,7 @@ public class spot_check extends AppCompatActivity {
         mDatabase.child("check").child(spot).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                ArrayList<Data_for_check> spot_usage = new ArrayList<>();
                 HashMap<String, Boolean> spot_info = new HashMap<>();
                 try {
                     Log.d("testt", "spot_check start");
@@ -96,6 +96,7 @@ public class spot_check extends AppCompatActivity {
                         Data_for_check data = snapshot.getValue(Data_for_check.class);
                         Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
                         spot_info.put(snapshot.getKey(), data.isUse());
+//                        spot_usage.add(data);
                     }
 
                 } catch (Exception e) {
