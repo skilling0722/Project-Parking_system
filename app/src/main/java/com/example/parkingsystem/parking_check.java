@@ -3,6 +3,7 @@ package com.example.parkingsystem;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +50,7 @@ public class parking_check extends AppCompatActivity {
                                 add_view(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_launcher), (String) arraylist.get(final_i), remaining_count + " / " + all_count);
                                 adapter.notifyDataSetChanged();
                             }
+
                         }, (String) arraylist.get(i));
                     }
                 } catch (Exception e) {
@@ -56,9 +59,6 @@ public class parking_check extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
     public void create_listview() {
@@ -131,7 +131,7 @@ public class parking_check extends AppCompatActivity {
 
     public void check_remaining_spots(final Callback_remaining callback, String spot) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("check").child(spot).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("check").child(spot).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int remaining_count = 0;
@@ -141,7 +141,7 @@ public class parking_check extends AppCompatActivity {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Data_for_check data = snapshot.getValue(Data_for_check.class);
 //                        data.isUse() 값으로 주차 가능유무를, snapshot.getKey() 로 주차자리를 정해주자.
-//                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
+                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
 
                         if (data.isUse()) {
                             remaining_count ++;
@@ -161,6 +161,8 @@ public class parking_check extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     public void check_remaining_spot() {

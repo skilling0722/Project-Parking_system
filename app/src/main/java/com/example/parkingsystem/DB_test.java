@@ -24,6 +24,7 @@ public class DB_test extends AppCompatActivity {
     @BindView(R.id.get_check_btn) Button get_check_btn;
     @BindView(R.id.write_analysis_btn) Button write_analysis_btn;
     @BindView(R.id.get_analysis_btn) Button get_analysis_btn;
+    @BindView(R.id.write_changwon_btn) Button write_changwon_btn;
 
     @OnClick(R.id.write_check_btn)
     void  write_check_btnClick() {
@@ -70,5 +71,27 @@ public class DB_test extends AppCompatActivity {
     void get_analysis_btnClick() {
         Firebase_assist fire_assistant = new Firebase_assist();
         fire_assistant.getDB_for_analysis("analysis");
+    }
+
+
+    /*
+    주차장 프로토타입
+     */
+    @OnClick(R.id.write_changwon_btn)
+    void write_changwon_btnClick() {
+        Firebase_assist fire_assistant = new Firebase_assist();
+        assistant assistant = new assistant();
+        HashMap<Integer, String> CWNU_spots = new HashMap<>();
+        CWNU_spots = assistant.get_CWNU_spots(CWNU_spots);
+
+        for ( int i = 0; i < 8; i++ ) {
+            String str = "55호관";
+            boolean bool = assistant.generate_random_boolean();
+            try {
+            fire_assistant.writeDB_for_check("check", str, CWNU_spots.get(i+1), bool);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -20,13 +20,10 @@ public class Firebase_assist {
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-
     public void writeDB_for_analysis(String analysis, String parking_spot, int date, int time, boolean use) {
         Data_for_analysis parking_info = new Data_for_analysis(date, time, use);
         mDatabase.child(analysis).child(parking_spot).push().setValue(parking_info);
     }
-
-
 
     public void getDB_for_analysis(String analysis) {
         mDatabase.child(analysis).child("a").orderByChild("time").equalTo(8).addListenerForSingleValueEvent(new ValueEventListener() {

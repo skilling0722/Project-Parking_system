@@ -10,4 +10,5 @@ public class menu_analysis extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_analysis);
     }
+    //ㄴㄴ
 }
