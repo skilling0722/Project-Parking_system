@@ -1,28 +1,16 @@
 package com.example.parkingsystem;
 
 /*
- * 요일별 데이터에 대한 분석
+ * 일별 데이터에 대한 분석
  * */
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.data.BarEntry;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeMap;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
@@ -34,7 +22,6 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class TabFragment3 extends Fragment {
-    @BindView(R.id.week_usage_horizontalbarchart) HorizontalBarChart week_usage_horizontalbarchart;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,8 +30,6 @@ public class TabFragment3 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-
 
     private OnFragmentInteractionListener mListener;
 
@@ -83,49 +68,7 @@ public class TabFragment3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tab_fragment3, container, false);
-        ButterKnife.bind(this, view);
-
-        Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
-
-//        Log.d("testt", "요일별 분석 프래그먼트 시작");
-        try {
-            analysis_assistant.week_usage_analysis(new Data_analysis_assistant.Callback_week_usage() {
-                @Override
-                public void onCallback_week_usage(HashMap<Integer, Integer> map) {
-//                    Log.d("testt", "요일별 분석 시작");
-                    ArrayList<BarEntry> barData = new ArrayList<>();
-
-                    TreeMap<Integer, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
-                    Iterator<Integer> iterator_key = for_sort.keySet().iterator(); //키값 기준 오름차순 정렬
-
-                    try {
-                        for (Integer key : map.keySet()) {
-//                            Log.d("testt", "가져온 week_map: " + key + "  " + map.get(key));
-                            barData.add(new BarEntry(key, map.get(key)));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("testt", "input data to chart from map fail");
-                    }
-
-                    try {
-                        Draw_chart horizontalbar_chart = new Draw_chart();
-                        horizontalbar_chart.setBarData(barData);
-                        horizontalbar_chart.setHorizontalbarchart(week_usage_horizontalbarchart);
-                        horizontalbar_chart.Draw_horizontalbarchart();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("testt", "draw fail");
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("testt", "week_usage_analysis fail");
-        }
-
-        return view;
+        return inflater.inflate(R.layout.fragment_tab_fragment3, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
