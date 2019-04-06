@@ -101,7 +101,7 @@ public class TabFragment3 extends Fragment {
 
                     try {
                         for (Integer key : map.keySet()) {
-//                            Log.d("testt", "가져온 week_map: " + key + "  " + map.get(key));
+//                            Log.d("testt", "가져온 week_map: " + key + "   " + map.get(key));
                             barData.add(new BarEntry(key, map.get(key)));
                         }
                     } catch (Exception e) {
