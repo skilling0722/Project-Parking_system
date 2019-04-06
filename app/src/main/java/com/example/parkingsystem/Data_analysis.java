@@ -153,6 +153,9 @@ public class Data_analysis extends AppCompatActivity {
                         bar_chart.setBarData(barData);
                         bar_chart.setBarChart(day_usage_barchart);
                         bar_chart.Draw_barchart();
+
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "day_usage_chart draw fail");
