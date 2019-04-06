@@ -120,6 +120,24 @@
 
         </TableRow>
 
+        <TableRow android:gravity="center">
+
+            <Button
+                android:id="@+id/write_changwon_btn"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#00FF0000"
+                android:drawableLeft="@drawable/ic_launcher"
+                android:drawablePadding="5dp"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="5dp"
+                android:text="DB write_changwon"
+                android:textSize="20dp" />
+
+        </TableRow>
+
     </TableLayout>
 
 </android.support.constraint.ConstraintLayout>
