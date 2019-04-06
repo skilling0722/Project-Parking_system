@@ -39,7 +39,6 @@ public class spot_check extends AppCompatActivity {
 //        Log.d("testt", "spot_check activity start");
         String spot = "";
 
-
         try {
             Intent intent = getIntent();
             spot = intent.getStringExtra("spot");
