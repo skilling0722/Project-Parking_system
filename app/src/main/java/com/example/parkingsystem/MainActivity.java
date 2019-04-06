@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 //        String key = getKeyHash(mContext);
 //        Log.d("testt", "Key:" + key);
     }
-
+//
     @BindView(R.id.button1) Button btn1;
     @BindView(R.id.button2) Button btn2;
     @BindView(R.id.button3) Button btn3;

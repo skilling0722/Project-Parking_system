@@ -56,7 +56,7 @@ public class Firebase_assist {
 
         spot_box.put(spot, temp);
         mDatabase.child(check).child(parking_spots).updateChildren(spot_box);
-    }
+    }//
 
     public void getDB_for_check(String check) {
         mDatabase.child(check).child("a").addListenerForSingleValueEvent(new ValueEventListener() {

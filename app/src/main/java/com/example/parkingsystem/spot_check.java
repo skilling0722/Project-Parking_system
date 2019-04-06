@@ -63,7 +63,7 @@ public class spot_check extends AppCompatActivity {
                 }
             }
         }, spot);
-    }
+    }//
 
     private void create_recyclerview(HashMap<String, Boolean> spot_info) {
         ArrayList<recyclerview_item> items = new ArrayList<>();

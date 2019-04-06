@@ -11,7 +11,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
+//
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);            // 실제 사용할 메인 액티비티
         startActivity(intent);
         finish();

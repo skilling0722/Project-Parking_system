@@ -11,7 +11,7 @@ tools:context=".TabFragment1">
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+<!---->
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/month_usage_chart"

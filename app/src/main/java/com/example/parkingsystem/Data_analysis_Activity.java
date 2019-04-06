@@ -23,7 +23,7 @@ public class Data_analysis_Activity extends AppCompatActivity {
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
-
+//
         TabLayout viewPagerTab = (TabLayout) findViewById(R.id.tabs);
         viewPagerTab.setupWithViewPager(viewPager);
 

@@ -33,7 +33,7 @@
             android:minHeight="100dp"
             android:text="spot"
             android:textSize="20dp" />
-
+<!---->
         <TextView
             android:id="@+id/item_remain"
             android:layout_width="match_parent"

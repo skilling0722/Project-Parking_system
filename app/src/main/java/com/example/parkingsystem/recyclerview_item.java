@@ -20,7 +20,7 @@ public class recyclerview_item {
     public boolean isUse() {
         return use;
     }
-
+//
     public void setUse(boolean use) {
         this.use = use;
     }

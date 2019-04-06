@@ -83,7 +83,7 @@ public class parking_check extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+    }//
 
     public void add_view(Drawable Icon, String title, String remaining_spot) {
         //주차장별로 이미지 바꿀라면 파라미터로 받자

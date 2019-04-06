@@ -123,7 +123,7 @@ public class Draw_chart {
         linechart.setData(data);
         linechart.notifyDataSetChanged();
         linechart.invalidate();
-    }
+    }//
 
     public void Draw_piechart() {
         pieChart.getDescription().setEnabled(false);

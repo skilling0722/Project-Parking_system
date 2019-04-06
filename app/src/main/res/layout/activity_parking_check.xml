@@ -40,7 +40,7 @@
 
 
     </TableLayout>
-
+<!---->
     <ListView
         android:id="@+id/parking_check_listview"
         android:layout_marginTop="70dp"

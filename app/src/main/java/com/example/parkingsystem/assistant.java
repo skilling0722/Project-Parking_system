@@ -78,7 +78,7 @@ public class assistant {
         
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-
+//
         int day_num = calendar.get(Calendar.DAY_OF_WEEK);
         return day_num;
     }

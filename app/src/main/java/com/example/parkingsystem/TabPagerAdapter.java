@@ -19,7 +19,7 @@ class FragmentInfo {
         this.text = text;
         this.fragment = fragment;
     }
-
+//
     public int getIconResId() {
         return iconResId;
     }

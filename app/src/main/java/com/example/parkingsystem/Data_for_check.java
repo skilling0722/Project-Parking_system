@@ -25,5 +25,5 @@ public class Data_for_check {
         HashMap<String, Boolean> map = new HashMap<>();
         map.put("use", use);
         return map;
-    }
+    }//
 }

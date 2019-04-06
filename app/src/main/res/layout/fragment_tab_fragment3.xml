@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+<!---->
 
         <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/week_usage_horizontalbarchart"

@@ -92,6 +92,6 @@ public class DB_test extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }//
     }
 }

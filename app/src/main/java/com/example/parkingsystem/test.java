@@ -54,7 +54,7 @@ public class test extends AppCompatActivity {
         for (int i = 0; i < 100; i++) {
             float val = (float) (Math.random() );
             vals.add(new Entry(i, val));
-        }
+        }//
 
         LineDataSet linetype = new LineDataSet(vals, "응가1");
         linetype.setLineWidth(1);

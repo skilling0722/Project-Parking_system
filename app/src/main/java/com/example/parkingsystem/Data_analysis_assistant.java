@@ -23,7 +23,7 @@ public class Data_analysis_assistant {
             }
         }
         return map;
-    }
+    }//
 
     public HashMap<Integer, Integer> init_month_count_map() {
         HashMap<Integer, Integer> map = new HashMap<>();

@@ -26,7 +26,7 @@ public class listview_item {
     public String getRemain_title() {
         return remain_title;
     }
-
+//
     public void setRemain_title(String remain_title) {
         this.remain_title = remain_title;
     }

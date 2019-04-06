@@ -86,7 +86,7 @@ public class TabFragment1 extends Fragment {
                         e.printStackTrace();
                         Log.d("testt", "input data to chart from map fail");
                     }
-
+//
                     try {
                         Draw_chart line_chart = new Draw_chart();
                         line_chart.setLineData(yData);

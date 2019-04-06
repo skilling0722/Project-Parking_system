@@ -49,7 +49,7 @@ public class listview_adapter extends BaseAdapter {
 
         return convertView;
 
-    }
+    }//
 
     @Override
     public Object getItem(int position) {

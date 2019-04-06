@@ -31,7 +31,7 @@ public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adap
             holder.mspot_name.setBackgroundColor(Color.parseColor("#01DF01"));
         } else {
             holder.mspot_name.setBackgroundColor(Color.WHITE);
-        }
+        }//
     }
 
     @Override

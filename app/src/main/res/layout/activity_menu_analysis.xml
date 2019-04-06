@@ -39,7 +39,7 @@
                 android:textSize="30dp" />
         </TableRow>
 
-
+<!---->
         <TableRow android:gravity="center">
 
             <Button

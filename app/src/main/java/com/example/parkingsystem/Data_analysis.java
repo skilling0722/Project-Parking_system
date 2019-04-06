@@ -79,7 +79,7 @@ public class Data_analysis extends AppCompatActivity {
             e.printStackTrace();
             Log.d("testt", "week_usage_analysis fail");
         }
-
+//
         try {
             month_usage_analysis(new Callback_month_usage() {
                 @Override

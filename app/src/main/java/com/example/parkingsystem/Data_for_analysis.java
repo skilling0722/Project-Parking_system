@@ -13,7 +13,7 @@ public class Data_for_analysis {
         this.date = date;
         this.time = time;
         this.use = use;
-    }
+    }//
 
     public int getDate() {
         return date;
