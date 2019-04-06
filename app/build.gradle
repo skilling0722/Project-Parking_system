@@ -16,6 +16,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    /*
+    install_failed_no_matching_abis failed to extract native libraries res - 113 에러 고침(아키텍처?문제)
+    * */
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a', 'x86_64'
+            universalApk true
+        }
+    }
 }
 
 dependencies {

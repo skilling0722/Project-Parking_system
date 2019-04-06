@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 환경설정창에서 사용할 문자열들 저장-->
+<resources>
+    <string-array name="array_configs">
+        <item>음성명령</item>
+        <item>음성알림</item>
+        <item>배경색</item>
+        <item>간편모드</item>
+    </string-array>
+</resources>
