@@ -11,6 +11,13 @@ tools:context=".TabFragment1">
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/month_usage_chart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
+
         <TextView
             android:id="@+id/month_usage_text"
             android:layout_width="match_parent"
@@ -21,11 +28,6 @@ tools:context=".TabFragment1">
             android:textSize="20dp"
             android:textAlignment="center"
             android:text="2019년 월별" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/month_usage_chart"
-            android:layout_width="match_parent"
-            android:layout_height="400dp" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
