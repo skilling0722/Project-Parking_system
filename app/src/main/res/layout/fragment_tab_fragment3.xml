@@ -6,9 +6,30 @@
     tools:context=".TabFragment3">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+
+
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/week_usage_horizontalbarchart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
+
+        <TextView
+            android:id="@+id/textview5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:minHeight="15dp"
+            android:text="전체기간 요일별"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 
 </FrameLayout>

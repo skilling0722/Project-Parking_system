@@ -17,10 +17,9 @@ public class Data_analysis_Activity extends AppCompatActivity {
         //TabPagerAdapter setting -> TabFragement1,2,3 등록
         TabPagerAdapter adapter =  new TabPagerAdapter(getSupportFragmentManager());
         //탭레이아웃에 추가 3번째param에 1은 값넘기는 것.
-        adapter.add(R.drawable.ic_launcher, "one", TabFragment3.newInstance("1","1"));
-        adapter.add(R.drawable.ic_launcher, "two", TabFragment3.newInstance("1","1"));
-        adapter.add(R.drawable.ic_launcher, "three", TabFragment3.newInstance("1","1"));
-        adapter.add(R.drawable.ic_launcher, "sss", TabFragment3.newInstance("1","1"));
+        adapter.add(R.drawable.ic_launcher, "월별", TabFragment1.newInstance("1","1"));
+        adapter.add(R.drawable.ic_launcher, "시간대별", TabFragment2.newInstance("1","1"));
+        adapter.add(R.drawable.ic_launcher, "요일별", TabFragment3.newInstance("1","1"));
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
