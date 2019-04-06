@@ -39,7 +39,6 @@ dependencies {
     //버터나이프
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // 버터나이프
-    implementation 'com.android.support:design:28.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
