@@ -20,6 +20,7 @@ public class Data_analysis_Activity extends AppCompatActivity {
         adapter.add(R.drawable.ic_launcher, "one", TabFragment3.newInstance("1","1"));
         adapter.add(R.drawable.ic_launcher, "two", TabFragment3.newInstance("1","1"));
         adapter.add(R.drawable.ic_launcher, "three", TabFragment3.newInstance("1","1"));
+        adapter.add(R.drawable.ic_launcher, "sss", TabFragment3.newInstance("1","1"));
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);

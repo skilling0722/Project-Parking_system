@@ -47,7 +47,7 @@ public class parking_check extends AppCompatActivity {
                         check_remaining_spots(new Callback_remaining() {
                             @Override
                             public void onCallback_remaining(int remaining_count, int all_count) {
-                                add_view(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_launcher), (String) arraylist.get(final_i), remaining_count + " / " + all_count);
+                                add_view(getResources().getDrawable(R.drawable.ic_launcher), (String) arraylist.get(final_i), remaining_count + " / " + all_count);
                                 adapter.notifyDataSetChanged();
                             }
 
@@ -163,31 +163,6 @@ public class parking_check extends AppCompatActivity {
         });
 
 
-    }
-
-    public void check_remaining_spot() {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("check").child("a").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    Log.d("testt", "개별 주차장 공간 확인 start");
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Data_for_check data = snapshot.getValue(Data_for_check.class);
-                        //data.isUse() 값으로 주차 가능유무를, snapshot.getKey() 로 주차자리를 정해주자.
-                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d("testt", "개별 주차장 공간 확인 fail");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
 }
