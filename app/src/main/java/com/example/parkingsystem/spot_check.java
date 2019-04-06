@@ -36,7 +36,7 @@ public class spot_check extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spot_check);
         ButterKnife.bind(this);
-        Log.d("testt", "spot_check activity start");
+//        Log.d("testt", "spot_check activity start");
         String spot = "";
 
 
@@ -55,7 +55,7 @@ public class spot_check extends AppCompatActivity {
             @Override
             public void onCallback_read_spots(HashMap<String, Boolean> spot_info) {
                 try {
-                    Log.d("testt", "recyclerview start");
+//                    Log.d("testt", "recyclerview start");
                     create_recyclerview(spot_info);
 
                 } catch (Exception e) {
@@ -70,7 +70,7 @@ public class spot_check extends AppCompatActivity {
         ArrayList<recyclerview_item> items = new ArrayList<>();
 
         for ( Object e : spot_info.keySet() ) {
-            Log.d("testt", e + ": " + spot_info.get(e));
+//            Log.d("testt", e + ": " + spot_info.get(e));
             items.add(new recyclerview_item((String) e, spot_info.get(e)));
         }
 
@@ -91,10 +91,10 @@ public class spot_check extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 HashMap<String, Boolean> spot_info = new HashMap<>();
                 try {
-                    Log.d("testt", "spot_check start");
+//                    Log.d("testt", "spot_check start");
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Data_for_check data = snapshot.getValue(Data_for_check.class);
-                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
+//                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
                         spot_info.put(snapshot.getKey(), data.isUse());
                     }
 
@@ -103,7 +103,7 @@ public class spot_check extends AppCompatActivity {
                     Log.d("testt", "spot_check fail");
                 }
                 callback.onCallback_read_spots(spot_info);
-                Log.d("testt", "spot_check activity stop");
+//                Log.d("testt", "spot_check activity stop");
             }
 
             @Override
