@@ -1,7 +1,7 @@
 package com.example.parkingsystem;
 
 /*
- * 시간대별 데이터에 대한 분석
+ * 일별 데이터에 대한 분석
  * */
 
 
@@ -10,23 +10,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieEntry;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +29,6 @@ import butterknife.OnClick;
  * create an instance of this fragment.
  */
 public class TabFragment2 extends Fragment {
-    @BindView(R.id.day_usage_barchart) BarChart day_usage_barchart;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,7 +43,12 @@ public class TabFragment2 extends Fragment {
     public TabFragment2() {
         // Required empty public constructor
     }
+    @BindView(R.id.button5) Button btn5;
 
+    @OnClick(R.id.button5)
+    void  testFunc() {
+        btn5.setText("hihi~~");
+    }
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -90,45 +81,8 @@ public class TabFragment2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
+
         ButterKnife.bind(this, view);
-
-        Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
-
-        try {
-            analysis_assistant.day_usage_analysis(new Data_analysis_assistant.Callback_day_usage() {
-                @Override
-                public void onCallback_day_usage(HashMap<Integer, Integer> map) {
-                    ArrayList<BarEntry> barData = new ArrayList<>();
-
-                    TreeMap<Integer, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
-                    Iterator<Integer> iterator_key = for_sort.keySet().iterator(); //키값 기준 오름차순 정렬
-
-                    try {
-                        for (Integer key : map.keySet()) {
-//                            Log.d("testt", "가져온 day_map: " + key + "  " + map.get(key));
-                            barData.add(new BarEntry(key, map.get(key)));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("testt", "input data to chart from map fail");
-                    }
-
-                    try {
-                        Draw_chart bar_chart = new Draw_chart();
-                        bar_chart.setBarData(barData);
-                        bar_chart.setBarChart(day_usage_barchart);
-                        bar_chart.Draw_barchart();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("testt", "day_usage_chart draw fail");
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("testt", "day_usage_analysis fail");
-        }
-
         return view;
     }
 

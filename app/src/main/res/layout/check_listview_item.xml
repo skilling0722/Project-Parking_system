@@ -12,38 +12,33 @@
 
         <ImageView
             android:id="@+id/item_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minHeight="100dp"
             android:layout_weight="1"
             android:background="#00FFaa00"
             android:gravity="center"
-            android:scaleType="fitXY"
-            android:maxWidth="60dp"
-            android:maxHeight="100dp"
-            android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/item_spot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:minHeight="100dp"
             android:text="spot"
             android:textSize="20dp" />
-<!---->
+
         <TextView
             android:id="@+id/item_remain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
             android:minHeight="100dp"
-            android:text="TextView"
-            android:textSize="20dp" />
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="10dp"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:text="TextView" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

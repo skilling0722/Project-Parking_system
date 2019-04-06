@@ -38,9 +38,13 @@
                 android:text="주차 공간 확인" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
 
     </TableLayout>
-<!---->
+
     <ListView
         android:id="@+id/parking_check_listview"
         android:layout_marginTop="70dp"
@@ -48,5 +52,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
 
-        />
+
+                />
+        </TableRow>
+    </TableLayout>
 </android.support.constraint.ConstraintLayout>

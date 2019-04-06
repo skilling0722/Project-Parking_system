@@ -6,13 +6,10 @@
     tools:context=".TabFragment3">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-<!---->
 
         <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/week_usage_horizontalbarchart"
@@ -31,5 +28,6 @@
             android:textSize="20dp" />
 
     </LinearLayout>
+
 
 </FrameLayout>

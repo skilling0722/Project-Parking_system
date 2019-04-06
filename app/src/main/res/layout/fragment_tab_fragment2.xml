@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".TabFragment2">
 
-
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
         android:orientation="vertical">
-<!---->
+
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/day_usage_barchart"
             android:layout_width="match_parent"
@@ -29,4 +29,21 @@
             android:textSize="20dp" />
     </LinearLayout>
 
+
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="119dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="224dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
 </FrameLayout>

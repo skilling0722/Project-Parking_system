@@ -15,17 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
 import com.google.firebase.database.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeMap;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +27,6 @@ import butterknife.ButterKnife;
  */
 public class TabFragment1 extends Fragment {
     @BindView(R.id.month_usage_chart) LineChart month_usage_chart;
-
     private OnFragmentInteractionListener mListener;
 
     public TabFragment1() {
@@ -65,6 +54,7 @@ public class TabFragment1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_fragment1, container, false);
+
         ButterKnife.bind(this, view);
 
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();

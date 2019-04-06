@@ -1,28 +1,16 @@
 package com.example.parkingsystem;
 
 /*
- * 요일별 데이터에 대한 분석
+ * 일별 데이터에 대한 분석
  * */
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.data.BarEntry;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeMap;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
@@ -43,8 +31,6 @@ public class TabFragment3 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-//
-
 
     private OnFragmentInteractionListener mListener;
 
