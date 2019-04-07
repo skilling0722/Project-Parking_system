@@ -6,7 +6,6 @@
     tools:context=".TabFragment3">
 
     <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,5 +30,6 @@
             android:textSize="20dp" />
 
     </LinearLayout>
+
 
 </FrameLayout>

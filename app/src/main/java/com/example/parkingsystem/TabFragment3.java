@@ -4,7 +4,6 @@ package com.example.parkingsystem;
  * 요일별 데이터에 대한 분석
  * */
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,7 +33,8 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class TabFragment3 extends Fragment {
-    @BindView(R.id.week_usage_horizontalbarchart) HorizontalBarChart week_usage_horizontalbarchart;
+    @BindView(R.id.week_usage_horizontalbarchart)
+    HorizontalBarChart week_usage_horizontalbarchart;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -101,7 +101,7 @@ public class TabFragment3 extends Fragment {
 
                     try {
                         for (Integer key : map.keySet()) {
-//                            Log.d("testt", "가져온 week_map: " + key + "  " + map.get(key));
+//                            Log.d("testt", "가져온 week_map: " + key + "   " + map.get(key));
                             barData.add(new BarEntry(key, map.get(key)));
                         }
                     } catch (Exception e) {

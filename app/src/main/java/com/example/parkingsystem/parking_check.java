@@ -38,7 +38,7 @@ public class parking_check extends AppCompatActivity {
         check_parking_spots(new Callback_spots() {
             @Override
             public void onCallback_spots(final ArrayList arraylist) {
-                Log.d("testt", "가져온 리스트   " + arraylist);
+//                Log.d("testt", "가져온 리스트   " + arraylist);
                 try {
                     Log.d("testt", "add_view start");
                     for(int i = 0; i < arraylist.size(); i++ ) {
@@ -78,7 +78,7 @@ public class parking_check extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), spot_check.class);
                 intent.putExtra("spot", spot);
-                intent.putExtra("remain", remain);
+                intent.putExtra("space", remain);
 
                 startActivity(intent);
             }
@@ -107,7 +107,7 @@ public class parking_check extends AppCompatActivity {
                 try {
                     Log.d("testt", "check_parking_spots start");
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Log.d("testt", snapshot.getKey() + "      " + String.valueOf(snapshot.getValue()));
+//                        Log.d("testt", snapshot.getKey() + "      " + String.valueOf(snapshot.getValue()));
                         parking_list.add(snapshot.getKey());
                     }
                 } catch (Exception e) {
@@ -116,7 +116,7 @@ public class parking_check extends AppCompatActivity {
                 }
 
                 //주차 공간 확인 리스트 만들때 쓰자
-                Log.d("testt", "parking_list size: " + parking_list.size() + " /// value " + parking_list);
+//                Log.d("testt", "parking_list size: " + parking_list.size() + " /// value " + parking_list);
                 callback.onCallback_spots(parking_list);
             }
 
@@ -137,11 +137,11 @@ public class parking_check extends AppCompatActivity {
                 int remaining_count = 0;
                 int all_count = 0;
                 try {
-                    Log.d("testt", "check_remaining_spots start");
+//                    Log.d("testt", "check_remaining_spots start");
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Data_for_check data = snapshot.getValue(Data_for_check.class);
 //                        data.isUse() 값으로 주차 가능유무를, snapshot.getKey() 로 주차자리를 정해주자.
-                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
+//                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
 
                         if (data.isUse()) {
                             remaining_count ++;
@@ -153,7 +153,7 @@ public class parking_check extends AppCompatActivity {
                     Log.d("testt", "check_remaining_spots fail");
                 }
                 //remaining_count랑 all_count로 주차 공간 확인 화면에 textview 갱신시켜주자
-                Log.d("testt", "remaining spot: " + remaining_count + "/" + all_count);
+//                Log.d("testt", "remaining spot: " + remaining_count + "/" + all_count);
                 callback.onCallback_remaining(remaining_count, all_count);
             }
             @Override
