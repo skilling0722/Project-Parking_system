@@ -7,4 +7,17 @@
         <item>배경색</item>
         <item>간편모드</item>
     </string-array>
+
+    <string-array name="array_background">
+        <item>검은 색</item>
+        <item>흰 색</item>
+        <item>연한 녹색</item>
+        <item>연한 파랑색</item>
+    </string-array>
+
+    <string-array name="array_voice">
+        <item>남자</item>
+        <item>여자</item>
+        <item>어린이</item>
+    </string-array>
 </resources>

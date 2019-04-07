@@ -63,8 +63,13 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button3)
     void buttonClick3() {
-        Intent intent = new Intent(this, Data_analysis.class);
+        /*
+        * Intent intent = new Intent(this, Data_analysis.class);
+        * */
+        /* 설정화면 */
+        Intent intent = new Intent(this, Config_Activity.class);
         startActivity(intent);
+
     }
 
     @OnClick(R.id.firebase_test)
