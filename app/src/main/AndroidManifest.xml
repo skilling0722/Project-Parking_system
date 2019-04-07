@@ -37,6 +37,9 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="d7f0b8fd3ac967ac4d0d6cfe64c9ee9a" />
+
+        <service android:name=".speech_recognition_service"></service>
+
     </application>
 
 </manifest>
