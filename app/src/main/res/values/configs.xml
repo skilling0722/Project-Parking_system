@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 환경설정창에서 사용할 문자열들 저장-->
+<resources>
+    <string-array name="array_configs">
+        <item>음성명령</item>
+        <item>음성알림</item>
+        <item>배경색</item>
+        <item>간편모드</item>
+    </string-array>
+
+    <string-array name="array_background">
+        <item>검은 색</item>
+        <item>흰 색</item>
+        <item>연한 녹색</item>
+        <item>연한 파랑색</item>
+    </string-array>
+
+    <string-array name="array_voice">
+        <item>남자</item>
+        <item>여자</item>
+        <item>어린이</item>
+    </string-array>
+</resources>

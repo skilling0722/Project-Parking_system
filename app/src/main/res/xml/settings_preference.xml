@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 환경설정 화면에서 레이아웃을 나타낸다. -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="메시지 알림">
+        <SwitchPreference
+            android:key="message"
+            android:title="메시지 알림" />
+
+        <PreferenceScreen
+            android:key="voice_screen"
+            android:summary="사용안함"
+            android:title="음성 알림">
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="voice_notify"
+                android:summary="사용자는 어플의 음성알림으로 편의성을 제공받는다. "
+                android:title="음성 알림" />
+            <ListPreference
+                android:dependency="voice_notify"
+                android:entries="@array/array_voice"
+                android:entryValues="@array/array_voice"
+                android:key="keyword_voice_list"
+                android:summary="남자"
+                android:title="목소리 선택" />
+        </PreferenceScreen>
+        <SwitchPreference
+            android:key="voice_command"
+            android:title="음성 명령"/>
+        <SwitchPreference
+            android:key="sound"
+            android:title="소리" />
+
+        <ListPreference
+            android:entries="@array/array_background"
+            android:entryValues="@array/array_background"
+            android:key="background_list"
+            android:summary="검은색"
+            android:title="배경색" />
+    </PreferenceCategory>
+</PreferenceScreen>
