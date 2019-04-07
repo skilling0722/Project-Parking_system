@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Config_Activity"></activity>
+        <activity android:name=".newtontalk_test" />
+        <activity android:name=".newton_test" />
+        <activity android:name=".Config_Activity" />
         <activity android:name=".Data_analysis_Activity" />
         <activity android:name=".spot_check" />
         <activity android:name=".DB_test" />
@@ -36,9 +37,6 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="d7f0b8fd3ac967ac4d0d6cfe64c9ee9a" />
-
-
-
     </application>
 
 </manifest>
