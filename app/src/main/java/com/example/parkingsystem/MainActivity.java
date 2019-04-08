@@ -8,7 +8,9 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.os.Build;
 import android.os.IBinder;
+import android.os.Process;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -195,6 +197,16 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
         }
         else if ( result.equals("db") ) {
             test_db();
+        }
+        else if ( result.equals("뒤로") ) {
+            Process.killProcess(Process.myPid());
+        }
+        else if ( result.equals("종료") ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                finishAffinity();
+            }
+            System.runFinalization();
+            System.exit(0);
         }
         else {
             Log.d("testt", "음성 인식에 해당되는 것 없음");
