@@ -10,6 +10,15 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class assistant {
+    private boolean istts;
+
+    public boolean isIstts() {
+        return istts;
+    }
+
+    public void setIstts(boolean istts) {
+        this.istts = istts;
+    }
 
     public int generate_random_time() {
         Random random = new Random();
