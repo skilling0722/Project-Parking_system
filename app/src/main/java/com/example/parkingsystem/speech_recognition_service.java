@@ -2,7 +2,12 @@ package com.example.parkingsystem;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -13,8 +18,11 @@ import java.util.ArrayList;
 
 public class speech_recognition_service extends Service implements SpeechRecognizeListener {
     private ServiceCallbacks serviceCallbacks;
-    private SpeechRecognizerClient client;
-    private Boolean isuse;
+    private static SpeechRecognizerClient client;
+    private static Boolean isuse;
+
+    private SoundPool sound_pool;
+    private int beep_sound;
 
     IBinder mBinder =  new speech_recognition_binder();
 
@@ -34,14 +42,35 @@ public class speech_recognition_service extends Service implements SpeechRecogni
         Log.d("testt", "onCreate");
         super.onCreate();
 
+        create_soundpool();
+        beep_sound = sound_pool.load(getApplicationContext(), R.raw.beep, 1);
+
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
+
         isuse = true;
 
         call_speech_recognition();
     }
 
-    public void call_speech_recognition() {
 
+    public void create_soundpool() {
+        AudioAttributes audioAttributes = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            sound_pool = new SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(8).build();
+        }
+        else {
+            sound_pool = new SoundPool(8, AudioManager.STREAM_NOTIFICATION, 0);
+        }
+    }
+
+    public void call_speech_recognition() {
+        Log.d("testt", "call_speech_recognition");
         String serviceType = SpeechRecognizerClient.SERVICE_TYPE_DICTATION;
 
         SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder()
@@ -49,10 +78,17 @@ public class speech_recognition_service extends Service implements SpeechRecogni
                 .setGlobalTimeOut(6);
         client = builder.build();
         client.setSpeechRecognizeListener(this);
-        client.startRecording(true);    // 음성 인식 시작시 재생되고 있던 소리 mute, true면 mute
+        client.startRecording(false);    // 음성 인식 시작시 재생되고 있던 소리 mute, true면 mute
 
 //        Toast.makeText(this, "음성 인식 시작", Toast.LENGTH_SHORT).show();
     }
+
+    public static void cancel_speech_recognition() {
+        Log.d("testt", "cancel_speech_recognition");
+        client.cancelRecording();
+        isuse = false;
+    }
+
 
     public int onStartCommand(Intent intent, int flags, int startid) {
         Log.d("testt", "onStartCommand");
@@ -75,7 +111,22 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     @Override
     public void onReady() {
         Log.d("testt", "음성 인식 준비 완료");
+//        cancel_speech_recognition();
 
+        SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
+        Boolean istts = shared_tts.getBoolean("usage", true);
+        Log.d("testt", "istts: " + istts);
+
+
+        if (!istts) {
+            Log.d("testt", "beep sound");
+            sound_pool.play(beep_sound, 0.1f, 0.1f, 0, 0, 2.0f);
+        } else {
+            Log.d("testt", "음성 합성 실행중, 비프음 스킵");
+        }
+
+
+        //리소스 식별 번호, 좌측 볼륨, 우측 볼륨, 우선순위, 반복, 재생속도
     }
     //음성 인식 시작하면 호출
     @Override
@@ -104,8 +155,8 @@ public class speech_recognition_service extends Service implements SpeechRecogni
                 @Override
                 public void onCallback_restart() {
                     try {
+                        Log.d("testt", "재시작한다3333");
                         call_speech_recognition();
-    //                    client.startRecording(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "재시작 안대여: " + e);
@@ -155,7 +206,6 @@ public class speech_recognition_service extends Service implements SpeechRecogni
 //                Log.d("testt", "음성 인식 재시작");
                 try {
                     call_speech_recognition();
-//                    client.startRecording(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("testt", "재시작 안대여: " + e);

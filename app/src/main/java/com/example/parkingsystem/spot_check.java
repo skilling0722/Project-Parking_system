@@ -1,6 +1,7 @@
 package com.example.parkingsystem;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.data.PieDataSet;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,16 +21,14 @@ import com.kakao.sdk.newtoneapi.TextToSpeechClient;
 import com.kakao.sdk.newtoneapi.TextToSpeechListener;
 import com.kakao.sdk.newtoneapi.TextToSpeechManager;
 
-import java.io.BufferedOutputStream;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.parkingsystem.speech_recognition_service.cancel_speech_recognition;
 
 public class spot_check extends AppCompatActivity implements TextToSpeechListener {
     @BindView(R.id.recycler_view) RecyclerView recycler_view;
@@ -42,7 +40,7 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
         setContentView(R.layout.activity_spot_check);
         ButterKnife.bind(this);
 
-        SpeechRecognizerManager.getInstance().initializeLibrary(this);
+//        SpeechRecognizerManager.getInstance().initializeLibrary(this);
         TextToSpeechManager.getInstance().initializeLibrary(getApplicationContext());
 
 //        Log.d("testt", "spot_check activity start");
@@ -59,7 +57,6 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
         }
 
         call_tts(spot, space);
-
 
         read_spots(new Callback_read_spots() {
             @Override
@@ -90,8 +87,19 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
         recycler_view.setLayoutManager(manager);
     }
 
+    public void write_istts(Boolean istts) {
+        SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared_tts.edit();
+        editor.putBoolean("usage", istts);
+        editor.commit();
+    }
+
     public void call_tts(String spot, String space) {
         Log.d("testt", "음성 합성 시작");
+//        cancel_speech_recognition();
+        //tts 시작하면 stt 멈추게 tts 끝나면 stt 시작하게 구현해야함
+        Log.d("testt", "istts true 쓰기 ");
+        write_istts(true);
 
         String using = space.split(" / ")[0];
         String all = space.split(" / ")[1];
@@ -120,6 +128,10 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
     @Override
     public void onFinished() {
         Log.d("testt", "음성 합성 종료");
+        Log.d("testt", "istts false 쓰기 ");
+        write_istts(false);
+        //        SpeechRecognizerManager.getInstance().finalizeLibrary();
+        TextToSpeechManager.getInstance().finalizeLibrary();
     }
 
     @Override
@@ -129,8 +141,6 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
 
     public void onDestroy() {
         super.onDestroy();
-        SpeechRecognizerManager.getInstance().finalizeLibrary();
-        TextToSpeechManager.getInstance().finalizeLibrary();
     }
 
     public interface  Callback_read_spots {

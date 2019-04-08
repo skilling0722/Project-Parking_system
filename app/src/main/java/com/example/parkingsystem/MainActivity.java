@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
     private speech_recognition_service srs_service;
     private boolean isService;
 
+
     ServiceConnection conn = new ServiceConnection() {
         public void onServiceConnected(ComponentName name, IBinder service) {
             speech_recognition_service.speech_recognition_binder srs_binder = (speech_recognition_service.speech_recognition_binder) service;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-                try {
+        try {
             Log.d("testt", "권한 획득 시작");
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO) && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -72,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
             e.printStackTrace();
             Log.d("testt", "권한 획득 오류");
         }
+
+        assistant assistant = new assistant();
+        assistant.setIstts(false);
 
         start_service();
 //        mContext = getApplicationContext();
@@ -174,6 +179,10 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
     }
 
     public void use_service() {
+        SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
+        Boolean istts = shared_tts.getBoolean("usage", true);
+        Log.d("testt", "istts: " + istts);
+
         if( !isService ) {
             Log.d("testt", "음성 인식 서비스가 실행되고있지않아.");
             return;
