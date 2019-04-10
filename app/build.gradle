@@ -48,8 +48,14 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1' //버터나이프
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1' // 버터나이프
     implementation 'com.android.support:design:28.0.0'
-    implementation group: 'com.kakao.sdk', name: 'newtone', version: '6.0.1'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation group: 'com.kakao.sdk', name: 'newtone', version: '6.0.1'       //음성 뉴톤
+    implementation 'com.android.support:recyclerview-v7:28.0.0'     //recyclerview
+    implementation 'com.borax12.materialdaterangepicker:library:1.9'   //Material Date and Time Picker with Range Selection
+    implementation 'com.wx.wheelview:wheelview:1.3.3'       //wheelview
+}
+
+repositories {
+    jcenter()
 }
 
 apply plugin: 'com.google.gms.google-services'

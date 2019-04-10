@@ -45,6 +45,7 @@ public class TabFragment1 extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
+    
     public static TabFragment1 newInstance(String param1, String param2) {
         TabFragment1 fragment = new TabFragment1();
         Bundle args = new Bundle();
