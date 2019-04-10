@@ -122,7 +122,9 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
     void Data_analysis() {
   //      Intent intent = new Intent(this, test.class);
 //        startActivity(intent);
-        Intent intent = new Intent(this, Data_analysis_Activity.class);
+        Intent intent = new Intent(this, menu_analysis_Activity.class);
+
+//        Intent intent = new Intent(this, Data_analysis_Activity.class);
         startActivity(intent);
 
     }

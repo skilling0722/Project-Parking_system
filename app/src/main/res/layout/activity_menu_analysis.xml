@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu_analysis">
+    tools:context=".menu_analysis_Activity">
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -14,9 +14,9 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -27,7 +27,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/analysis_title"
+                android:id="@+id/menu_analysis_title"
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
@@ -35,79 +35,98 @@
                 android:gravity="center"
                 android:hint="plz input text"
                 android:minHeight="50dp"
-                android:text="주차 정보 분석"
+                android:text="분석 설정"
                 android:textSize="30dp" />
         </TableRow>
 
 
-        <TableRow android:gravity="center">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <Button
-                android:id="@+id/btn1"
-                android:layout_width="250dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#00FF0000"
-                android:drawableLeft="@drawable/ic_launcher"
-                android:drawablePadding="5dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="1"
-                android:textSize="20dp" />
-        </TableRow>
-
-        <TableRow android:gravity="center">
-
-            <Button
-                android:id="@+id/btn2"
-                android:layout_width="250dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#00FF0000"
-                android:drawableLeft="@drawable/ic_launcher"
-                android:drawablePadding="5dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="2"
-                android:textSize="20dp" />
+                android:id="@+id/pick_parkingspot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주차장 선택" />
 
         </TableRow>
 
-        <TableRow android:gravity="center">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-            <Button
-                android:id="@+id/btn3"
-                android:layout_width="250dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#00FF0000"
-                android:drawableLeft="@drawable/ic_launcher"
-                android:drawablePadding="5dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="3"
-                android:textSize="20dp" />
-
+            <TextView
+                android:id="@+id/picked_parkingspot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="주차장 선택해주세요." />
         </TableRow>
 
-        <TableRow android:gravity="center">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <Button
-                android:id="@+id/btn4"
-                android:layout_width="250dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#00FF0000"
-                android:drawableLeft="@drawable/ic_launcher"
-                android:drawablePadding="5dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="4"
-                android:textSize="20dp" />
+                android:id="@+id/pick_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기간 입력" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/from_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="시작일" />
+
+            <TextView
+                android:id="@+id/from_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="~" />
+
+            <TextView
+                android:id="@+id/to_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="종료일" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/start_analysis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="분석 시작" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <com.wx.wheelview.widget.WheelView
+                android:id="@+id/wheelview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
         </TableRow>
 

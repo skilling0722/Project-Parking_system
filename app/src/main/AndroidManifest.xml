@@ -20,6 +20,7 @@
         <activity android:name=".Data_analysis_Activity" />
         <activity android:name=".spot_check" />
         <activity android:name=".DB_test" />
+        <activity android:name=".menu_analysis_Activity" />
         <activity android:name=".parking_check" />
         <activity android:name=".Data_analysis" />
         <activity android:name=".test" />
