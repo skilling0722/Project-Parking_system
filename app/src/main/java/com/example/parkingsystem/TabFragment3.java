@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarEntry;
@@ -24,27 +25,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TabFragment3.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TabFragment3#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TabFragment3 extends Fragment {
-    @BindView(R.id.week_usage_horizontalbarchart)
-    HorizontalBarChart week_usage_horizontalbarchart;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-
+    @BindView(R.id.week_usage_horizontalbarchart) HorizontalBarChart week_usage_horizontalbarchart;
+    @BindView(R.id.title) TextView tv_title;
+    private String spot;
+    private String start_date;
+    private String end_date;
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,20 +38,13 @@ public class TabFragment3 extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TabFragment3.
-     */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment3 newInstance(String param1, String param2) {
+    public static TabFragment3 newInstance(String spot, String start_date, String end_date) {
         TabFragment3 fragment = new TabFragment3();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("spot", spot);
+        args.putString("start_date", start_date);
+        args.putString("end_date", end_date);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,9 +52,11 @@ public class TabFragment3 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        Bundle args = this.getArguments();
+        if (args != null) {
+            spot = args.getString("spot", "default spot");
+            start_date = args.getString("start_date", "default start_date");
+            end_date = args.getString("end_date", "default end_date");
         }
     }
 
@@ -87,6 +68,9 @@ public class TabFragment3 extends Fragment {
         ButterKnife.bind(this, view);
 
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
+        Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
+
+        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 요일별 분석");
 
 //        Log.d("testt", "요일별 분석 프래그먼트 시작");
         try {
@@ -119,7 +103,7 @@ public class TabFragment3 extends Fragment {
                         Log.d("testt", "draw fail");
                     }
                 }
-            });
+            }, spot, Integer.parseInt(start_date), Integer.parseInt(end_date));
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("testt", "week_usage_analysis fail");

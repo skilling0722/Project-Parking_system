@@ -1,19 +1,18 @@
 package com.example.parkingsystem;
 
 /*
-* 일별 데이터에 대한 분석
-* */
+    월별 분석
+ */
 
-import android.content.Context;
-import android.graphics.Color;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -27,18 +26,14 @@ import java.util.TreeMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TabFragment1.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TabFragment1#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class TabFragment1 extends Fragment {
     @BindView(R.id.month_usage_chart) LineChart month_usage_chart;
-
+    @BindView(R.id.title) TextView tv_title;
     private OnFragmentInteractionListener mListener;
+    private String spot;
+    private String start_date;
+    private String end_date;
 
     public TabFragment1() {
         // Required empty public constructor
@@ -46,9 +41,12 @@ public class TabFragment1 extends Fragment {
 
     // TODO: Rename and change types and number of parameters
     
-    public static TabFragment1 newInstance(String param1, String param2) {
+    public static TabFragment1 newInstance(String spot, String start_date, String end_date) {
         TabFragment1 fragment = new TabFragment1();
         Bundle args = new Bundle();
+        args.putString("spot", spot);
+        args.putString("start_date", start_date);
+        args.putString("end_date", end_date);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,10 +54,14 @@ public class TabFragment1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
+        Bundle args = this.getArguments();
+        if (args != null) {
+            spot = args.getString("spot", "default spot");
+            start_date = args.getString("start_date", "default start_date");
+            end_date = args.getString("end_date", "default end_date");
         }
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +71,9 @@ public class TabFragment1 extends Fragment {
         ButterKnife.bind(this, view);
 
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
+        Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
+        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 월별 분석");
+
         try {
             analysis_assistant.month_usage_analysis(new Data_analysis_assistant.Callback_month_usage() {
                 @Override
@@ -98,7 +103,7 @@ public class TabFragment1 extends Fragment {
                         Log.d("testt", "draw fail");
                     }
                 }
-            }, 2019);
+            }, spot, Integer.parseInt(start_date), Integer.parseInt(end_date));
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("testt", "month_usage_analysis fail");
