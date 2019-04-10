@@ -70,12 +70,12 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     }
 
     public void call_speech_recognition() {
-        Log.d("testt", "call_speech_recognition");
+//        Log.d("testt", "call_speech_recognition");
         String serviceType = SpeechRecognizerClient.SERVICE_TYPE_DICTATION;
 
         SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder()
                 .setServiceType(serviceType)
-                .setGlobalTimeOut(6);
+                .setGlobalTimeOut(10);
         client = builder.build();
         client.setSpeechRecognizeListener(this);
         client.startRecording(false);    // 음성 인식 시작시 재생되고 있던 소리 mute, true면 mute
@@ -84,7 +84,7 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     }
 
     public static void cancel_speech_recognition() {
-        Log.d("testt", "cancel_speech_recognition");
+//        Log.d("testt", "cancel_speech_recognition");
         client.cancelRecording();
         isuse = false;
     }
@@ -110,16 +110,16 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     //기기, 오디오 준비 끝나면 호출
     @Override
     public void onReady() {
-        Log.d("testt", "음성 인식 준비 완료");
+//        Log.d("testt", "음성 인식 준비 완료");
 //        cancel_speech_recognition();
 
         SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
         Boolean istts = shared_tts.getBoolean("usage", true);
-        Log.d("testt", "istts: " + istts);
+//        Log.d("testt", "istts: " + istts);
 
 
         if (!istts) {
-            Log.d("testt", "beep sound");
+//            Log.d("testt", "beep sound");
             sound_pool.play(beep_sound, 0.1f, 0.1f, 0, 0, 2.0f);
         } else {
             Log.d("testt", "음성 합성 실행중, 비프음 스킵");
@@ -131,13 +131,13 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     //음성 인식 시작하면 호출
     @Override
     public void onBeginningOfSpeech() {
-        Log.d("testt", "음성 입력 시작");
+//        Log.d("testt", "음성 입력 시작");
     }
 
     //음성 인식 끝나면 호출
     @Override
     public void onEndOfSpeech() {
-        Log.d("testt", "입력 종료");
+//        Log.d("testt", "입력 종료");
     }
 //    //에러나면 호출
 //    @Override
@@ -155,7 +155,7 @@ public class speech_recognition_service extends Service implements SpeechRecogni
                 @Override
                 public void onCallback_restart() {
                     try {
-                        Log.d("testt", "재시작한다3333");
+//                        Log.d("testt", "재시작한다3333");
                         call_speech_recognition();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -174,13 +174,13 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     //음성 인식 도중 결과물 반환, 지속적 호출
     @Override
     public void onPartialResult(String partialResult) {
-        Log.d("testt", "onPartialResult: " + partialResult);
+//        Log.d("testt", "onPartialResult: " + partialResult);
     }
 
     //음성 인식 종료후 결과 반환시 호출
     @Override
     public void onResults(Bundle results) {
-        Log.d("testt", "onResults start");
+//        Log.d("testt", "onResults start");
 
         final ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
 
@@ -198,7 +198,7 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     //API 종료시 호출
     @Override
     public void onFinished() {
-        Log.d("testt", "onFinished: ");
+//        Log.d("testt", "onFinished: ");
 
         restart(new Callback_restart() {
             @Override

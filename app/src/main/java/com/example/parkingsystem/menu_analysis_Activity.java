@@ -44,6 +44,9 @@ public class menu_analysis_Activity extends AppCompatActivity implements DatePic
     @BindView(R.id.start_analysis) Button btn_start_analysis;
     @BindView(R.id.wheelview) WheelView pick_spot_wheelViewdialog;
     private ArrayList<String> parking_list = new ArrayList<>();
+    private String from;
+    private String to;
+    private String selected_spot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +56,6 @@ public class menu_analysis_Activity extends AppCompatActivity implements DatePic
 
         btn_pick_date.setEnabled(false);
         btn_start_analysis.setEnabled(false);
-
-
-
     }
 
     @OnClick(R.id.pick_parkingspot)
@@ -84,20 +84,49 @@ public class menu_analysis_Activity extends AppCompatActivity implements DatePic
 
     @OnClick(R.id.start_analysis)
     void start_analysis() {
-        Intent intent = new Intent(this, Data_analysis_Activity.class);
+//        Log.d("testt", "분석 액티비티로 넘기는 값들: " + selected_spot + "   " + from + "   " + to);
+        String start_date = nomalize_date(from);
+        String end_date = nomalize_date(to);
+
+//        Log.d("testt", "nomalized from: " + start_date + "   nomalized to: " + end_date);
+
+        Intent intent = new Intent( this, Data_analysis_Activity.class);
+        intent.putExtra("spot", selected_spot);
+        intent.putExtra("start_date", start_date);
+        intent.putExtra("end_date", end_date);
         startActivity(intent);
     }
+
+    private String nomalize_date(String date) {
+        String[] date_seg = date.split(" ");
+
+        for ( int i = 1; i <= 2; i++ ) {
+            if ( Integer.parseInt(date_seg[i]) < 10 ) {
+                date_seg[i] = "0" + date_seg[i];
+            }
+        }
+
+        return date_seg[0]+date_seg[1]+date_seg[2];
+    }
+
+
 
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-        String from = year + "   " + monthOfYear + "   " + dayOfMonth;
-        String to = yearEnd + "   " + monthOfYearEnd + "   " + dayOfMonthEnd;
+        monthOfYear++;
+        monthOfYearEnd++;
+
+        from = year + " " + monthOfYear + " " + dayOfMonth;
+        to = yearEnd + " " + monthOfYearEnd + " " + dayOfMonthEnd;
 
         tv_from_date.setText(from);
         tv_to_date.setText(to);
 
         btn_start_analysis.setEnabled(true);
+        /*
+        from 이랑 to 꺼내서 분석에 쓰자
+         */
     }
 
     private void select_spot_dialog() {
@@ -117,7 +146,11 @@ public class menu_analysis_Activity extends AppCompatActivity implements DatePic
             public void onItemClick(int position, String spot) {
 //                Log.d("testt", "selected: " + position + "   " + s);
                 tv_picked_parkingspot.setText(spot);
+                selected_spot = spot;
                 btn_pick_date.setEnabled(true);
+                /*
+                spot 꺼내서 분석에 쓰자
+                 */
             }
         });
     }
