@@ -6,163 +6,104 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="368dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/app_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorPrimaryDark"
-            android:minHeight="100dp"
-            tools:srcCompat="@drawable/ic_launcher" />
 
-        <TextView
-            android:id="@+id/app_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:hint="plz input text"
-            android:text="어플 이름, 이미지 넣기."
-            android:textSize="30dp" />
-    </LinearLayout>
-
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/app_img"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:minHeight="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="plz input text"
+        android:text="어플 이름"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/button1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_img" />
+
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:background="#00FF0000"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="5dp"
+        android:text="주차 공간 확인"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/check"
+        android:drawablePadding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:background="#00FF0000"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="5dp"
+        android:text="주차 정보 분석"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/analysis"
+        android:drawablePadding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button1" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:background="#00FF0000"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="5dp"
+        android:text="설정"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/config"
+        android:drawablePadding="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/firebase_test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+
+    <Button
+        android:id="@+id/firebase_test"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:background="#00FF0000"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="5dp"
+        android:text="DB 테스트"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/database"
+        android:drawablePadding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
-        <TableRow android:gravity="center">
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="250dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#00FF0000"
-                android:drawableLeft="@drawable/ic_launcher"
-                android:drawablePadding="5dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="주차 공간 확인"
-                android:textSize="20dp" />
-        </TableRow>
-
-        <TableRow android:gravity="center">
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="250dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#00FF0000"
-                android:drawableLeft="@drawable/ic_launcher"
-                android:drawablePadding="5dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="주차 정보 분석"
-                android:textSize="20dp" />
-
-        </TableRow>
-
-        <TableRow android:gravity="center">
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="250dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#00FF0000"
-                android:drawableLeft="@drawable/ic_launcher"
-                android:drawablePadding="5dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="설정"
-                android:textSize="20dp" />
-
-        </TableRow>
-
-        <TableRow android:gravity="center">
-
-            <Button
-                android:id="@+id/firebase_test"
-                android:layout_width="250dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#00FF0000"
-                android:drawableLeft="@drawable/ic_launcher"
-                android:drawablePadding="5dp"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="5dp"
-                android:text="DB 테스트용"
-                android:textSize="20dp" />
-
-        </TableRow>
-
-        <TableRow android:gravity="center">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/newton_test"
-                    android:layout_width="120dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#00FF0000"
-                    android:drawableLeft="@drawable/ic_launcher"
-                    android:drawablePadding="5dp"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="5dp"
-                    android:text="인식"
-                    android:textSize="20dp" />
-
-                <Button
-                    android:id="@+id/newtontalk_test"
-                    android:layout_width="120dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#00FF0000"
-                    android:drawableLeft="@drawable/ic_launcher"
-                    android:drawablePadding="5dp"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="5dp"
-                    android:text="합성"
-                    android:textSize="20dp" />
-
-            </LinearLayout>
-
-        </TableRow>
-
-    </TableLayout>
 
     <Button
         android:id="@+id/test_btn1"

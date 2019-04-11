@@ -88,8 +88,6 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
     @BindView(R.id.button2) Button btn2;
     @BindView(R.id.button3) Button btn3;
     @BindView(R.id.firebase_test) Button firebase_test_btn;
-    @BindView(R.id.newton_test) Button newton_test_btn;
-    @BindView(R.id.newtontalk_test) Button newtontalk_test_btn;
 
     @BindView(R.id.test_btn1) Button test_btn11;
     @BindView(R.id.test_btn2) Button test_btn22;
@@ -143,18 +141,6 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
     @OnClick(R.id.firebase_test)
     void test_db() {
         Intent intent = new Intent(this, DB_test.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.newton_test)
-    void buttonClick5() {
-        Intent intent = new Intent(this, newton_test.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.newtontalk_test)
-    void buttonClick6() {
-        Intent intent = new Intent(this, newtontalk_test.class);
         startActivity(intent);
     }
 

@@ -71,8 +71,11 @@ public class TabFragment1 extends Fragment {
         ButterKnife.bind(this, view);
 
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
+
+
+
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
-        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 월별 분석");
+        tv_title.setText(date_arr[0]/10000 + " ~ " + date_arr[1]/10000+ " 월별 분석");
 
         try {
             analysis_assistant.month_usage_analysis(new Data_analysis_assistant.Callback_month_usage() {

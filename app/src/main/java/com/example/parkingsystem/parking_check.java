@@ -3,8 +3,6 @@ package com.example.parkingsystem;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,27 +10,30 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 import butterknife.BindView;
 
 public class parking_check extends AppCompatActivity {
     private listview_adapter adapter;
-
+    private int[] images;
+    Random random;
     @BindView(R.id.parking_check_listview) ListView parking_check_listview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_check);
-
+        init_drawable();
         create_listview();
 
         check_parking_spots(new Callback_spots() {
@@ -47,7 +48,7 @@ public class parking_check extends AppCompatActivity {
                         check_remaining_spots(new Callback_remaining() {
                             @Override
                             public void onCallback_remaining(int remaining_count, int all_count) {
-                                add_view(getResources().getDrawable(R.drawable.ic_launcher), (String) arraylist.get(final_i), remaining_count + " / " + all_count);
+                                add_view(getResources().getDrawable(random_drawable()), (String) arraylist.get(final_i), remaining_count + " / " + all_count);
                                 adapter.notifyDataSetChanged();
                             }
 
@@ -60,6 +61,18 @@ public class parking_check extends AppCompatActivity {
             }
         });
     }
+
+    private void init_drawable() {
+        images = new int[] {R.drawable.parking_check1, R.drawable.parking_check2, R.drawable.parking_check3, R.drawable.parking_check4,
+                R.drawable.parking_check5, R.drawable.parking_check6, R.drawable.parking_check7, R.drawable.parking_check8, R.drawable.parking_check9,
+                R.drawable.parking_check10, R.drawable.parking_check11, R.drawable.parking_check12, R.drawable.parking_check13};
+        random = new Random();
+    }
+
+    private int random_drawable() {
+        return images[random.nextInt(images.length)];
+    }
+
 
     public void create_listview() {
         ListView listview;
