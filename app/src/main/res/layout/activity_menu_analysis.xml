@@ -6,130 +6,174 @@
     android:layout_height="match_parent"
     tools:context=".menu_analysis_Activity">
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+    <TextView
+        android:id="@+id/menu_analysis_title"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="plz input text"
+        android:minHeight="50dp"
+        android:text="분석 설정"
+        android:textSize="30dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/explanation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/explanation"
+        android:layout_width="329dp"
+        android:layout_height="76dp"
+        android:text="주차 정보 분석 설정창입니다. \n분석 대상과 기간을 정한 뒤 분석시작을 눌러주세요. \n월별, 시간대별, 요일별로 분석됩니다."
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/pick_parkingspot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_analysis_title" />
+
+
+    <Button
+        android:id="@+id/pick_parkingspot"
+        android:layout_width="230dp"
+        android:layout_height="80dp"
+        android:background="@drawable/custom_btn"
+        android:text="주차장 선택"
+        android:textColor="@drawable/custom_text"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/picked_parkingspot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/explanation" />
+
+
+    <TextView
+        android:id="@+id/picked_parkingspot"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:gravity="left"
+        android:text="주차장 선택해주세요."
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/pick_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/pick_parkingspot" />
+
+
+    <Button
+        android:id="@+id/pick_date"
+        android:layout_width="230dp"
+        android:layout_height="80dp"
+        android:background="@drawable/custom_btn"
+        android:enabled="false"
+        android:text="기간 선택"
+        android:textColor="@drawable/custom_text"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/from_to"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/picked_parkingspot"
+        app:layout_constraintVertical_bias="0.516" />
+
+
+    <TextView
+        android:id="@+id/from_date"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="시작일"
+        android:textSize="20dp"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/start_analysis"
+        app:layout_constraintEnd_toStartOf="@+id/from_to"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/pick_date" />
+
+    <TextView
+        android:id="@+id/from_to"
+        android:layout_width="24dp"
+        android:layout_height="27dp"
+        android:gravity="center"
+        android:text="~"
+        android:textSize="20dp"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/start_analysis"
+        app:layout_constraintEnd_toStartOf="@+id/to_date"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/from_date"
+        app:layout_constraintTop_toBottomOf="@+id/pick_date" />
+
+    <TextView
+        android:id="@+id/to_date"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="종료일"
+        android:textSize="20dp"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/start_analysis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/from_to"
+        app:layout_constraintTop_toBottomOf="@+id/pick_date" />
+
+
+    <Button
+        android:id="@+id/start_analysis"
+        android:layout_width="230dp"
+        android:layout_height="80dp"
+        android:background="@drawable/custom_btn"
+        android:enabled="false"
+        android:text="분석 시작"
+        android:textColor="@drawable/custom_text"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/from_date" />
 
+    <com.wx.wheelview.widget.WheelView
+        android:id="@+id/wheelview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/start_analysis"
+        app:layout_constraintStart_toStartOf="@+id/start_analysis"
+        app:layout_constraintTop_toBottomOf="@+id/start_analysis" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/pick_date"
+        app:layout_constraintEnd_toStartOf="@+id/picked_parkingspot"
+        app:layout_constraintHorizontal_bias="0.653"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pick_parkingspot"
+        app:layout_constraintVertical_bias="0.56"
+        app:srcCompat="@drawable/parking" />
 
-            <TextView
-                android:id="@+id/menu_analysis_title"
-                android:layout_width="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:hint="plz input text"
-                android:minHeight="50dp"
-                android:text="분석 설정"
-                android:textSize="30dp" />
-        </TableRow>
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/pick_parkingspot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="주차장 선택" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/picked_parkingspot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="주차장 선택해주세요." />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/pick_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기간 입력" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/from_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="시작일" />
-
-            <TextView
-                android:id="@+id/from_to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="~" />
-
-            <TextView
-                android:id="@+id/to_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="종료일" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/start_analysis"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="분석 시작" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <com.wx.wheelview.widget.WheelView
-                android:id="@+id/wheelview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
-
-        </TableRow>
-
-    </TableLayout>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/start_analysis"
+        app:layout_constraintEnd_toStartOf="@+id/from_date"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pick_date"
+        app:srcCompat="@drawable/date" />
 
 </android.support.constraint.ConstraintLayout>

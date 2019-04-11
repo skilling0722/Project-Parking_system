@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,14 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wx.wheelview.adapter.ArrayWheelAdapter;
-import com.wx.wheelview.adapter.BaseWheelAdapter;
-import com.wx.wheelview.common.WheelData;
-import com.wx.wheelview.util.WheelUtils;
 import com.wx.wheelview.widget.WheelView;
 import com.wx.wheelview.widget.WheelViewDialog;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +32,7 @@ public class menu_analysis_Activity extends AppCompatActivity implements DatePic
     @BindView(R.id.picked_parkingspot) TextView tv_picked_parkingspot;
     @BindView(R.id.pick_date) Button btn_pick_date;
     @BindView(R.id.from_date) TextView tv_from_date;
+    @BindView(R.id.from_to) TextView tv_from_to;
     @BindView(R.id.to_date) TextView tv_to_date;
     @BindView(R.id.start_analysis) Button btn_start_analysis;
     @BindView(R.id.wheelview) WheelView pick_spot_wheelViewdialog;
@@ -124,6 +117,9 @@ public class menu_analysis_Activity extends AppCompatActivity implements DatePic
         tv_to_date.setText(to);
 
         btn_start_analysis.setEnabled(true);
+        tv_from_date.setEnabled(true);
+        tv_from_to.setEnabled(true);
+        tv_to_date.setEnabled(true);
         /*
         from 이랑 to 꺼내서 분석에 쓰자
          */
