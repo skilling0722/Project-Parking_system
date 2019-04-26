@@ -3,5 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorSplah">#4dabf5</color>
+    <color name="colorSplah">#013673</color>
+
+    <color name="one">#D936AD</color>
+    <color name="two">#1B63F2</color>
+    <color name="three">#1564BF</color>
+    <color name="four">#91BBF2</color>
+    <color name="five">#D3D91E</color>
 </resources>
