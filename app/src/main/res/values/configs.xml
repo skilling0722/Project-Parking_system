@@ -16,8 +16,9 @@
     </string-array>
 
     <string-array name="array_voice">
-        <item>남자</item>
-        <item>여자</item>
-        <item>어린이</item>
+        <item>남성 차분한 낭독체</item>
+        <item>남성 밝은 대화체</item>
+        <item>여성 차분한 낭독체</item>
+        <item>여성 밝은 대화체</item>
     </string-array>
 </resources>

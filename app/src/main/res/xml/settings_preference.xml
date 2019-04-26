@@ -20,7 +20,7 @@
                 android:entries="@array/array_voice"
                 android:entryValues="@array/array_voice"
                 android:key="keyword_voice_list"
-                android:summary="남자"
+                android:summary="여성 밝은 대화체"
                 android:title="목소리 선택" />
         </PreferenceScreen>
         <SwitchPreference

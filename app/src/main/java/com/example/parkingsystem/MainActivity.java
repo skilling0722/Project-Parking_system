@@ -12,6 +12,7 @@ import android.content.pm.Signature;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,38 +21,49 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//import static com.kakao.util.helper.Utility.getPackageInfo;
-
 public class MainActivity extends AppCompatActivity implements speech_recognition_service.ServiceCallbacks {
+    @BindView(R.id.button1) Button btn1;
+    @BindView(R.id.button2) Button btn2;
+    @BindView(R.id.button3) Button btn3;
+    @BindView(R.id.firebase_test) Button firebase_test_btn;
+
+    @BindView(R.id.test_btn1) Button test_btn11;
+    @BindView(R.id.test_btn2) Button test_btn22;
+    @BindView(R.id.test_btn3) Button test_btn33;
 
     private static final int REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE = 0;
     private speech_recognition_service srs_service;
     private boolean isService;
+    private HashMap<String, String> spots_map = new HashMap<>();    //parking_check 액티비티에서 가져온 hashmap 저장할 곳
+    private ServiceConnection conn;
+    private SharedPreferences prefs;
 
-
-    ServiceConnection conn = new ServiceConnection() {
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            speech_recognition_service.speech_recognition_binder srs_binder = (speech_recognition_service.speech_recognition_binder) service;
-            srs_service = srs_binder.getService();  //start_service 호출하면 되드라
-            isService = true;
-            srs_service.setCallbacks(MainActivity.this);
-        }
-        public void onServiceDisconnected(ComponentName name) {
-            srs_service = null;
-            isService = false;
-        }
-    };
+//    ServiceConnection conn = new ServiceConnection() {
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            speech_recognition_service.speech_recognition_binder srs_binder = (speech_recognition_service.speech_recognition_binder) service;
+//            srs_service = srs_binder.getService();
+//            isService = true;
+//            srs_service.setCallbacks(MainActivity.this);
+//        }
+//        public void onServiceDisconnected(ComponentName name) {
+//            srs_service = null;
+//            isService = false;
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,34 +77,46 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO) && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE);
                 } else {
-                    // 유저가 거부하면서 다시 묻지 않기를 클릭.. 권한이 없다고 유저에게 직접 알림.
+                    // 유저 거부
                 }
             } else {
-//                startUsingSpeechSDK();
+                //ㅇ
             }
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("testt", "권한 획득 오류");
         }
 
+        create_service();
+
+        /* 설정 - 음성 알림 활성/비활성에 따른 음성 인식 서비스 onoff*/
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if ( prefs.getBoolean("voice_command", true)) {
+            start_service();
+        } else {
+            Log.d("testt", "음성 인식 비활성화 상태");
+            /*
+            stt를 초기화해주지 않으면 tts가 안되는 문제가 있음. - 카카오 api 문제
+            임시 해결방안으로 stt 서비스 사용안할시 stt 초기화해주자.
+             */
+            SpeechRecognizerManager.getInstance().initializeLibrary(this);
+        }
+
         assistant assistant = new assistant();
         assistant.setIstts(false);
 
-        start_service();
+        /* 어플리케이션 강제종료, 예상치못한 종료를 대비하여 istts 초기값 false 초기화 */
+        SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared_tts.edit();
+        editor.putBoolean("usage", false);
+        editor.commit();
 //        mContext = getApplicationContext();
 //        String key = getKeyHash(mContext);
 //        Log.d("testt", "Key:" + key);
     }
-
-    @BindView(R.id.button1) Button btn1;
-    @BindView(R.id.button2) Button btn2;
-    @BindView(R.id.button3) Button btn3;
-    @BindView(R.id.firebase_test) Button firebase_test_btn;
-
-    @BindView(R.id.test_btn1) Button test_btn11;
-    @BindView(R.id.test_btn2) Button test_btn22;
-    @BindView(R.id.test_btn3) Button test_btn33;
-
+    /*
+    서비스 구현 테스트 버튼
+     */
     @OnClick(R.id.test_btn1)
     void  button122Click() {
         start_service();
@@ -100,7 +124,9 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
 
     @OnClick(R.id.test_btn2)
     void  button13131Click() {
-        use_service();
+        Intent intent = new Intent(this, map_test2.class);
+        startActivity(intent);
+//        use_service();
     }
 
     @OnClick(R.id.test_btn3)
@@ -108,20 +134,23 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
         stop_service();
     }
 
-
+    /*
+        실 사용 버튼
+     */
     @OnClick(R.id.button1)
     void  Parking_check() {
+        /* 주차장 확인 */
         Intent intent = new Intent(this, parking_check.class);
+//        Intent intent = new Intent(this, map_test2.class);
         startActivity(intent);
     }
 
-
     @OnClick(R.id.button2)
     void Data_analysis() {
-  //      Intent intent = new Intent(this, test.class);
+        /* 주차 정보 분석 */
+//        Intent intent = new Intent(this, test.class);
 //        startActivity(intent);
         Intent intent = new Intent(this, menu_analysis_Activity.class);
-
 //        Intent intent = new Intent(this, Data_analysis_Activity.class);
         startActivity(intent);
 
@@ -129,9 +158,6 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
 
     @OnClick(R.id.button3)
     void config() {
-        /*
-        * Intent intent = new Intent(this, Data_analysis.class);
-        * */
         /* 설정화면 */
         Intent intent = new Intent(this, Config_Activity.class);
         startActivity(intent);
@@ -140,11 +166,37 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
 
     @OnClick(R.id.firebase_test)
     void test_db() {
+        /* 샘플 데이터 생성 */
         Intent intent = new Intent(this, DB_test.class);
+//        Intent intent = new Intent(this, Data_analysis.class);
         startActivity(intent);
     }
 
-    public void start_service() {
+    /*
+    음성 인식 서비스 초기화
+     */
+    private void create_service() {
+        conn = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                speech_recognition_service.speech_recognition_binder srs_binder = (speech_recognition_service.speech_recognition_binder) service;
+                srs_service = srs_binder.getService();
+                isService = true;
+                srs_service.setCallbacks(MainActivity.this);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                srs_service = null;
+                isService = false;
+            }
+        };
+    }
+
+    /*
+    음성 인식 서비스 시작
+     */
+    private void start_service() {
         try {
             Intent intent = new Intent(MainActivity.this, speech_recognition_service.class);
             bindService(intent, conn, Context.BIND_AUTO_CREATE);
@@ -155,7 +207,10 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
         }
     }
 
-    public  void stop_service() {
+    /*
+    음성 인식 서비스 중단
+     */
+    private void stop_service() {
         if (isService) {
             unbindService(conn);
             isService = false;
@@ -166,27 +221,31 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
         }
     }
 
-    public void use_service() {
-        SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
-        Boolean istts = shared_tts.getBoolean("usage", true);
-        Log.d("testt", "istts: " + istts);
-
-        if( !isService ) {
-            Log.d("testt", "음성 인식 서비스가 실행되고있지않아.");
-            return;
-        }
+//    private void use_service() {
+//        SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
+//        Boolean istts = shared_tts.getBoolean("usage", true);
+//        Log.d("testt", "istts: " + istts);
+//
+//        if( !isService ) {
+//            Log.d("testt", "음성 인식 서비스가 실행되고있지않아.");
+//            return;
+//        }
 //        int num = srs_service.getRan();
 //        Log.d("testt", "srs_service로 부터 받아온 값: " + num);
-    }
+//    }
 
+    /*
+    음성 인식 결과로 액티비티 전환, 종료 등 실행
+     */
     @Override
     public void do_something(String result) {
         Log.d("testt", "음성 인식 결과: " + result);
-
-        if( result.equals("주차 공간 확인") ) {
+        spots_map = parking_check.getFor_speech_spots();
+        if( result.equals("주차장") ) {
             Parking_check();
+//            spots_map = parking_check.getFor_speech_spots();
         }
-        else if ( result.equals("주차 정보 분석") ) {
+        else if ( result.equals("분석") ) {
             Data_analysis();
         }
         else if ( result.equals("설정") ) {
@@ -205,12 +264,22 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
             System.runFinalization();
             System.exit(0);
         }
+
+        /*
+        음성 인식으로 주차장 확인
+         */
+        else if ( spots_map.containsKey(result) ) {
+            Intent intent = new Intent(getApplicationContext(), spot_check.class);
+            intent.putExtra("spot", result);
+            intent.putExtra("space", spots_map.get(result));
+            startActivity(intent);
+        }
         else {
             Log.d("testt", "음성 인식에 해당되는 것 없음");
         }
     }
 
-//
+//    key 얻기
 //    public static String getKeyHash(final Context context) {
 //        PackageInfo packageInfo = getPackageInfo(context, PackageManager.GET_SIGNATURES);
 //        if (packageInfo == null)
@@ -227,6 +296,5 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
 //        }
 //        return null;
 //    }
-
 
 }

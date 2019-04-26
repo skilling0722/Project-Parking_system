@@ -93,14 +93,14 @@ public class assistant {
     }
 
     public HashMap<Integer, String> get_CWNU_spots(HashMap<Integer, String> map) {
-        map.put(1, "본부 주차장");
-        map.put(2, "인문대 주차장");
-        map.put(3, "자연대 주차장");
-        map.put(4, "공대 주차장");
-        map.put(5, "정문 주차장");
-        map.put(6, "후문 주차장");
-        map.put(7, "도서관 주차장");
-        map.put(8, "학군단 주차장");
+        map.put(1, "1");
+        map.put(2, "2");
+        map.put(3, "3");
+        map.put(4, "4");
+        map.put(5, "5");
+        map.put(6, "6");
+        map.put(7, "7");
+        map.put(8, "8");
         return map;
     }
 
