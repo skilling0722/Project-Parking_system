@@ -7,6 +7,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
@@ -18,7 +19,6 @@ import android.widget.Toast;
 * */
 public class SettingPreferenceFragment extends PreferenceFragment {
     SharedPreferences prefs;
-
     ListPreference backgroundPreference;
     ListPreference keywordVoicePreference;
     PreferenceScreen keywordScreen;
@@ -39,10 +39,10 @@ public class SettingPreferenceFragment extends PreferenceFragment {
         }
 
         if(!prefs.getString("keyword_voice_list", "").equals("")){
-            keywordVoicePreference.setSummary(prefs.getString("keyword_voice_list", "남자"));
+            keywordVoicePreference.setSummary(prefs.getString("keyword_voice_list", "여성 밝은 대화체"));
         }
 
-        if(prefs.getBoolean("voice_notify", false)){
+        if(prefs.getBoolean("voice_notify", true)){
             keywordScreen.setSummary("사용");
         }
 
@@ -66,20 +66,25 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
             //음성알림() 이벤트 처리
             if(key.equals("keyword_voice_list")){
-                tmp = prefs.getString("keyword_voice_list", "남자");
+                tmp = prefs.getString("keyword_voice_list", "여성 밝은 대화체");
                 keywordVoicePreference.setSummary(tmp);
-                if(tmp.equals("남자")){
-                    Toast.makeText(getActivity(), "남자 선택 이벤트", Toast.LENGTH_SHORT).show();
+                if(tmp.equals("남성 차분한 낭독체")){
+                    Toast.makeText(getActivity(), tmp + "설정 완료", Toast.LENGTH_SHORT).show();
                 }
-                else if(tmp.equals("여자")){
-                    Toast.makeText(getActivity(), "여자 선택 이벤트", Toast.LENGTH_SHORT).show();
+                else if(tmp.equals("남성 밝은 대화체")){
+                    Toast.makeText(getActivity(), tmp + "설정 완료", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(getActivity(), "어린이 이벤트", Toast.LENGTH_SHORT).show();
+                else if(tmp.equals("여성 차분한 낭독체")){
+                    Toast.makeText(getActivity(), tmp + "설정 완료", Toast.LENGTH_SHORT).show();
+            }
+                else if(tmp.equals("여성 밝은 대화체")){
+                    Toast.makeText(getActivity(), tmp + "설정 완료", Toast.LENGTH_SHORT).show();
                 }
             }
+
+
             if(key.equals("voice_notify")){
-                if(prefs.getBoolean("voice_notify", false)){
+                if(prefs.getBoolean("voice_notify", true)){
                     keywordScreen.setSummary("사용");
                 }else{
                     keywordScreen.setSummary("사용안함");
@@ -90,11 +95,10 @@ public class SettingPreferenceFragment extends PreferenceFragment {
 
             //음성 명령(voice_command) 이벤트 처리
             if(key.equals("voice_command")){
-                if(prefs.getBoolean("voice_command",false)){
-                    Toast.makeText(getActivity(), "ON 되었을 때, 처리하는 이벤트", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(getActivity(), "OFF 되었을 때, 처리하는 이벤트", Toast.LENGTH_SHORT).show();
+                if(prefs.getBoolean("voice_command",true)){
+                    Toast.makeText(getActivity(), "재시작 후 적용됩니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "재시작 후 적용됩니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 

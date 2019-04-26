@@ -22,10 +22,13 @@ import java.util.HashMap;
 import java.util.Random;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class parking_check extends AppCompatActivity {
     private listview_adapter adapter;
     private int[] images;
+//    private static ArrayList for_speech_spots;
+    private static HashMap<String, String> for_speech_spots;
     Random random;
     @BindView(R.id.parking_check_listview) ListView parking_check_listview;
 
@@ -33,6 +36,7 @@ public class parking_check extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_check);
+        ButterKnife.bind(this);
         init_drawable();
         create_listview();
 
@@ -40,18 +44,24 @@ public class parking_check extends AppCompatActivity {
             @Override
             public void onCallback_spots(final ArrayList arraylist) {
 //                Log.d("testt", "가져온 리스트   " + arraylist);
+                for_speech_spots = new HashMap<>();
+
+//                for_speech_spots = new ArrayList();
+//                for_speech_spots.addAll(arraylist);
+
                 try {
                     Log.d("testt", "add_view start");
                     for(int i = 0; i < arraylist.size(); i++ ) {
                         final int final_i = i;
 
                         check_remaining_spots(new Callback_remaining() {
+
                             @Override
                             public void onCallback_remaining(int remaining_count, int all_count) {
                                 add_view(getResources().getDrawable(random_drawable()), (String) arraylist.get(final_i), remaining_count + " / " + all_count);
+                                for_speech_spots.put((String) arraylist.get(final_i), remaining_count + " / " + all_count);
                                 adapter.notifyDataSetChanged();
                             }
-
                         }, (String) arraylist.get(i));
                     }
                 } catch (Exception e) {
@@ -60,6 +70,10 @@ public class parking_check extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public static HashMap<String, String> getFor_speech_spots() {
+        return for_speech_spots;
     }
 
     private void init_drawable() {
@@ -75,19 +89,17 @@ public class parking_check extends AppCompatActivity {
 
 
     public void create_listview() {
-        ListView listview;
         adapter = new listview_adapter();
+        parking_check_listview.setAdapter(adapter);
 
-        listview = (ListView) findViewById(R.id.parking_check_listview);
-        listview.setAdapter(adapter);
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        parking_check_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listview_item item = (listview_item) parent.getItemAtPosition(position);
+
                 String spot = item.getSpot_title();
                 String remain = item.getRemain_title();
-                Drawable iconDrawable = item.getIcon();
+//                Drawable iconDrawable = item.getIcon();
 
                 Intent intent = new Intent(getApplicationContext(), spot_check.class);
                 intent.putExtra("spot", spot);

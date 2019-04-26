@@ -7,12 +7,11 @@
     tools:context=".MainActivity">
 
 
-
     <ImageView
         android:id="@+id/app_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/logo"
         android:minHeight="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -111,6 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="416dp"
         android:text="start"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -131,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="315dp"
         android:text="stop"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/test_btn2" />

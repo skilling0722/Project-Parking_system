@@ -15,11 +15,14 @@ import com.kakao.sdk.newtoneapi.SpeechRecognizeListener;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerClient;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
 import java.util.ArrayList;
-
+/*
+카카오 음성 인식 API 서버 소켓의 대기시간은 5분임.
+그러므로 5분 이상 음성 인식을 사용하지 않으면 더이상 서버측 소켓이 응답을 안함.
+ */
 public class speech_recognition_service extends Service implements SpeechRecognizeListener {
     private ServiceCallbacks serviceCallbacks;
     private static SpeechRecognizerClient client;
-    private static Boolean isuse;
+    private static Boolean isuse; // 음성 인식 반복 호출시에 사용
 
     private SoundPool sound_pool;
     private int beep_sound;
@@ -45,6 +48,7 @@ public class speech_recognition_service extends Service implements SpeechRecogni
         create_soundpool();
         beep_sound = sound_pool.load(getApplicationContext(), R.raw.beep, 1);
 
+        /* 음성 인식 api 초기화 */
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
 
         isuse = true;
@@ -52,8 +56,10 @@ public class speech_recognition_service extends Service implements SpeechRecogni
         call_speech_recognition();
     }
 
-
-    public void create_soundpool() {
+    /*
+    음성 인식 시작시 비프음 알림
+    */
+    private void create_soundpool() {
         AudioAttributes audioAttributes = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             audioAttributes = new AudioAttributes.Builder()
@@ -69,7 +75,10 @@ public class speech_recognition_service extends Service implements SpeechRecogni
         }
     }
 
-    public void call_speech_recognition() {
+    /*
+    음성 인식 시작
+    */
+    private void call_speech_recognition() {
 //        Log.d("testt", "call_speech_recognition");
         String serviceType = SpeechRecognizerClient.SERVICE_TYPE_DICTATION;
 
@@ -82,13 +91,6 @@ public class speech_recognition_service extends Service implements SpeechRecogni
 
 //        Toast.makeText(this, "음성 인식 시작", Toast.LENGTH_SHORT).show();
     }
-
-    public static void cancel_speech_recognition() {
-//        Log.d("testt", "cancel_speech_recognition");
-        client.cancelRecording();
-        isuse = false;
-    }
-
 
     public int onStartCommand(Intent intent, int flags, int startid) {
         Log.d("testt", "onStartCommand");
@@ -117,15 +119,12 @@ public class speech_recognition_service extends Service implements SpeechRecogni
         Boolean istts = shared_tts.getBoolean("usage", true);
 //        Log.d("testt", "istts: " + istts);
 
-
         if (!istts) {
 //            Log.d("testt", "beep sound");
             sound_pool.play(beep_sound, 0.1f, 0.1f, 0, 0, 2.0f);
         } else {
             Log.d("testt", "음성 합성 실행중, 비프음 스킵");
         }
-
-
         //리소스 식별 번호, 좌측 볼륨, 우측 볼륨, 우선순위, 반복, 재생속도
     }
     //음성 인식 시작하면 호출
@@ -139,11 +138,6 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     public void onEndOfSpeech() {
 //        Log.d("testt", "입력 종료");
     }
-//    //에러나면 호출
-//    @Override
-//    public void onError(int errorCode, String errorMsg) {
-//        Log.d("testt", "onError: " + errorMsg);
-//    }
 
     //에러나면 호출
     @Override
@@ -169,7 +163,6 @@ public class speech_recognition_service extends Service implements SpeechRecogni
     public void restart(final Callback_restart callback) {
         callback.onCallback_restart();
     }
-
 
     //음성 인식 도중 결과물 반환, 지속적 호출
     @Override
@@ -214,6 +207,11 @@ public class speech_recognition_service extends Service implements SpeechRecogni
         });
     }
 
+    /*
+    음성 인식 결과를 MainActivity로 넘기기
+    ServiceCallbacks 인터페이스
+    setCallbacks 메소드
+    */
     public interface ServiceCallbacks {
         void do_something(String result);
     }

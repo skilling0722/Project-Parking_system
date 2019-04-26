@@ -48,7 +48,6 @@ public class listview_adapter extends BaseAdapter {
         remainview.setText(listViewItem.getRemain_title());
 
         return convertView;
-
     }
 
     @Override
