@@ -5,7 +5,7 @@
         android:color="#F4F6F8" />
 
     <item android:state_enabled="false"
-        android:color="#000000" />
+        android:color="#65000000" />
 
     <item android:color="#EDF7F7" />
 

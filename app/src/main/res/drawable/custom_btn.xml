@@ -12,7 +12,7 @@ tools:targetApi="lollipop"> <!-- ripple effect color -->
                 <shape android:shape="rectangle">
 
                     <corners
-                        android:radius="10dp"
+                        android:radius="35dp"
                         />
                     <gradient
                         android:angle="0"
@@ -36,9 +36,9 @@ tools:targetApi="lollipop"> <!-- ripple effect color -->
                 android:state_enabled="false">
                 <shape>
                     <corners
-                        android:radius="10dp"
+                        android:radius="35dp"
                         />
-                    <solid android:color="@color/one" /> <!-- background color -->
+                    <solid android:color="#12673AB7" /> <!-- background color -->
 
                     <padding
                         android:left="0dp"
@@ -54,7 +54,7 @@ tools:targetApi="lollipop"> <!-- ripple effect color -->
                 android:state_enabled="true">
                 <shape>
                     <corners
-                        android:radius="10dp"
+                        android:radius="35dp"
                         />
                     <gradient
                         android:angle="0"
