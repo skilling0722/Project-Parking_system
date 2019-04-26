@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Process;
@@ -16,20 +14,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
-
-import com.google.firebase.database.FirebaseDatabase;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,10 +99,19 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
         SharedPreferences.Editor editor = shared_tts.edit();
         editor.putBoolean("usage", false);
         editor.commit();
+
+
 //        mContext = getApplicationContext();
 //        String key = getKeyHash(mContext);
 //        Log.d("testt", "Key:" + key);
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+//        show_loading();
+//        hide_loading();
+    }
+
     /*
     서비스 구현 테스트 버튼
      */

@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class TabFragment1 extends Fragment {
+public class TabFragment1 extends BaseFragment {
     @BindView(R.id.month_usage_chart) LineChart month_usage_chart;
     @BindView(R.id.title) TextView tv_title;
     private OnFragmentInteractionListener mListener;
@@ -62,6 +62,12 @@ public class TabFragment1 extends Fragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        show_loading();
+        super.onStart();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,8 +77,6 @@ public class TabFragment1 extends Fragment {
         ButterKnife.bind(this, view);
 
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
-
-
 
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
         tv_title.setText(date_arr[0]/10000 + " ~ " + date_arr[1]/10000+ " 월별 분석");
@@ -101,6 +105,7 @@ public class TabFragment1 extends Fragment {
                         line_chart.setLineData(yData);
                         line_chart.setLinechart(month_usage_chart);
                         line_chart.Draw_linechart();
+                        hide_loading();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "draw fail");

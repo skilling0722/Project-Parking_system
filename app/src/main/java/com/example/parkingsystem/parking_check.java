@@ -3,7 +3,6 @@ package com.example.parkingsystem;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -24,7 +22,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class parking_check extends AppCompatActivity {
+public class parking_check extends BaseActivity {
     private listview_adapter adapter;
     private int[] images;
 //    private static ArrayList for_speech_spots;
@@ -37,17 +35,16 @@ public class parking_check extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_check);
         ButterKnife.bind(this);
+
+        show_loading();
+
         init_drawable();
         create_listview();
-
         check_parking_spots(new Callback_spots() {
             @Override
             public void onCallback_spots(final ArrayList arraylist) {
 //                Log.d("testt", "가져온 리스트   " + arraylist);
                 for_speech_spots = new HashMap<>();
-
-//                for_speech_spots = new ArrayList();
-//                for_speech_spots.addAll(arraylist);
 
                 try {
                     Log.d("testt", "add_view start");
@@ -61,6 +58,7 @@ public class parking_check extends AppCompatActivity {
                                 add_view(getResources().getDrawable(random_drawable()), (String) arraylist.get(final_i), remaining_count + " / " + all_count);
                                 for_speech_spots.put((String) arraylist.get(final_i), remaining_count + " / " + all_count);
                                 adapter.notifyDataSetChanged();
+                                hide_loading();
                             }
                         }, (String) arraylist.get(i));
                     }
