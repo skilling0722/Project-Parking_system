@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class menu_analysis_Activity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class menu_analysis_Activity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
     @BindView(R.id.menu_analysis_title) TextView tv_menu_analysis_title;
     @BindView(R.id.pick_parkingspot) Button btn_pick_parkingspot;
@@ -53,10 +53,12 @@ public class menu_analysis_Activity extends AppCompatActivity implements DatePic
 
     @OnClick(R.id.pick_parkingspot)
     void pick_parkingspot() {
+        show_loading();
         get_parking_list(new Callback_parkinglist() {
             @Override
             public void onCallback_parkinglist(ArrayList<String> arraylist) {
                 parking_list = arraylist;
+                hide_loading();
                 select_spot_dialog();
             }
         });
