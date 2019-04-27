@@ -169,11 +169,12 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
                 try {
 //                    Log.d("testt", "spot_check start");
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Data_for_check data = snapshot.getValue(Data_for_check.class);
+                        if (!snapshot.getKey().equals("position") ) {
+                            Data_for_check data = snapshot.getValue(Data_for_check.class);
 //                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
-                        spot_info.put(snapshot.getKey(), data.isUse());
+                            spot_info.put(snapshot.getKey(), data.isUse());
+                        }
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("testt", "spot_check fail");

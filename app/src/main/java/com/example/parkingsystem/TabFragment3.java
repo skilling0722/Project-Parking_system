@@ -6,7 +6,6 @@ package com.example.parkingsystem;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class TabFragment3 extends Fragment {
+public class TabFragment3 extends BaseFragment {
     @BindView(R.id.week_usage_horizontalbarchart) HorizontalBarChart week_usage_horizontalbarchart;
     @BindView(R.id.title) TextView tv_title;
     private String spot;
