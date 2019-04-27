@@ -49,7 +49,7 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
             Intent intent = getIntent();
             spot = intent.getStringExtra("spot");
             space = intent.getStringExtra("space");
-            Log.d("testt", "spot_check: " +spot + "    " +space);
+//            Log.d("testt", "spot_check: " +spot + "    " +space);
             spot_check_name.setText(spot + " 주차장");
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,6 +154,8 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
 
     public void onDestroy() {
         super.onDestroy();
+        write_istts(false);
+        TextToSpeechManager.getInstance().finalizeLibrary();
     }
 
     public interface  Callback_read_spots {

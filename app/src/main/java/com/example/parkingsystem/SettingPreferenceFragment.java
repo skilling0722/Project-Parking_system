@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
@@ -69,16 +70,16 @@ public class SettingPreferenceFragment extends PreferenceFragment {
                 tmp = prefs.getString("keyword_voice_list", "여성 밝은 대화체");
                 keywordVoicePreference.setSummary(tmp);
                 if(tmp.equals("남성 차분한 낭독체")){
-                    Toast.makeText(getActivity(), tmp + "설정 완료", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), tmp + "로 설정되었습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else if(tmp.equals("남성 밝은 대화체")){
-                    Toast.makeText(getActivity(), tmp + "설정 완료", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), tmp + "로 설정되었습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else if(tmp.equals("여성 차분한 낭독체")){
-                    Toast.makeText(getActivity(), tmp + "설정 완료", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), tmp + "로 설정되었습니다.", Toast.LENGTH_SHORT).show();
             }
                 else if(tmp.equals("여성 밝은 대화체")){
-                    Toast.makeText(getActivity(), tmp + "설정 완료", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), tmp + "로 설정되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -96,19 +97,19 @@ public class SettingPreferenceFragment extends PreferenceFragment {
             //음성 명령(voice_command) 이벤트 처리
             if(key.equals("voice_command")){
                 if(prefs.getBoolean("voice_command",true)){
-                    Toast.makeText(getActivity(), "재시작 후 적용됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "음성 명령이 설정되었습니다.\n재시작 후 적용됩니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "재시작 후 적용됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "음성 명령이 해제되었습니다.\n재시작 후 적용됩니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             //소리(sound) 이벤트 처리
-            if(key.equals("sound")){
-                if(prefs.getBoolean("sound",false)){
-                    Toast.makeText(getActivity(), "ON 되었을 때, 처리하는 이벤트", Toast.LENGTH_SHORT).show();
+            if(key.equals("check_style")){
+                if(prefs.getBoolean("check_style",true)){
+                    Toast.makeText(getActivity(), "지도 형식으로 변경되었습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getActivity(), "OFF 되었을 때, 처리하는 이벤트", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "리스트 형식으로 변경되었습니다.", Toast.LENGTH_SHORT).show();
                 }
            }
 
