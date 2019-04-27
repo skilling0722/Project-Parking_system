@@ -187,8 +187,6 @@ public class parking_check extends BaseActivity {
 
             }
         });
-
-
     }
 
 }

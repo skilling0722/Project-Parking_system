@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
 
     @OnClick(R.id.test_btn2)
     void  button13131Click() {
-        Intent intent = new Intent(this, map_test2.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, map_test2.class);
+//        startActivity(intent);
 //        use_service();
     }
 
@@ -138,20 +138,22 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
     @OnClick(R.id.button1)
     void  Parking_check() {
         /* 주차장 확인 */
-        Intent intent = new Intent(this, parking_check.class);
-//        Intent intent = new Intent(this, map_test2.class);
-        startActivity(intent);
+        if ( prefs.getBoolean("check_style", true) ) {
+            /* 지도 형식 */
+            Intent intent = new Intent(this, map_test2.class);
+            startActivity(intent);
+        } else {
+            /* 리스트 형식 */
+            Intent intent = new Intent(this, parking_check.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.button2)
     void Data_analysis() {
         /* 주차 정보 분석 */
-//        Intent intent = new Intent(this, test.class);
-//        startActivity(intent);
         Intent intent = new Intent(this, menu_analysis_Activity.class);
-//        Intent intent = new Intent(this, Data_analysis_Activity.class);
         startActivity(intent);
-
     }
 
     @OnClick(R.id.button3)
@@ -166,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
     void test_db() {
         /* 샘플 데이터 생성 */
         Intent intent = new Intent(this, DB_test.class);
-//        Intent intent = new Intent(this, Data_analysis.class);
         startActivity(intent);
     }
 
