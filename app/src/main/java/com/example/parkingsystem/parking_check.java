@@ -1,5 +1,6 @@
 package com.example.parkingsystem;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -25,8 +26,7 @@ import butterknife.ButterKnife;
 public class parking_check extends BaseActivity {
     private listview_adapter adapter;
     private int[] images;
-//    private static ArrayList for_speech_spots;
-    private static HashMap<String, String> for_speech_spots;
+    public static HashMap<String, String> for_speech_spots;
     Random random;
     @BindView(R.id.parking_check_listview) ListView parking_check_listview;
 
@@ -35,7 +35,6 @@ public class parking_check extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_check);
         ButterKnife.bind(this);
-
         show_loading();
 
         init_drawable();
@@ -52,7 +51,6 @@ public class parking_check extends BaseActivity {
                         final int final_i = i;
 
                         check_remaining_spots(new Callback_remaining() {
-
                             @Override
                             public void onCallback_remaining(int remaining_count, int all_count) {
                                 add_view(getResources().getDrawable(random_drawable()), (String) arraylist.get(final_i), remaining_count + " / " + all_count);
@@ -68,6 +66,7 @@ public class parking_check extends BaseActivity {
                 }
             }
         });
+
     }
 
     public static HashMap<String, String> getFor_speech_spots() {
@@ -121,7 +120,7 @@ public class parking_check extends BaseActivity {
         void onCallback_remaining(int remaining_count, int all_count);
     }
 
-    public void check_parking_spots(final Callback_spots callback) {
+    public static void check_parking_spots(final Callback_spots callback) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("check").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -130,6 +129,7 @@ public class parking_check extends BaseActivity {
                 try {
                     Log.d("testt", "check_parking_spots start");
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                        Log.d("testt", "test: "+snapshot);
 //                        Log.d("testt", snapshot.getKey() + "      " + String.valueOf(snapshot.getValue()));
                         parking_list.add(snapshot.getKey());
                     }
@@ -152,7 +152,7 @@ public class parking_check extends BaseActivity {
 
 
 
-    public void check_remaining_spots(final Callback_remaining callback, String spot) {
+    public static void check_remaining_spots(final Callback_remaining callback, String spot) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("check").child(spot).addValueEventListener(new ValueEventListener() {
             @Override
@@ -162,14 +162,17 @@ public class parking_check extends BaseActivity {
                 try {
 //                    Log.d("testt", "check_remaining_spots start");
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Data_for_check data = snapshot.getValue(Data_for_check.class);
-//                        data.isUse() 값으로 주차 가능유무를, snapshot.getKey() 로 주차자리를 정해주자.
-//                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
+                        if (!snapshot.getKey().equals("position")){
+//                            Log.d("testt", "자리 확인: "+snapshot);
+                            Data_for_check data = snapshot.getValue(Data_for_check.class);
+//                           data.isUse() 값으로 주차 가능유무를, snapshot.getKey() 로 주차자리를 정해주자.
+//                           Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
 
-                        if (data.isUse()) {
-                            remaining_count ++;
+                            if (data.isUse()) {
+                                remaining_count ++;
+                            }
+                            all_count ++;
                         }
-                        all_count ++;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -7,7 +7,6 @@ package com.example.parkingsystem;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +63,7 @@ public class TabFragment1 extends BaseFragment {
 
     @Override
     public void onStart() {
-        show_loading();
+//        show_loading();
         super.onStart();
     }
 
@@ -75,7 +74,7 @@ public class TabFragment1 extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_fragment1, container, false);
         ButterKnife.bind(this, view);
-
+        show_loading();
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
 
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
