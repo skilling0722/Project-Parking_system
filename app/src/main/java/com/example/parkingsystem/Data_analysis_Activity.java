@@ -1,5 +1,7 @@
 package com.example.parkingsystem;
-
+/*
+분석 결과에 관한 activity
+* */
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
