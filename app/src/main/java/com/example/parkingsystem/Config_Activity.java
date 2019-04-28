@@ -33,8 +33,10 @@ public class Config_Activity extends AppCompatActivity {
         }
         else if(isTheme.equals("연한 녹색")){
             context.setTheme(R.style.greenTheme);
-        }else{
+        }else if(isTheme.equals("연한 파란색")){
             context.setTheme(R.style.blueTheme);
+        }else{
+            context.setTheme(R.style.defaultTheme);
         }
 
         return isTheme;

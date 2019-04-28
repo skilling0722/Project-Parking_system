@@ -138,13 +138,17 @@ public class SettingPreferenceFragment extends PreferenceFragment {
                     getActivity().setTheme(R.style.redTheme);
                     getActivity().getApplication().setTheme(R.style.redTheme);
                 } else if (tmp.equals("연한 녹색")) {
-                    System.out.println("색깔:녹색"+tmp);
+                    //System.out.println("색깔:녹색"+tmp);
                     getActivity().setTheme(R.style.greenTheme);
                     getActivity().getApplication().setTheme(R.style.greenTheme);
                 } else if (tmp.equals("연한 파란색")) {
                     getActivity().setTheme(R.style.blueTheme);
                     getActivity().getApplication().setTheme(R.style.blueTheme);
-                } else {
+                } else if(tmp.equals("default")){
+                    getActivity().setTheme(R.style.defaultTheme);
+                    getActivity().getApplication().setTheme(R.style.defaultTheme);
+                }
+                else {
                     System.out.println("색깔:없음"+tmp);
                 }
                 getActivity().recreate();
