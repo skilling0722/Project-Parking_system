@@ -36,7 +36,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".check_parking_map"
+            android:name=".parking_check_map"
             android:label="@string/title_activity_map_test2"></activity>
         <activity android:name=".newtontalk_test" />
         <activity android:name=".newton_test" />
