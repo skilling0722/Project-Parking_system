@@ -109,8 +109,6 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
 
     public void call_tts(String spot, String space) {
         Log.d("testt", "음성 합성 시작");
-//        cancel_speech_recognition();
-        //tts 시작하면 stt 멈추게 tts 끝나면 stt 시작하게 구현해야함
 //        Log.d("testt", "istts true 쓰기 ");
         write_istts(true);
 
@@ -127,8 +125,15 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
 
         Toast.makeText(this, "음성합성을 시작합니다.", Toast.LENGTH_SHORT).show();
 
-        String text = spot + " 주차장이에요. 현재 " + all + " 자리 중 " + remain + " 자리 남아있어요.";
-//        Log.d("testt", "tts 대상: " + text);
+        String text;
+        if ( remain.equals("0") ) {
+            /* 자리 없을 때 */
+            text = spot + " 주차장은 자리가 없어요.";
+        } else {
+            /* 자리 남아 있을 때 */
+            text = spot + " 주차장이에요. 현재 " + all + " 자리 중 " + remain + " 자리 남아있어요.";
+        }
+
         try {
             client.setSpeechText(text);
             client.play();

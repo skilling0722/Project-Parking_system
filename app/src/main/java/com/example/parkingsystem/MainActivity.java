@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
         /* 주차장 확인 */
         if ( prefs.getBoolean("check_style", true) ) {
             /* 지도 형식 */
-            Intent intent = new Intent(this, map_test2.class);
+            Intent intent = new Intent(this, parking_check_map.class);
             startActivity(intent);
         } else {
             /* 리스트 형식 */
