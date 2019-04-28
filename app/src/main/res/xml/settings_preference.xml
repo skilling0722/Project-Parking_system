@@ -34,7 +34,7 @@
             android:entries="@array/array_background"
             android:entryValues="@array/array_background"
             android:key="background_list"
-            android:summary="검은색"
+            android:summary="검은 색"
             android:title="배경색" />
     </PreferenceCategory>
 </PreferenceScreen>

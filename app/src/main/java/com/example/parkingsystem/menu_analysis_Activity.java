@@ -43,6 +43,7 @@ public class menu_analysis_Activity extends AppCompatActivity implements DatePic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Config_Activity.setBackground(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_analysis);
         ButterKnife.bind(this);

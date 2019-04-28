@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_car_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/blackTheme">
         <activity android:name=".newtontalk_test" />
         <activity android:name=".newton_test" />
         <activity android:name=".Config_Activity" />

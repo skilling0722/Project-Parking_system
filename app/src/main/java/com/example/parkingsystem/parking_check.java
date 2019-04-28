@@ -31,6 +31,7 @@ public class parking_check extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Config_Activity.setBackground(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_check);
         init_drawable();

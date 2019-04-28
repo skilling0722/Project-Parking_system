@@ -10,9 +10,9 @@
 
     <string-array name="array_background">
         <item>검은 색</item>
-        <item>흰 색</item>
+        <item>빨간 색</item>
         <item>연한 녹색</item>
-        <item>연한 파랑색</item>
+        <item>연한 파란색</item>
     </string-array>
 
     <string-array name="array_voice">

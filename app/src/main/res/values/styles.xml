@@ -1,16 +1,45 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
     </style>
 
     <!-- For Splash Screen -->
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+    <!-- 테마배경색(theme)변경을 위한 것 config -->
+    <style name="blackTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:colorBackground">@color/red</item>
+        <item name="colorPrimaryDark">@color/black</item>
+
+    </style>
+    <style name="redTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/red</item>
+        <item name="android:colorBackground">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+
+
+    </style>
+    <style name="greenTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/green</item>
+        <item name="android:colorBackground">@color/red</item>
+        <item name="colorPrimaryDark">@color/green</item>
+
+    </style>
+    <style name="blueTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/blue</item>
+        <item name="android:colorBackground">@color/red</item>
+        <item name="colorPrimaryDark">@color/blue</item>
+
     </style>
 
 </resources>

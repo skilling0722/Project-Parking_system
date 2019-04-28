@@ -41,6 +41,7 @@ public class Data_analysis extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Config_Activity.setBackground(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_analysis);
         ButterKnife.bind(this);

@@ -34,6 +34,7 @@ public class newton_test extends AppCompatActivity implements SpeechRecognizeLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Config_Activity.setBackground(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newton_test);
         ButterKnife.bind(this);

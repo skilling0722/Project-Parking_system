@@ -36,6 +36,7 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Config_Activity.setBackground(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spot_check);
         ButterKnife.bind(this);
