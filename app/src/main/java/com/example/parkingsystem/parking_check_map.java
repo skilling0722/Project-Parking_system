@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class map_test2 extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class parking_check_map extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest mLocationRequest;
@@ -61,7 +61,7 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_test2);
+        setContentView(R.layout.activity_parking_check_map);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapfragment);
@@ -135,18 +135,29 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
 //        mMap.addMarker(new MarkerOptions().position(location).title(spot));
 //    }
 
+    /*
+    마커 추가할 때 사용
+     */
     private Marker addMarker(custom_marker marker, boolean isSelected) {
         String title = marker.getSpot_name();
         LatLng location = new LatLng(marker.getLatitude(), marker.getLongitude());
 
         marker_title.setText(title);
 
-        if (isSelected) {
-            marker_title.setBackgroundResource(R.drawable.picked_marker);
-            marker_title.setTextColor(Color.RED);
+        if ( isfull(title.split("\n")[1]) ) {
+            /* 자리 없을 때 */
+            marker_title.setBackgroundResource(R.drawable.full_marker);
+            marker_title.setTextColor(Color.BLUE);
         } else {
-            marker_title.setBackgroundResource(R.drawable.unpicked_marker);
-            marker_title.setTextColor(Color.BLACK);
+            if (isSelected) {
+                /* 자리 있고 선택 됐을 때 */
+                marker_title.setBackgroundResource(R.drawable.picked_marker);
+                marker_title.setTextColor(Color.RED);
+            } else {
+                /* 자리 있고 선택되지 않았을 때 */
+                marker_title.setBackgroundResource(R.drawable.unpicked_marker);
+                marker_title.setTextColor(Color.BLACK);
+            }
         }
 
         markerOptions = new MarkerOptions();
@@ -157,6 +168,9 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
         return mMap.addMarker(markerOptions);
     }
 
+    /*
+    마커 배경 변경 어시스트할 때 사용
+     */
     private Marker addMarker(Marker marker, boolean isSelected) {
         double lat = marker.getPosition().latitude;
         double lon = marker.getPosition().longitude;
@@ -165,6 +179,9 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
         return addMarker(item, isSelected);
     }
 
+    /*
+    비트맵으로 변환
+     */
     private Bitmap create_Drawable_From_View(Context context, View view) {
         displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -211,6 +228,9 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
 //        });
 //    }
 
+    /*
+    위도, 경도, 전체 자리, 사용중 자리 구하기
+     */
     private void check_position_spots(final Callback_position callback, String spot) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("check").child(spot).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -246,6 +266,9 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
         });
     }
 
+    /*
+    현재 위치 값 얻는 콜백
+     */
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
@@ -286,6 +309,14 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
 //        Log.d("testt", "spare: " + spare);
         return true;
     }
+
+    /*
+    자리 있는지 확인
+     */
+    private boolean isfull(String spare) {
+        return spare.split(" / ")[0].equals(spare.split(" / ")[1]);
+    }
+
     /*
     마커 클릭시 배경 변경 어시스트
      */
@@ -301,11 +332,16 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
         }
     }
 
-
+    /*
+    콜백
+     */
     public interface Callback_position {
         void onCallback_position(int remaining_count, int all_count, String position);
     }
 
+    /*
+    지도 사용 완료되면 호출
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -314,6 +350,9 @@ public class map_test2 extends FragmentActivity implements OnMapReadyCallback, G
         mMap.setOnMarkerClickListener(this);
         setCustomMarker();
 
+        /*
+        2분마다 위치 요청
+         */
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(120000); // two minute interval
         mLocationRequest.setFastestInterval(120000);
