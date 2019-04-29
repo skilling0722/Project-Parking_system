@@ -15,6 +15,7 @@ public class DB_test extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Config_Activity.setBackground(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_test);
         ButterKnife.bind(this);

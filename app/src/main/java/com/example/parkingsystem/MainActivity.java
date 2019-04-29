@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements speech_recognition_service.ServiceCallbacks {
+public class MainActivity extends BaseActivity implements speech_recognition_service.ServiceCallbacks {
     @BindView(R.id.button1) Button btn1;
     @BindView(R.id.button2) Button btn2;
     @BindView(R.id.button3) Button btn3;
@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Config_Activity.setBackground(this);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -276,6 +278,15 @@ public class MainActivity extends AppCompatActivity implements speech_recognitio
         else {
             Log.d("testt", "음성 인식에 해당되는 것 없음");
         }
+    }
+    /* onCreate()후에 재실행될때마다 실행된다. */
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        super.onRestart();
+        // put your code here...
+        System.out.println("hello world");
+        this.recreate();
     }
 
 //    key 얻기

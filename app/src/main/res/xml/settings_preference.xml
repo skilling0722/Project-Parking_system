@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 환경설정 화면에서 레이아웃을 나타낸다. -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="메시지 알림">
+    <PreferenceCategory android:title="설정">
         <SwitchPreference
             android:key="message"
             android:title="메시지 알림" />
@@ -36,7 +36,7 @@
             android:entries="@array/array_background"
             android:entryValues="@array/array_background"
             android:key="background_list"
-            android:summary="검은색"
+            android:summary="검은 색"
             android:title="배경색" />
     </PreferenceCategory>
 </PreferenceScreen>

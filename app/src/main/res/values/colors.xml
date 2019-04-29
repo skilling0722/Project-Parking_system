@@ -10,4 +10,10 @@
     <color name="three">#ECF0F1</color>
     <color name="four">#3498DB</color>
     <color name="five">#2980B9</color>
+
+    <!-- 테마 배경색 바꾸기 -->
+    <color name="black">#000000</color>
+    <color name="red">#EC4646</color>
+    <color name="green">#008577</color>
+    <color name="blue">#2980B9</color>
 </resources>
