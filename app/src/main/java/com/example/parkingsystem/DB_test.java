@@ -31,9 +31,9 @@ public class DB_test extends AppCompatActivity {
         Firebase_assist firebase_assist = new Firebase_assist();
         assistant random = new assistant();
         for (int i = 0; i< 30; i++) {
-            String str = random.generate_random_str();
-            boolean bool = random.generate_random_boolean();
-            int num = random.generate_random_time();
+            String str = random.generate_random_str();              //주차장 랜덤 생성
+            boolean bool = random.generate_random_boolean();        //사용여부 랜덤 생성
+            int num = random.generate_random_time();                //주차면 랜덤 생성
 
             try {
                 firebase_assist.writeDB_for_check("check", str, Integer.toString(num), bool);
@@ -93,5 +93,6 @@ public class DB_test extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+         fire_assistant.writeDB_position_for_check("check", "55호관", "35.241453,128.695744");
     }
 }
