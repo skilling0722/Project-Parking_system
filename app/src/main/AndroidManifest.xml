@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_car_round"
         android:supportsRtl="true"
         android:theme="@style/blackTheme">
+        <activity android:name=".BaseActivity"></activity>
         <activity android:name=".newtontalk_test" />
         <activity android:name=".newton_test" />
         <activity android:name=".Config_Activity" />
@@ -39,8 +40,7 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="d7f0b8fd3ac967ac4d0d6cfe64c9ee9a" />
 
-        <service android:name=".speech_recognition_service"></service>
-
+        <service android:name=".speech_recognition_service" />
     </application>
 
 </manifest>

@@ -33,7 +33,7 @@ import butterknife.OnClick;
 
 //import static com.kakao.util.helper.Utility.getPackageInfo;
 
-public class MainActivity extends AppCompatActivity implements speech_recognition_service.ServiceCallbacks {
+public class MainActivity extends BaseActivity implements speech_recognition_service.ServiceCallbacks {
 
     private static final int REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE = 0;
     private speech_recognition_service srs_service;
