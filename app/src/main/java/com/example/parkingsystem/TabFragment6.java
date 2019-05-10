@@ -72,55 +72,8 @@ public class TabFragment6 extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tab_fragment1, container, false);
-        ButterKnife.bind(this, view);
-        show_loading();
-        /**/
-        Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
-
-        /* from A to B 안맞으면 B, A서로 바까주는 것 */
-        Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
-        /* yymmdd ~ yymmdd 텍스트표시 */
-        tv_title.setText(date_arr[0]/10000 + " ~ " + date_arr[1]/10000+ " 위치별 분석");
-
-        try {
-            /* assistant인스턴스의 메소드 불러온다. */
-            analysis_assistant.month_usage_analysis(new Data_analysis_assistant.Callback_month_usage() {
-                @Override
-                public void onCallback_month_usage(HashMap<Integer, Integer> map) {
-                    ArrayList<Entry> yData = new ArrayList<>();
-
-                    TreeMap<Integer, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
-                    Iterator<Integer> iterator_key = for_sort.keySet().iterator(); //키값 기준 오름차순 정렬
-
-                    try {
-                        for (Integer key : map.keySet()) {
-//                            Log.d("testt", "가져온 month_map: " + key + "  " + map.get(key));
-                            yData.add(new Entry(key, map.get(key)));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("testt", "input data to chart from map fail");
-                    }
-
-                    try {
-                        Draw_chart line_chart = new Draw_chart();
-                        line_chart.setLineData(yData);
-                        line_chart.setLinechart(month_usage_chart);
-                        line_chart.Draw_linechart();
-                        hide_loading();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("testt", "draw fail");
-                    }
-                }
-            }, spot, Integer.parseInt(start_date), Integer.parseInt(end_date));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("testt", "month_usage_analysis fail");
-        }
-
-        return view;
+        View view = inflater.inflate(R.layout.fragment_tab_fragment6, container, false);
+               return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
