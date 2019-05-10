@@ -283,7 +283,6 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
     @Override
     public void onRestart(){
         super.onRestart();
-        super.onRestart();
         // put your code here...
         System.out.println("hello world");
         this.recreate();
