@@ -10,18 +10,12 @@ import java.util.List;
 
 /*flagment Array*/
 class FragmentInfo {
-    private int iconResId;
     private String text;
     private Fragment fragment;
 
-    public FragmentInfo(int iconResId, String text, Fragment fragment) {
-        this.iconResId = iconResId;
+    public FragmentInfo(String text, Fragment fragment) {
         this.text = text;
         this.fragment = fragment;
-    }
-
-    public int getIconResId() {
-        return iconResId;
     }
 
     public String getTitleText() {
@@ -45,8 +39,8 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     public FragmentInfo getFragmentInfo(int position){
         return FragmentInfoArr.get(position);
     }
-    public void add(int iconId, String title, Fragment fragment){
-        FragmentInfo tmp = new FragmentInfo(iconId, title, fragment);
+    public void add(String title, Fragment fragment){
+        FragmentInfo tmp = new FragmentInfo(title, fragment);
         FragmentInfoArr.add(tmp);
     }
     @Override

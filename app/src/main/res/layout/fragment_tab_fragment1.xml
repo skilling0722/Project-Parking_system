@@ -6,28 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".TabFragment1">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="392dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
-
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/month_usage_chart"
-            android:layout_width="match_parent"
-            android:layout_height="400dp" />
-
-        <TextView
-            android:id="@+id/title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:minHeight="15dp"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:text="" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/month_usage_chart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:minHeight="15dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

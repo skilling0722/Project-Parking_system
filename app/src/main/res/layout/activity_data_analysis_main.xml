@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".Data_analysis_Activity">
 
     <TextView
@@ -30,8 +31,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-
-        tools:ignore="MissingConstraints">
+        app:tabMode = "scrollable"
+        app:tabGravity="fill"
+        app:tabMaxWidth="0dp">
 
     </android.support.design.widget.TabLayout>
 
@@ -49,6 +51,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabs"
-        tools:ignore="MissingConstraints"></android.support.v4.view.ViewPager>
+        tools:ignore="MissingConstraints">
+
+    </android.support.v4.view.ViewPager>
 
 </android.support.constraint.ConstraintLayout>
