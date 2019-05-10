@@ -60,8 +60,9 @@ public class DB_test extends AppCompatActivity {
             String str = random.generate_random_str();
             HashMap<String, Integer> Date = random.get_day();
             boolean bool = random.generate_random_boolean();
+
             try {
-                fire_assistant.writeDB_for_analysis("analysis", str, Date.get("date"), Date.get("time"), bool);
+                fire_assistant.writeDB_for_analysis("analysis", str, Date.get("date"), Date.get("time"), bool, null, null);
             } catch (Exception e) {
                 e.printStackTrace();
             }

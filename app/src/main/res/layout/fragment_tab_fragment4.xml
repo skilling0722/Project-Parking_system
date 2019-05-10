@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".TabFragment3">
 
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="362dp"
+        android:layout_height="386dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,76 +22,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="395dp"
-                android:layout_height="239dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.086">
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/piechart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="148dp"
-                    android:layout_height="75dp"
-                    android:text="dfadfaasdf" />
-            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:minHeight="15dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="20dp" />
 
-            <android.support.v7.widget.CardView
-                android:layout_width="395dp"
-                android:layout_height="239dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.086">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="148dp"
-                    android:layout_height="75dp"
-                    android:text="dfadfaasdf" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="395dp"
-                android:layout_height="239dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.086">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="148dp"
-                    android:layout_height="75dp"
-                    android:text="dfadfaasdf" />
-
-            </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
+
 
 </android.support.constraint.ConstraintLayout>

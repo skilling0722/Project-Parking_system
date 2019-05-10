@@ -211,4 +211,51 @@ public class Data_analysis_assistant {
     public interface Callback_week_usage {
         void onCallback_week_usage(HashMap<Integer, Integer> map);
     }
+
+    /* 날씨별 분석 */
+    public HashMap<Integer, Integer> init_weather_count_map() {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for ( int i = 1; i <= 7; i ++) {
+            map.put(i, 0);
+        }
+        return map;
+    }
+
+    public void weather_usage_analysis(final Callback_weather_usage callback, String spot, Integer start_date, Integer end_date) {
+        /*날짜 정렬*/
+        Integer[] date_arr = date_swap(start_date, end_date);
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        /*해당되는 기간의 모든 날씨 */
+        mDatabase.child("analysis").child(spot).orderByChild("date").startAt(date_arr[0]).endAt(date_arr[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<Integer, Integer> weather_count = null;
+                assistant assistant = new assistant();
+                try {
+                    weather_count = init_weather_count_map();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Data_for_analysis data = snapshot.getValue(Data_for_analysis.class);
+//                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse());
+                        if ( data.isUse() ) {
+                            int day_of_week = assistant.get_dayofweek(Integer.toString(data.getDate()));
+//                          Log.d("testt", "변환 요일   "+day_of_week);
+                            weather_count.put(day_of_week, weather_count.get(day_of_week) + 1);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("testt", "week_usage_analysis get DB fail");
+                }
+                callback.onCallback_weather_usage(weather_count);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public interface Callback_weather_usage {
+        void onCallback_weather_usage(HashMap<Integer, Integer> map);
+    }
 }

@@ -5,6 +5,7 @@ package com.example.parkingsystem;
  */
 
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -27,7 +35,7 @@ import butterknife.ButterKnife;
 
 
 public class TabFragment4 extends BaseFragment {
-    @BindView(R.id.month_usage_chart) LineChart month_usage_chart;
+    @BindView(R.id.piechart) PieChart pieChart;
     @BindView(R.id.title) TextView tv_title;
     private OnFragmentInteractionListener mListener;
     private String spot;
@@ -73,7 +81,16 @@ public class TabFragment4 extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_fragment4, container, false);
-        /**/
+        /* xml 변수 가져와 바인딩 */
+        ButterKnife.bind(this, view);
+        /* 오잉? */
+        Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
+        Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
+        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 요일별 분석");
+
+        this.draw_pie();
+
+
         return view;
     }
 
@@ -97,5 +114,44 @@ public class TabFragment4 extends BaseFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void draw_pie(){
+        pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(5,10,5,5);
+
+        pieChart.setDragDecelerationFrictionCoef(0.95f);
+
+        pieChart.setDrawHoleEnabled(false);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(61f);
+
+        ArrayList<PieEntry> yValues = new ArrayList<PieEntry>();
+
+        yValues.add(new PieEntry(34f,"Japen"));
+        yValues.add(new PieEntry(23f,"USA"));
+        yValues.add(new PieEntry(14f,"UK"));
+        yValues.add(new PieEntry(35f,"India"));
+        yValues.add(new PieEntry(40f,"Russia"));
+        yValues.add(new PieEntry(40f,"Korea"));
+
+        Description description = new Description();
+        description.setText("세계 국가"); //라벨
+        description.setTextSize(15);
+        pieChart.setDescription(description);
+
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic); //애니메이션
+
+        PieDataSet dataSet = new PieDataSet(yValues,"Countries");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+
+        PieData data = new PieData((dataSet));
+        data.setValueTextSize(10f);
+        data.setValueTextColor(Color.YELLOW);
+
+        pieChart.setData(data);
     }
 }
