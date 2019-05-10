@@ -120,7 +120,7 @@ public class SettingPreferenceFragment extends PreferenceFragment {
                 }
             }
 
-            //소리(sound) 이벤트 처리
+            //주차 공간 확인 스타일 설정
             if(key.equals("check_style")){
                 if(prefs.getBoolean("check_style",true)){
                     Toast.makeText(getActivity(), "지도 형식으로 변경되었습니다.", Toast.LENGTH_SHORT).show();

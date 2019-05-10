@@ -10,7 +10,9 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/*
+데이터베이스에 샘플 데이터 생성용 클래스
+ */
 public class DB_test extends AppCompatActivity {
 
     @Override

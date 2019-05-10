@@ -6,7 +6,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatDialog;
 import android.widget.ImageView;
-
+/*
+로딩-프래그먼트에 사용할
+ */
 public class BaseFragment extends Fragment {
     private AppCompatDialog loading_dialog;
 

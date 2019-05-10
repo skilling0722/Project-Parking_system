@@ -11,12 +11,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+        <TextView
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:text=""
+            android:background="#FFFFFF"/>
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/month_usage_chart"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:text=""
+            android:background="#FFFFFF"/>
 
         <TextView
             android:id="@+id/title"

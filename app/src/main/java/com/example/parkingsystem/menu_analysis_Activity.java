@@ -24,7 +24,9 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/*
+분석 설정 액티비티
+ */
 public class menu_analysis_Activity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
     @BindView(R.id.menu_analysis_title) TextView tv_menu_analysis_title;

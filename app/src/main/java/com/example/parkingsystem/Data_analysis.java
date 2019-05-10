@@ -31,7 +31,9 @@ import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/*
+분석 테스트 액티비티
+ */
 public class Data_analysis extends AppCompatActivity {
     @BindView(R.id.month_usage_chart) LineChart month_usage_chart;
     @BindView(R.id.day_usage_chart) PieChart day_usage_chart;

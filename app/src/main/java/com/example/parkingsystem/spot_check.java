@@ -26,7 +26,9 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/*
+주차장별 공간 확인 클래스
+ */
 public class spot_check extends AppCompatActivity implements TextToSpeechListener {
     @BindView(R.id.recycler_view) RecyclerView recycler_view;
     @BindView(R.id.spot_check_name) TextView spot_check_name;

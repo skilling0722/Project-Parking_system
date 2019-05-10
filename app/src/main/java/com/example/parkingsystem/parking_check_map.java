@@ -44,7 +44,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+/*
+주차 공간 확인 지도형 클래스
+ */
 public class parking_check_map extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;

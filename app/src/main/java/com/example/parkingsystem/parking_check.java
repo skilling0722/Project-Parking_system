@@ -21,7 +21,9 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/*
+주차 공간 확인 리스트형 클래스
+ */
 public class parking_check extends BaseActivity {
     private listview_adapter adapter;
     private int[] images;

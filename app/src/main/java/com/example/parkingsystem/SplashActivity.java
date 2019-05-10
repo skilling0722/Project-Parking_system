@@ -3,7 +3,9 @@ package com.example.parkingsystem;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+/*
+어플리케이션 시작시 로딩화면
+ */
 public class SplashActivity extends AppCompatActivity {
 
     @Override

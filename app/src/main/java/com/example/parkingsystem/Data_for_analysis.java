@@ -1,5 +1,7 @@
 package com.example.parkingsystem;
-
+/*
+분석용 데이터 클래스
+ */
 public class Data_for_analysis {
     private int date;
     private int time;

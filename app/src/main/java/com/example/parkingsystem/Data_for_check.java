@@ -1,7 +1,9 @@
 package com.example.parkingsystem;
 
 import java.util.HashMap;
-
+/*
+확인용 데이터 클래스
+ */
 public class Data_for_check {
     private boolean use;
 

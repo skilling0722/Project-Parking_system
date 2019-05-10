@@ -3,6 +3,7 @@ package com.example.parkingsystem;
 /*
     각 액티비티에 공통적으로 적용이 되도록 하는 베이스 엑티비티를 생성한다.
     소리설정
+    로딩-액티비티에 사용할
 * */
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -11,13 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
 import android.widget.ImageView;
 /* 설정 미디어로 되게 */
-import android.os.Bundle;
 import android.media.AudioManager;
 import android.view.KeyEvent;
 
 public class BaseActivity extends AppCompatActivity {
     private AppCompatDialog loading_dialog;
-
     public void show_loading() {
         if (loading_dialog == null) {
 //            Log.d("testt", "create loading_dialog");

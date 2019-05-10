@@ -100,11 +100,11 @@ public class TabFragment1 extends BaseFragment {
                     }
 
                     try {
+                        hide_loading();
                         Draw_chart line_chart = new Draw_chart();
                         line_chart.setLineData(yData);
                         line_chart.setLinechart(month_usage_chart);
                         line_chart.Draw_linechart();
-                        hide_loading();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "draw fail");

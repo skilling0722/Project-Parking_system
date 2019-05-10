@@ -16,6 +16,7 @@ import com.kakao.sdk.newtoneapi.SpeechRecognizerClient;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
 import java.util.ArrayList;
 /*
+음성 인식 - 서비스화
 카카오 음성 인식 API 서버 소켓의 대기시간은 5분임.
 그러므로 5분 이상 음성 인식을 사용하지 않으면 더이상 서버측 소켓이 응답을 안함.
  */

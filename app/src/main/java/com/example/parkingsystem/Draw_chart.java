@@ -220,7 +220,9 @@ public class Draw_chart {
         data.setValueTextSize(13f);
         data.setValueFormatter(new DefaultValueFormatter(0));
         horizontalbarchart.setData(data);
+        horizontalbarchart.setFitBars(false);
         horizontalbarchart.notifyDataSetChanged();
+        horizontalbarchart.animateXY(1000,1000);
         horizontalbarchart.invalidate();
     }
 

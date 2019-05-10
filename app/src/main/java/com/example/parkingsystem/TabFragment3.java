@@ -65,7 +65,7 @@ public class TabFragment3 extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_fragment3, container, false);
         ButterKnife.bind(this, view);
-
+        show_loading();
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
 
@@ -93,6 +93,7 @@ public class TabFragment3 extends BaseFragment {
                     }
 
                     try {
+                        hide_loading();
                         Draw_chart horizontalbar_chart = new Draw_chart();
                         horizontalbar_chart.setBarData(barData);
                         horizontalbar_chart.setHorizontalbarchart(week_usage_horizontalbarchart);

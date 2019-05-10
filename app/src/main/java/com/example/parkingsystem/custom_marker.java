@@ -1,5 +1,7 @@
 package com.example.parkingsystem;
-
+/*
+커스텀 마커 클래스
+ */
 public class custom_marker {
     double latitude;
     double longitude;

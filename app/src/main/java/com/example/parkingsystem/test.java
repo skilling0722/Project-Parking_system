@@ -26,7 +26,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/*
+차트 그리기 테스트
+ */
 public class test extends AppCompatActivity {
     @BindView(R.id.chart1) LineChart linechart;
     @BindView(R.id.chart2) LineChart linechart2;

@@ -61,7 +61,7 @@ public class TabFragment2 extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
         ButterKnife.bind(this, view);
-
+        show_loading();
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
         tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 시간대별 분석");
@@ -87,6 +87,7 @@ public class TabFragment2 extends BaseFragment {
                     }
 
                     try {
+                        hide_loading();
                         Draw_chart bar_chart = new Draw_chart();
                         bar_chart.setBarData(barData);
                         bar_chart.setBarChart(day_usage_barchart);

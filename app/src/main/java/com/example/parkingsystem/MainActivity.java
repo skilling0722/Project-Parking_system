@@ -12,11 +12,11 @@ import android.os.IBinder;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
+
 import java.util.HashMap;
 
 
@@ -184,12 +184,14 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
                 srs_service = srs_binder.getService();
                 isService = true;
                 srs_service.setCallbacks(MainActivity.this);
+                Log.d("testt", "서비스 연결성공");
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 srs_service = null;
                 isService = false;
+                Log.d("testt", "서비스 연결종료");
             }
         };
     }
@@ -199,9 +201,14 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
      */
     private void start_service() {
         try {
-            Intent intent = new Intent(MainActivity.this, speech_recognition_service.class);
-            bindService(intent, conn, Context.BIND_AUTO_CREATE);
-            Log.d("testt", "start_service");
+            Log.d("testt", "isService: " + isService);
+            if (!isService) {
+                Intent intent = new Intent(MainActivity.this, speech_recognition_service.class);
+                bindService(intent, conn, Context.BIND_AUTO_CREATE);
+                Log.d("testt", "start_service");
+            } else {
+                Log.d("testt", "이미 서비스 중");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("testt", "start_service error: " + e);
@@ -283,9 +290,7 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
     @Override
     public void onRestart(){
         super.onRestart();
-        super.onRestart();
         // put your code here...
-        System.out.println("hello world");
         this.recreate();
     }
 
