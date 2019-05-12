@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 
 
 public class TabFragment4 extends BaseFragment {
-    @BindView(R.id.piechart) PieChart pieChart;
+    @BindView(R.id.piechart) PieChart piechart;
     @BindView(R.id.title) TextView tv_title;
     private OnFragmentInteractionListener mListener;
     private String spot;
@@ -86,10 +86,47 @@ public class TabFragment4 extends BaseFragment {
         /* 오잉? */
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
-        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 요일별 분석");
+        tv_title.setText(date_arr[0] + " ~ " + date_arr[1]);
 
-        this.draw_pie();
 
+
+        try {
+            analysis_assistant.weather_usage_analysis(new Data_analysis_assistant.Callback_weather_usage() {
+                @Override
+                public void onCallback_weather_usage(HashMap<String, Integer> map) {
+//                    Log.d("testt", "날짜별 분석 시작");
+                    ArrayList<PieEntry> pieData = new ArrayList<PieEntry>();
+
+                    //TreeMap<String, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
+                    //Iterator<Integer> iterator_key = for_sort.keySet().iterator(); //키값 기준 오름차순 정렬
+
+                    try {
+                        for (String key : map.keySet()) {
+//                            Log.d("testt", "가져온 week_map: " + key + "   " + map.get(key));
+                            if(map.get(key) >0){
+                                pieData.add(new PieEntry((float)(map.get(key)), key));   // 값, 라벨
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("testt", "input data to chart from map fail");
+                    }
+
+                    try {
+                        Draw_chart pi_chart = new Draw_chart();
+                        pi_chart.setPieData(pieData);
+                        pi_chart.setPieChart(piechart);
+                        pi_chart.Draw_piechart();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("testt", "draw fail");
+                    }
+                }
+            }, spot, Integer.parseInt(start_date), Integer.parseInt(end_date));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("testt", "weather_usage_analysis fail");
+        }
 
         return view;
     }
@@ -114,44 +151,5 @@ public class TabFragment4 extends BaseFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void draw_pie(){
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5,10,5,5);
-
-        pieChart.setDragDecelerationFrictionCoef(0.95f);
-
-        pieChart.setDrawHoleEnabled(false);
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(61f);
-
-        ArrayList<PieEntry> yValues = new ArrayList<PieEntry>();
-
-        yValues.add(new PieEntry(34f,"Japen"));
-        yValues.add(new PieEntry(23f,"USA"));
-        yValues.add(new PieEntry(14f,"UK"));
-        yValues.add(new PieEntry(35f,"India"));
-        yValues.add(new PieEntry(40f,"Russia"));
-        yValues.add(new PieEntry(40f,"Korea"));
-
-        Description description = new Description();
-        description.setText("세계 국가"); //라벨
-        description.setTextSize(15);
-        pieChart.setDescription(description);
-
-        pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic); //애니메이션
-
-        PieDataSet dataSet = new PieDataSet(yValues,"Countries");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-        PieData data = new PieData((dataSet));
-        data.setValueTextSize(10f);
-        data.setValueTextColor(Color.YELLOW);
-
-        pieChart.setData(data);
     }
 }

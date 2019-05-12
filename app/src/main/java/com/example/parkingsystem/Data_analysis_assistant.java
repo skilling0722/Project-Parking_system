@@ -212,11 +212,15 @@ public class Data_analysis_assistant {
         void onCallback_week_usage(HashMap<Integer, Integer> map);
     }
 
-    /* 날씨별 분석 */
-    public HashMap<Integer, Integer> init_weather_count_map() {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for ( int i = 1; i <= 7; i ++) {
-            map.put(i, 0);
+    /****************
+        날씨별 분석
+    ****************/
+    public HashMap<String, Integer> init_weather_count_map() {
+        HashMap<String, Integer> map = new HashMap<>();
+        String weatherName[] = {"Clear", "Clouds", "Thunderstorm", "Drizzle", "Rain", "Snow", "Mist", "Smoke", "Haze", "Fog", "Sand", "Dust", "Ash", "Squall", "Tornado"};
+
+        for(String name: weatherName){
+            map.put(name, 0);
         }
         return map;
     }
@@ -230,22 +234,29 @@ public class Data_analysis_assistant {
         mDatabase.child("analysis").child(spot).orderByChild("date").startAt(date_arr[0]).endAt(date_arr[1]).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<Integer, Integer> weather_count = null;
-                assistant assistant = new assistant();
+                HashMap<String, Integer> weather_count = null;
+
                 try {
                     weather_count = init_weather_count_map();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Data_for_analysis data = snapshot.getValue(Data_for_analysis.class);
-//                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse());
+                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse() + ","+ data.getWeather());
+                        /* isuse 이라면 */
                         if ( data.isUse() ) {
-                            int day_of_week = assistant.get_dayofweek(Integer.toString(data.getDate()));
-//                          Log.d("testt", "변환 요일   "+day_of_week);
-                            weather_count.put(day_of_week, weather_count.get(day_of_week) + 1);
+                            String nowWeather = data.getWeather();
+                            Log.d("testt", "nowWeather(현재날씨)"+nowWeather);
+                            /* hashmap에 key가 있는지 없는지 확인 */
+                            if (weather_count.containsKey(nowWeather)){
+                                int num = weather_count.get(nowWeather);
+                                weather_count.put(nowWeather, num + 1);
+                            } else{
+                               weather_count.put(nowWeather, 1);
+                            }
                         }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d("testt", "week_usage_analysis get DB fail");
+                    Log.d("testt", "weather_usage_analysis get DB fail");
                 }
                 callback.onCallback_weather_usage(weather_count);
             }
@@ -256,6 +267,6 @@ public class Data_analysis_assistant {
         });
     }
     public interface Callback_weather_usage {
-        void onCallback_weather_usage(HashMap<Integer, Integer> map);
+        void onCallback_weather_usage(HashMap<String, Integer> map);
     }
 }
