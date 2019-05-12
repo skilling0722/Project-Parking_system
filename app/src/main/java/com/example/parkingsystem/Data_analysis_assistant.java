@@ -269,4 +269,82 @@ public class Data_analysis_assistant {
     public interface Callback_weather_usage {
         void onCallback_weather_usage(HashMap<String, Integer> map);
     }
+
+    /****************
+     주차면별 분석(Parking surface analysis
+     ****************/
+    public HashMap<String, Integer> init_surface_count_map() {
+        HashMap<String, Integer> map = new HashMap<>();
+        //['normal', 'disabled', 'women', 'smallCar', 'employee']
+        String surfaceName[] = {"normal","disabled","women", "smallCar", "employee"};
+        for(String name: surfaceName){
+            map.put(name, 0);
+        }
+        return map;
+    }
+
+    public void surface_usage_analysis(final Callback_surface_usage callback, String spot, Integer start_date, Integer end_date) {
+        /*날짜 정렬*/
+        Integer[] date_arr = date_swap(start_date, end_date);
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        /*해당되는 기간의 모든 날씨 */
+        mDatabase.child("analysis").child(spot).orderByChild("date").startAt(date_arr[0]).endAt(date_arr[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, Integer> surface_count = null;
+                HashMap<String, Integer> total_count = null;
+                HashMap<String, Integer> result_count = null;
+
+                try {
+                    surface_count = init_surface_count_map();
+                    total_count = init_surface_count_map();
+                    result_count = init_surface_count_map();
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Data_for_analysis data = snapshot.getValue(Data_for_analysis.class);
+                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse() + ","+ data.getType());
+                        /* Type 가져오기 */
+                        String nowSurface=  data.getType();
+                        Log.d("testt", "nowSurface(가져온 주차면종류)"+nowSurface);
+
+                        /* hashmap에 key가 있는지 없는지 확인 */
+                        if(!surface_count.containsKey(nowSurface)){
+                            surface_count.put(nowSurface, 0);
+                            total_count.put(nowSurface, 0);
+                        }
+                        /* 전체 사용률을 위해 분모 값 더하기*/
+                        int cnt = total_count.get(nowSurface);
+                        total_count.put(nowSurface, cnt + 1);
+                        /* using == True이면 값 더하기 */
+                        if ( data.isUse() ) {
+                            int num = surface_count.get(nowSurface);
+                            surface_count.put(nowSurface, num + 1);
+                        }
+                    }// end for
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("testt", "Parking surface_usage_analysis get DB fail");
+                }
+                /* (using/total)*100 으로 사용률 계산하기
+                * surface_count/total_count
+                * */
+                int tmp;
+                for(String key: total_count.keySet()){
+                    if (total_count.get(key) == 0) continue;
+                    tmp = (surface_count.get(key)*100)/total_count.get(key);
+                    result_count.put(key, tmp);
+                    Log.d("testt", "계산된 값"+surface_count.get(key)+"/"+total_count.get(key) + "= " + tmp);
+                }
+                callback.onCallback_surface_usage(result_count);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public interface Callback_surface_usage {
+        void onCallback_surface_usage(HashMap<String, Integer> map);
+    }
 }

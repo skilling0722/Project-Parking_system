@@ -116,7 +116,7 @@ public class TabFragment4 extends BaseFragment {
                         Draw_chart pi_chart = new Draw_chart();
                         pi_chart.setPieData(pieData);
                         pi_chart.setPieChart(piechart);
-                        pi_chart.Draw_piechart();
+                        pi_chart.Draw_piechart("날씨별 이용수", "날씨");
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "draw fail");

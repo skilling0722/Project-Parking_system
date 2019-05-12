@@ -145,7 +145,7 @@ public class Data_analysis extends AppCompatActivity {
                         Draw_chart pie_chart = new Draw_chart();
                         pie_chart.setPieData(pieData);
                         pie_chart.setPieChart(day_usage_chart);
-                        pie_chart.Draw_piechart();
+                        pie_chart.Draw_piechart("예시", "예시");
 
                         Draw_chart line_chart = new Draw_chart();
                         line_chart.setLineData(Data);
