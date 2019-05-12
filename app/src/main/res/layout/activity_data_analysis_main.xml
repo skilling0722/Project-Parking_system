@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".Data_analysis_Activity">
 
     <TextView
@@ -20,7 +21,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="80dp"
@@ -30,8 +31,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-
-        tools:ignore="MissingConstraints">
+        app:tabGravity="fill"
+        app:tabMaxWidth="0dp"
+        app:tabMode="scrollable">
 
     </android.support.design.widget.TabLayout>
 
@@ -42,13 +44,14 @@
         android:layout_below="@+id/tabs"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabs"
-        tools:ignore="MissingConstraints"></android.support.v4.view.ViewPager>
+        tools:ignore="MissingConstraints">
+
+    </android.support.v4.view.ViewPager>
 
 </android.support.constraint.ConstraintLayout>

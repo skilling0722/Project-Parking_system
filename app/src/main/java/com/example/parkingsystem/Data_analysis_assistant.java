@@ -211,4 +211,62 @@ public class Data_analysis_assistant {
     public interface Callback_week_usage {
         void onCallback_week_usage(HashMap<Integer, Integer> map);
     }
+
+    /****************
+        날씨별 분석
+    ****************/
+    public HashMap<String, Integer> init_weather_count_map() {
+        HashMap<String, Integer> map = new HashMap<>();
+        String weatherName[] = {"Clear", "Clouds", "Thunderstorm", "Drizzle", "Rain", "Snow", "Mist", "Smoke", "Haze", "Fog", "Sand", "Dust", "Ash", "Squall", "Tornado"};
+
+        for(String name: weatherName){
+            map.put(name, 0);
+        }
+        return map;
+    }
+
+    public void weather_usage_analysis(final Callback_weather_usage callback, String spot, Integer start_date, Integer end_date) {
+        /*날짜 정렬*/
+        Integer[] date_arr = date_swap(start_date, end_date);
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        /*해당되는 기간의 모든 날씨 */
+        mDatabase.child("analysis").child(spot).orderByChild("date").startAt(date_arr[0]).endAt(date_arr[1]).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String, Integer> weather_count = null;
+
+                try {
+                    weather_count = init_weather_count_map();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Data_for_analysis data = snapshot.getValue(Data_for_analysis.class);
+                        Log.d("testt", "extract data: " + data.getDate() + ", " + data.getTime() + ", "+data.isUse() + ","+ data.getWeather());
+                        /* isuse 이라면 */
+                        if ( data.isUse() ) {
+                            String nowWeather = data.getWeather();
+                            Log.d("testt", "nowWeather(현재날씨)"+nowWeather);
+                            /* hashmap에 key가 있는지 없는지 확인 */
+                            if (weather_count.containsKey(nowWeather)){
+                                int num = weather_count.get(nowWeather);
+                                weather_count.put(nowWeather, num + 1);
+                            } else{
+                               weather_count.put(nowWeather, 1);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("testt", "weather_usage_analysis get DB fail");
+                }
+                callback.onCallback_weather_usage(weather_count);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public interface Callback_weather_usage {
+        void onCallback_weather_usage(HashMap<String, Integer> map);
+    }
 }

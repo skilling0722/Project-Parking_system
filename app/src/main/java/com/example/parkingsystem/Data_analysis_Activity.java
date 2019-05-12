@@ -1,6 +1,7 @@
 package com.example.parkingsystem;
 /*
-분석 결과  액티비티
+분석 결과에 관한 activity
+Tab관련 파일들 관렫됌(TabFramgent1~3, TabPagerAdapter.java
 * */
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -39,9 +40,12 @@ public class Data_analysis_Activity extends AppCompatActivity {
         //TabPagerAdapter setting -> TabFragement1,2,3 등록
         TabPagerAdapter adapter =  new TabPagerAdapter(getSupportFragmentManager());
         //탭레이아웃에 추가 3번째param에 1은 값넘기는 것.
-        adapter.add(R.drawable.ic_launcher, "월별", TabFragment1.newInstance(spot, start_date, end_date));
-        adapter.add(R.drawable.ic_launcher, "시간대별", TabFragment2.newInstance(spot, start_date, end_date));
-        adapter.add(R.drawable.ic_launcher, "요일별", TabFragment3.newInstance(spot, start_date, end_date));
+        adapter.add("월별", TabFragment1.newInstance(spot, start_date, end_date));
+        adapter.add("시간대별", TabFragment2.newInstance(spot, start_date, end_date));
+        adapter.add("요일별", TabFragment3.newInstance(spot, start_date, end_date));
+        adapter.add("날씨별", TabFragment4.newInstance(spot, start_date, end_date));
+        adapter.add("주차별", TabFragment5.newInstance(spot, start_date, end_date));
+        adapter.add("위치별", TabFragment6.newInstance(spot, start_date, end_date));
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
@@ -49,10 +53,6 @@ public class Data_analysis_Activity extends AppCompatActivity {
         TabLayout viewPagerTab = (TabLayout) findViewById(R.id.tabs);
         viewPagerTab.setupWithViewPager(viewPager);
 
-        for (int i = 0; i < viewPager.getAdapter().getCount(); i++) {
-            //아이콘 가져와서 고정시킨다.
-            viewPagerTab.getTabAt(i).setIcon(adapter.getFragmentInfo(i).getIconResId());
-        }
     }
 
     private void inittv(String spot) {

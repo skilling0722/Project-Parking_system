@@ -80,7 +80,7 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
         }, spot);
     }
 
-    private void init_voicelist() {
+        private void init_voicelist() {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         voice_map = new HashMap<>();
         voice_map.put("남성 차분한 낭독체", TextToSpeechClient.VOICE_MAN_READ_CALM);

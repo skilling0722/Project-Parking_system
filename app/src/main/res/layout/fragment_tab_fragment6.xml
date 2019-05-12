@@ -4,35 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TabFragment2">
+    tools:context=".TabFragment3">
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="379dp"
+        android:layout_height="386dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/line1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:text=""
-            android:background="#FFFFFF"/>
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/day_usage_barchart"
-            android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/week_usage_horizontalbarchart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
 
             <TextView
                 android:id="@+id/title"
@@ -48,4 +41,5 @@
         </LinearLayout>
     </ScrollView>
 
-</FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

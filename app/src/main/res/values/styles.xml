@@ -55,5 +55,4 @@
     <style name="blackTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="blackTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>

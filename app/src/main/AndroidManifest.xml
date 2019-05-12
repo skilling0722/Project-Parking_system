@@ -24,7 +24,7 @@
         android:theme="@style/blackTheme"
         android:hardwareAccelerated="false"
         android:largeHeap="true">
-
+        <!-- 임시로 메모리 누수 막음 위험위험!!!! -->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

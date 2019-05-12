@@ -1,11 +1,14 @@
 package com.example.parkingsystem;
 
 import android.graphics.Color;
+
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -126,25 +129,46 @@ public class Draw_chart {
     }
 
     public void Draw_piechart() {
+        pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
         pieChart.setExtraOffsets(5,10,5,5);
+
         pieChart.setDragDecelerationFrictionCoef(0.95f);
-        pieChart.setDrawHoleEnabled(true);
+
+        pieChart.setDrawHoleEnabled(false);
         pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(15f);
-        pieChart.setHoleRadius(40f);
+        pieChart.setTransparentCircleRadius(61f);
+        //pieChart.setHoleRadius(40f);
 
         Collections.sort(pieData, new EntryXComparator());
-        PieDataSet dataSet = new PieDataSet(pieData, "이용횟수");
 
-        dataSet.setSliceSpace(1f);
-        dataSet.setSelectionShift(20f);
-        dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        Description description = new Description();
+        description.setText("날씨별 이용수"); //라벨
+        description.setTextSize(15);
+        description.setTextColor(Color.WHITE);
+        pieChart.setDescription(description);
 
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic); //애니메이션
+//        예제 데이터
+//        ArrayList<PieEntry> yValues = new ArrayList<PieEntry>();
+//
+//        yValues.add(new PieEntry(34f,"Clean"));
+//        yValues.add(new PieEntry(20f,"Clouds"));
+//        yValues.add(new PieEntry(14f,"Rain"));
+//        yValues.add(new PieEntry(35f,"Snow"));
+//        yValues.add(new PieEntry(40f,"Mist"));
+//        yValues.add(new PieEntry(40f,"Dust"));
+
+        /*차트내 색깔, 설정 및 데이터 넣기*/
+        PieDataSet dataSet = new PieDataSet(pieData, "날씨");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        /* 차트내에 %퍼센트 색 */
         PieData data = new PieData((dataSet));
-        data.setValueTextSize(13f);
-        data.setValueTextColor(Color.BLACK);
-        data.setValueFormatter(new DefaultValueFormatter(0));
+        data.setValueTextSize(10f);
+        data.setValueTextColor(Color.YELLOW);
 
         pieChart.setData(data);
         pieChart.notifyDataSetChanged();
