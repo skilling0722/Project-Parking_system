@@ -2,12 +2,11 @@ package com.example.parkingsystem;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,18 +19,27 @@ import com.google.firebase.database.ValueEventListener;
 import com.kakao.sdk.newtoneapi.TextToSpeechClient;
 import com.kakao.sdk.newtoneapi.TextToSpeechListener;
 import com.kakao.sdk.newtoneapi.TextToSpeechManager;
-import java.util.ArrayList;
+
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /*
-주차장별 공간 확인 클래스
+주차장별 공간 확인 클래스 for 55호관
  */
-public class spot_check extends AppCompatActivity implements TextToSpeechListener {
-    @BindView(R.id.recycler_view) RecyclerView recycler_view;
+public class spot_check_sample extends AppCompatActivity implements TextToSpeechListener {
     @BindView(R.id.spot_check_name) TextView spot_check_name;
+    @BindView(R.id.parkinglot1) TextView parkinglot1;
+    @BindView(R.id.parkinglot3) TextView parkinglot3;
+    @BindView(R.id.parkinglot4) TextView parkinglot4;
+    @BindView(R.id.parkinglot7) TextView parkinglot7;
+    @BindView(R.id.parkinglot8) TextView parkinglot8;
+    @BindView(R.id.parkinglot10) TextView parkinglot10;
+    @BindView(R.id.parkinglot13) TextView parkinglot13;
+
     private SharedPreferences prefs;
     private HashMap<String, Object> voice_map;
 
@@ -39,13 +47,14 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
     protected void onCreate(Bundle savedInstanceState) {
         Config_Activity.setBackground(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spot_check);
+        setContentView(R.layout.activity_spot_check_sample);
         ButterKnife.bind(this);
 
         init_voicelist();
+        final HashMap<String, TextView> parkinglot_map = init_parkinglot();
 
         TextToSpeechManager.getInstance().initializeLibrary(this);
-//        Log.d("testt", "spot_check activity start");
+
         String spot = "";
         String space = "";
         try {
@@ -59,18 +68,41 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
             Log.d("testt", "intent getString fail");
         }
 
+        final String spot_param = spot;
+
         if ( prefs.getBoolean("voice_notify", true) ) {
-            call_tts(spot, space);
+//            call_tts(spot, space);
+            ;
         } else {
             Log.d("testt", "음성 합성 비활성화 상태");
         }
 
-        read_spots(new Callback_read_spots() {
+        final String finalSpot = spot;
+        spot_check.read_spots(new spot_check.Callback_read_spots() {
             @Override
             public void onCallback_read_spots(HashMap<String, Boolean> spot_info) {
                 try {
-//                    Log.d("testt", "recyclerview start");
-                    create_recyclerview(spot_info);
+                    if ( spot_info.size() == 0 ) {
+                        Log.d("testt", "주차장 정보 없음 에러");
+                        return;
+                    }
+
+                    int total_lot = spot_info.size();
+                    int use_lot = 0;
+
+                    for(String key : spot_info.keySet()){
+//                        Log.d("testt", key+" : "+spot_info.get(key));
+                        TextView view = parkinglot_map.get(key);
+                        Boolean isuse = spot_info.get(key);
+
+                        if ( isuse ) {
+                            use_lot++;
+                        }
+
+                        update_ui(view, isuse);
+                    }
+
+                    call_tts(spot_param, use_lot + " / " + total_lot);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -78,6 +110,34 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
                 }
             }
         }, spot);
+    }
+
+    /*
+    주차면 UI 업데이트
+     */
+    private void update_ui(TextView view, Boolean isuse) {
+        if ( isuse ) {
+            /* 사용중             */
+            view.setBackgroundColor(Color.BLUE);
+        } else {
+            /* 비어있음             */
+            view.setBackgroundColor(Color.RED);
+        }
+    }
+
+    /*
+    주차면 init
+     */
+    private HashMap<String, TextView> init_parkinglot() {
+        HashMap<String, TextView> parkinglot_map = new HashMap<>();
+        parkinglot_map.put("1", parkinglot1);
+        parkinglot_map.put("2", parkinglot3);
+        parkinglot_map.put("3", parkinglot4);
+        parkinglot_map.put("4", parkinglot7);
+        parkinglot_map.put("5", parkinglot8);
+        parkinglot_map.put("6", parkinglot10);
+        parkinglot_map.put("7", parkinglot13);
+        return parkinglot_map;
     }
 
     /*
@@ -91,24 +151,6 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
         voice_map.put("남성 밝은 대화체", TextToSpeechClient.VOICE_MAN_DIALOG_BRIGHT);
         voice_map.put("여성 차분한 낭독체", TextToSpeechClient.VOICE_WOMAN_READ_CALM );
         voice_map.put("여성 밝은 대화체", TextToSpeechClient.VOICE_WOMAN_DIALOG_BRIGHT);
-    }
-
-    /*
-    spot_info(주차면, 사용여부)를 인풋으로 받아서
-    recyclerview 어댑터에 넣어줌
-     */
-    private void create_recyclerview(HashMap<String, Boolean> spot_info) {
-        ArrayList<recyclerview_item> items = new ArrayList<>();
-
-        for ( Object e : spot_info.keySet() ) {
-//            Log.d("testt", e + ": " + spot_info.get(e));
-            items.add(new recyclerview_item((String) e, spot_info.get(e)));
-        }
-
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerview_adapter adapter = new recyclerview_adapter(items, R.layout.recyclerview_item, this);
-        recycler_view.setAdapter(adapter);
-        recycler_view.setLayoutManager(manager);
     }
 
     /*
@@ -149,6 +191,7 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
         } else {
             /* 자리 남아 있을 때 */
             text = spot + " 주차장이에요. 현재 " + all + " 자리 중 " + remain + " 자리 남아있어요.";
+            Log.d("testt", text);
         }
 
         try {
@@ -185,50 +228,8 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
      */
     public void onDestroy() {
         super.onDestroy();
-        write_istts(false);
+        write_istts(false); //뒤로가기시 음성 합성 istts 값 false로
         TextToSpeechManager.getInstance().finalizeLibrary();
-    }
-
-    /*
-    콜백
-     */
-    public interface  Callback_read_spots {
-        void onCallback_read_spots(HashMap<String, Boolean> spot_info);
-    }
-
-    /*
-    데이터베이스로부터 주차면, 사용여부 가져오는 함수
-    주차면과 사용여부는 ui update와 음성 합성에 사용됨.
-     */
-    public static void read_spots(final Callback_read_spots callback, String spot) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("check").child(spot).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<String, Boolean> spot_info = new HashMap<>();
-                try {
-//                    Log.d("testt", "spot_check start");
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (!snapshot.getKey().equals("position") ) {
-                            Data_for_check data = snapshot.getValue(Data_for_check.class);
-//                        Log.d("testt", "주차 가능 유무: " + data.isUse() + ", key(자리): " + snapshot.getKey());
-                            spot_info.put(snapshot.getKey(), data.isUse());
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d("testt", "spot_check fail");
-                }
-                callback.onCallback_read_spots(spot_info);
-//                Log.d("testt", "spot_check activity stop");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
 }

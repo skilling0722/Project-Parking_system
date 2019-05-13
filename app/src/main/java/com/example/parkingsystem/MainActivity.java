@@ -124,8 +124,8 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
 
     @OnClick(R.id.test_btn2)
     void  button13131Click() {
-//        Intent intent = new Intent(this, map_test2.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, spot_check_sample.class);
+        startActivity(intent);
 //        use_service();
     }
 

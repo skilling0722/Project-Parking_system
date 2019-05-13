@@ -301,11 +301,21 @@ public class parking_check_map extends FragmentActivity implements OnMapReadyCal
         String spot_name = temp.split("\n")[0];
         String spare = temp.split("\n")[1];
 
-        Intent intent = new Intent(getApplicationContext(), spot_check.class);
-        intent.putExtra("spot", spot_name);
-        intent.putExtra("space", spare);
+//        Intent intent = new Intent(getApplicationContext(), spot_check.class);
+//        Intent intent = new Intent(getApplicationContext(), spot_check_sample.class);
 
-        startActivity(intent);
+        if ( spot_name.equals("55호관") ) {
+            Intent intent = new Intent(getApplicationContext(), spot_check_sample.class);
+            intent.putExtra("spot", spot_name);
+            intent.putExtra("space", spare);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), spot_check.class);
+            intent.putExtra("spot", spot_name);
+            intent.putExtra("space", spare);
+            startActivity(intent);
+        }
+
 
 //        Log.d("testt", "spot: "+spot_name);
 //        Log.d("testt", "spare: " + spare);
