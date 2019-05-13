@@ -1,5 +1,6 @@
 package com.example.parkingsystem;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +28,14 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /*
 주차장별 공간 확인 클래스 for 55호관
  */
 public class spot_check_sample extends AppCompatActivity implements TextToSpeechListener {
     @BindView(R.id.spot_check_name) TextView spot_check_name;
+    @BindView(R.id.realmap_button) Button realmap_button;
     @BindView(R.id.parkinglot1) TextView parkinglot1;
     @BindView(R.id.parkinglot3) TextView parkinglot3;
     @BindView(R.id.parkinglot4) TextView parkinglot4;
@@ -56,11 +60,11 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
         TextToSpeechManager.getInstance().initializeLibrary(this);
 
         String spot = "";
-        String space = "";
+//        String space = "";
         try {
             Intent intent = getIntent();
             spot = intent.getStringExtra("spot");
-            space = intent.getStringExtra("space");
+//            space = intent.getStringExtra("space");
 //            Log.d("testt", "spot_check: " +spot + "    " +space);
             spot_check_name.setText(spot + " 주차장");
         } catch (Exception e) {
@@ -70,14 +74,13 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
 
         final String spot_param = spot;
 
-        if ( prefs.getBoolean("voice_notify", true) ) {
+//        if ( prefs.getBoolean("voice_notify", true) ) {
 //            call_tts(spot, space);
-            ;
-        } else {
-            Log.d("testt", "음성 합성 비활성화 상태");
-        }
+//
+//        } else {
+//            Log.d("testt", "음성 합성 비활성화 상태");
+//        }
 
-        final String finalSpot = spot;
         spot_check.read_spots(new spot_check.Callback_read_spots() {
             @Override
             public void onCallback_read_spots(HashMap<String, Boolean> spot_info) {
@@ -102,7 +105,12 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
                         update_ui(view, isuse);
                     }
 
-                    call_tts(spot_param, use_lot + " / " + total_lot);
+                    if ( prefs.getBoolean("voice_notify", true) ){
+                        call_tts(spot_param, use_lot + " / " + total_lot);
+                    } else {
+                        Log.d("testt", "음성 합성 비활성화 상태");
+                        Toast.makeText(getApplicationContext(), "음성 알림이 비활성화 상태입니다.", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -201,6 +209,16 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
             e.printStackTrace();
             Log.d("testt", "음성 합성 실패");
         }
+    }
+
+    /*
+    버튼 클릭시 실제 주차장 이미지 다이얼로그 띄우기
+     */
+    @OnClick(R.id.realmap_button)
+    void realmap_view() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.realmap_dialog);
+        dialog.show();
     }
 
     /*
