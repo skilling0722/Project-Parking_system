@@ -47,11 +47,11 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
         TextToSpeechManager.getInstance().initializeLibrary(this);
 //        Log.d("testt", "spot_check activity start");
         String spot = "";
-        String space = "";
+//        String space = "";
         try {
             Intent intent = getIntent();
             spot = intent.getStringExtra("spot");
-            space = intent.getStringExtra("space");
+//            space = intent.getStringExtra("space");
 //            Log.d("testt", "spot_check: " +spot + "    " +space);
             spot_check_name.setText(spot + " 주차장");
         } catch (Exception e) {
@@ -59,18 +59,30 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
             Log.d("testt", "intent getString fail");
         }
 
-        if ( prefs.getBoolean("voice_notify", true) ) {
-            call_tts(spot, space);
-        } else {
-            Log.d("testt", "음성 합성 비활성화 상태");
-        }
+//        if ( prefs.getBoolean("voice_notify", true) ) {
+//            call_tts(spot, space);
+//        } else {
+//            Log.d("testt", "음성 합성 비활성화 상태");
+//        }
+        final String spot_param = spot;
 
         read_spots(new Callback_read_spots() {
             @Override
             public void onCallback_read_spots(HashMap<String, Boolean> spot_info) {
                 try {
+                    if ( spot_info.size() == 0 ) {
+                        Log.d("testt", "주차장 정보 없음 에러");
+                        return;
+                    }
 //                    Log.d("testt", "recyclerview start");
-                    create_recyclerview(spot_info);
+                    int space = create_recyclerview(spot_info);
+
+                    if (prefs.getBoolean("voice_notify", true)) {
+                        call_tts(spot_param,space + " / " + spot_info.size());
+                    } else {
+                        Log.d("testt", "음성 합성 비활성화 상태");
+                        Toast.makeText(getApplicationContext(), "음성 알림이 비활성화 상태입니다..", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -97,18 +109,25 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
     spot_info(주차면, 사용여부)를 인풋으로 받아서
     recyclerview 어댑터에 넣어줌
      */
-    private void create_recyclerview(HashMap<String, Boolean> spot_info) {
+    private int create_recyclerview(HashMap<String, Boolean> spot_info) {
         ArrayList<recyclerview_item> items = new ArrayList<>();
+
+        int use_lot = 0;
 
         for ( Object e : spot_info.keySet() ) {
 //            Log.d("testt", e + ": " + spot_info.get(e));
             items.add(new recyclerview_item((String) e, spot_info.get(e)));
+
+            if ( spot_info.get(e) ) {
+                use_lot++;
+            }
         }
 
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerview_adapter adapter = new recyclerview_adapter(items, R.layout.recyclerview_item, this);
         recycler_view.setAdapter(adapter);
         recycler_view.setLayoutManager(manager);
+        return use_lot;
     }
 
     /*
