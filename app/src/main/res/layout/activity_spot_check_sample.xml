@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".spot_check_sample">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/spot_check_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:text="TextView"
+            android:textSize="30dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical"
+            android:background="@drawable/parkinglot_sample2">
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/parkinglot1"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="125dp"
+                    android:layout_marginRight="1dp"
+                    android:textSize="20dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:text="1"
+                    android:background="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/parkinglot2"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="160dp"
+                    android:textSize="20dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:text="2"
+                    android:background="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/parkinglot3"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="70dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:text="3"
+                    android:background="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/parkinglot4"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="90dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:text="4"
+                    android:background="#FFFFFF"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/parkinglot5"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="150dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:text="5"
+                    android:background="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/parkinglot6"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="100dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:text="6"
+                    android:background="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/parkinglot7"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="270dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:text="7"
+                    android:background="#CCFFCC"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/parkinglot8"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginRight="1dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="8"
+                    android:background="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/parkinglot9"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="9"
+                    android:background="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/parkinglot10"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="10"
+                    android:background="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/parkinglot11"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="11"
+                    android:background="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/parkinglot12"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="12"
+                    android:background="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/parkinglot13"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="50dp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="13"
+                    android:background="#FFFFFF"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
