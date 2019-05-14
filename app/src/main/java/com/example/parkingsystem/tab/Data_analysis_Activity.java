@@ -1,4 +1,4 @@
-package com.example.parkingsystem;
+package com.example.parkingsystem.tab;
 /*
 분석 결과에 관한 activity
 Tab관련 파일들 관렫됌(TabFramgent1~3, TabPagerAdapter.java
@@ -8,8 +8,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
+
+import com.example.parkingsystem.Config_Activity;
+import com.example.parkingsystem.R;
+import com.example.parkingsystem.tab.TabFragment1;
+import com.example.parkingsystem.tab.TabFragment2;
+import com.example.parkingsystem.tab.TabFragment3;
+import com.example.parkingsystem.tab.TabFragment4;
+import com.example.parkingsystem.tab.TabFragment5;
+import com.example.parkingsystem.tab.TabPagerAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,11 +1,10 @@
-package com.example.parkingsystem;
+package com.example.parkingsystem.tab;
 
 /*
     월별 분석
  */
 
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.parkingsystem.BaseFragment;
+import com.example.parkingsystem.Data_analysis_assistant;
+import com.example.parkingsystem.Draw_chart;
+import com.example.parkingsystem.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.database.annotations.Nullable;
@@ -30,22 +33,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class TabFragment4 extends BaseFragment {
-    @BindView(R.id.piechart) PieChart piechart;
+public class TabFragment5 extends BaseFragment {
+    @BindView(R.id.surface_chart)
+    PieChart surface_chart;
     @BindView(R.id.title) TextView tv_title;
     private OnFragmentInteractionListener mListener;
     private String spot;
     private String start_date;
     private String end_date;
 
-    public TabFragment4() {
+
+    public TabFragment5() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
     
-    public static TabFragment4 newInstance(String spot, String start_date, String end_date) {
-        TabFragment4 fragment = new TabFragment4();
+    public static TabFragment5 newInstance(String spot, String start_date, String end_date) {
+        TabFragment5 fragment = new TabFragment5();
         Bundle args = new Bundle();
         args.putString("spot", spot);
         args.putString("start_date", start_date);
@@ -76,55 +81,9 @@ public class TabFragment4 extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tab_fragment4, container, false);
-        /* xml 변수 가져와 바인딩 */
+        View view = inflater.inflate(R.layout.fragment_tab_fragment5, container, false);
         ButterKnife.bind(this, view);
-        /* 오잉? */
-        Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
-        Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
-        tv_title.setText(date_arr[0] + " ~ " + date_arr[1]);
-
-
-
-        try {
-            analysis_assistant.weather_usage_analysis(new Data_analysis_assistant.Callback_weather_usage() {
-                @Override
-                public void onCallback_weather_usage(HashMap<String, Integer> map) {
-//                    Log.d("testt", "날짜별 분석 시작");
-                    ArrayList<PieEntry> pieData = new ArrayList<PieEntry>();
-
-                    /* 정렬 */
-                    Iterator sort_val = sortFromVal(map).iterator();
-                    try {
-                        /* 정렬된 값들을 찾아서 차례대로 add하기 */
-                        String key_val = null;
-                        while(sort_val.hasNext()){
-                            key_val = (String)sort_val.next();
-                            if(map.get(key_val) >0){
-                                pieData.add(new PieEntry((float)(map.get(key_val)), key_val));   // 값, 라벨
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("testt", "input data to chart from map fail");
-                    }
-
-                    try {
-                        Draw_chart pi_chart = new Draw_chart();
-                        pi_chart.setPieData(pieData);
-                        pi_chart.setPieChart(piechart);
-                        pi_chart.Draw_piechart("날씨별 이용수", "날씨");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.d("testt", "draw fail");
-                    }
-                }
-            }, spot, Integer.parseInt(start_date), Integer.parseInt(end_date));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("testt", "weather_usage_analysis fail");
-        }
-
+        draw_graph();
         return view;
     }
 
@@ -150,6 +109,52 @@ public class TabFragment4 extends BaseFragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    public void draw_graph() {
+        Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
+
+        Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
+        tv_title.setText(date_arr[0]/10000 + " ~ " + date_arr[1]/10000+ " 주차별 분석");
+
+        try {
+            analysis_assistant.surface_usage_analysis(new Data_analysis_assistant.Callback_surface_usage() {
+                @Override
+                public void onCallback_surface_usage(HashMap<String, Integer> map) {
+//                    Log.d("testt", "날짜별 분석 시작");
+                    ArrayList<PieEntry> pieData = new ArrayList<PieEntry>();
+
+                    /* 정렬 */
+                    Iterator sort_val = sortFromVal(map).iterator();
+                    try {
+                        /* 정렬된 값들을 찾아서 차례대로 add하기 */
+                        String key_val = null;
+                        while(sort_val.hasNext()){
+                            key_val = (String)sort_val.next();
+                            if(map.get(key_val) >0){
+                                pieData.add(new PieEntry((float)(map.get(key_val)), key_val));   // 값, 라벨
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("testt", "input data to chart from map fail");
+                    }
+
+                    try {
+                        Draw_chart pi_chart = new Draw_chart();
+                        pi_chart.setPieData(pieData);
+                        pi_chart.setPieChart(surface_chart);
+                        pi_chart.Draw_piechart("주차별 이용수", "주차면 종류");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("testt", "draw fail");
+                    }
+                }
+            }, spot, Integer.parseInt(start_date), Integer.parseInt(end_date));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("testt", "surface_usage_analysis fail");
+        }
+        //end
+    }
     /* 정렬에 쓰이는 것 */
     public static List sortFromVal(final Map map){
         List<String> list = new ArrayList<String>();

@@ -1,9 +1,8 @@
-package com.example.parkingsystem;
+package com.example.parkingsystem.tab;
 
 /*
-    월별 분석
- */
-
+ * 요일별 데이터에 대한 분석
+ * */
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,9 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.google.firebase.database.annotations.Nullable;
+import com.example.parkingsystem.BaseFragment;
+import com.example.parkingsystem.Data_analysis_assistant;
+import com.example.parkingsystem.Draw_chart;
+import com.example.parkingsystem.R;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,22 +28,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class TabFragment1 extends BaseFragment {
-    @BindView(R.id.month_usage_chart) LineChart month_usage_chart;
+public class TabFragment3 extends BaseFragment {
+    @BindView(R.id.week_usage_horizontalbarchart) HorizontalBarChart week_usage_horizontalbarchart;
     @BindView(R.id.title) TextView tv_title;
-    private OnFragmentInteractionListener mListener;
     private String spot;
     private String start_date;
     private String end_date;
 
-    public TabFragment1() {
+    private OnFragmentInteractionListener mListener;
+
+    public TabFragment3() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    
-    public static TabFragment1 newInstance(String spot, String start_date, String end_date) {
-        TabFragment1 fragment = new TabFragment1();
+    public static TabFragment3 newInstance(String spot, String start_date, String end_date) {
+        TabFragment3 fragment = new TabFragment3();
         Bundle args = new Bundle();
         args.putString("spot", spot);
         args.putString("start_date", start_date);
@@ -62,37 +64,32 @@ public class TabFragment1 extends BaseFragment {
     }
 
     @Override
-    public void onStart() {
-//        show_loading();
-        super.onStart();
-    }
-
-    @Nullable
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tab_fragment1, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_fragment3, container, false);
         ButterKnife.bind(this, view);
         show_loading();
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
-
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
-        tv_title.setText(date_arr[0]/10000 + " ~ " + date_arr[1]/10000+ " 월별 분석");
 
+        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 요일별 분석");
+
+//        Log.d("testt", "요일별 분석 프래그먼트 시작");
         try {
-            analysis_assistant.month_usage_analysis(new Data_analysis_assistant.Callback_month_usage() {
+            analysis_assistant.week_usage_analysis(new Data_analysis_assistant.Callback_week_usage() {
                 @Override
-                public void onCallback_month_usage(HashMap<Integer, Integer> map) {
-                    ArrayList<Entry> yData = new ArrayList<>();
+                public void onCallback_week_usage(HashMap<Integer, Integer> map) {
+//                    Log.d("testt", "요일별 분석 시작");
+                    ArrayList<BarEntry> barData = new ArrayList<>();
 
                     TreeMap<Integer, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
                     Iterator<Integer> iterator_key = for_sort.keySet().iterator(); //키값 기준 오름차순 정렬
 
                     try {
                         for (Integer key : map.keySet()) {
-//                            Log.d("testt", "가져온 month_map: " + key + "  " + map.get(key));
-                            yData.add(new Entry(key, map.get(key)));
+//                            Log.d("testt", "가져온 week_map: " + key + "   " + map.get(key));
+                            barData.add(new BarEntry(key, map.get(key)));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -101,10 +98,10 @@ public class TabFragment1 extends BaseFragment {
 
                     try {
                         hide_loading();
-                        Draw_chart line_chart = new Draw_chart();
-                        line_chart.setLineData(yData);
-                        line_chart.setLinechart(month_usage_chart);
-                        line_chart.Draw_linechart();
+                        Draw_chart horizontalbar_chart = new Draw_chart();
+                        horizontalbar_chart.setBarData(barData);
+                        horizontalbar_chart.setHorizontalbarchart(week_usage_horizontalbarchart);
+                        horizontalbar_chart.Draw_horizontalbarchart();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "draw fail");
@@ -113,7 +110,7 @@ public class TabFragment1 extends BaseFragment {
             }, spot, Integer.parseInt(start_date), Integer.parseInt(end_date));
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("testt", "month_usage_analysis fail");
+            Log.d("testt", "week_usage_analysis fail");
         }
 
         return view;
@@ -125,6 +122,23 @@ public class TabFragment1 extends BaseFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+//
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mListener = null;
+//    }
 
     /**
      * This interface must be implemented by activities that contain this

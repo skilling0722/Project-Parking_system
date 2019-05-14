@@ -43,7 +43,7 @@
         <activity android:name=".newtontalk_test" />
         <activity android:name=".newton_test" />
         <activity android:name=".Config_Activity" />
-        <activity android:name=".Data_analysis_Activity" />
+        <activity android:name=".tab.Data_analysis_Activity" />
         <activity android:name=".spot_check" />
         <activity android:name=".DB_test" />
         <activity android:name=".menu_analysis_Activity" />

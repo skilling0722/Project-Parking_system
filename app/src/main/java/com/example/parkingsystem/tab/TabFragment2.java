@@ -1,7 +1,7 @@
-package com.example.parkingsystem;
+package com.example.parkingsystem.tab;
 
 /*
- * 요일별 데이터에 대한 분석
+ * 시간대별 데이터에 대한 분석
  * */
 
 import android.net.Uri;
@@ -12,20 +12,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.example.parkingsystem.BaseFragment;
+import com.example.parkingsystem.Data_analysis_assistant;
+import com.example.parkingsystem.Draw_chart;
+import com.example.parkingsystem.R;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarEntry;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-public class TabFragment3 extends BaseFragment {
-    @BindView(R.id.week_usage_horizontalbarchart) HorizontalBarChart week_usage_horizontalbarchart;
+public class TabFragment2 extends BaseFragment {
+    @BindView(R.id.day_usage_barchart) BarChart day_usage_barchart;
     @BindView(R.id.title) TextView tv_title;
     private String spot;
     private String start_date;
@@ -33,13 +34,12 @@ public class TabFragment3 extends BaseFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public TabFragment3() {
+    public TabFragment2() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static TabFragment3 newInstance(String spot, String start_date, String end_date) {
-        TabFragment3 fragment = new TabFragment3();
+    public static TabFragment2 newInstance(String spot, String start_date, String end_date) {
+        TabFragment2 fragment = new TabFragment2();
         Bundle args = new Bundle();
         args.putString("spot", spot);
         args.putString("start_date", start_date);
@@ -63,20 +63,18 @@ public class TabFragment3 extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tab_fragment3, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
         ButterKnife.bind(this, view);
         show_loading();
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
+        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 시간대별 분석");
 
-        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 요일별 분석");
 
-//        Log.d("testt", "요일별 분석 프래그먼트 시작");
         try {
-            analysis_assistant.week_usage_analysis(new Data_analysis_assistant.Callback_week_usage() {
+            analysis_assistant.day_usage_analysis(new Data_analysis_assistant.Callback_day_usage() {
                 @Override
-                public void onCallback_week_usage(HashMap<Integer, Integer> map) {
-//                    Log.d("testt", "요일별 분석 시작");
+                public void onCallback_day_usage(HashMap<Integer, Integer> map) {
                     ArrayList<BarEntry> barData = new ArrayList<>();
 
                     TreeMap<Integer, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
@@ -84,7 +82,7 @@ public class TabFragment3 extends BaseFragment {
 
                     try {
                         for (Integer key : map.keySet()) {
-//                            Log.d("testt", "가져온 week_map: " + key + "   " + map.get(key));
+//                            Log.d("testt", "가져온 day_map: " + key + "  " + map.get(key));
                             barData.add(new BarEntry(key, map.get(key)));
                         }
                     } catch (Exception e) {
@@ -94,19 +92,19 @@ public class TabFragment3 extends BaseFragment {
 
                     try {
                         hide_loading();
-                        Draw_chart horizontalbar_chart = new Draw_chart();
-                        horizontalbar_chart.setBarData(barData);
-                        horizontalbar_chart.setHorizontalbarchart(week_usage_horizontalbarchart);
-                        horizontalbar_chart.Draw_horizontalbarchart();
+                        Draw_chart bar_chart = new Draw_chart();
+                        bar_chart.setBarData(barData);
+                        bar_chart.setBarChart(day_usage_barchart);
+                        bar_chart.Draw_barchart();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Log.d("testt", "draw fail");
+                        Log.d("testt", "day_usage_chart draw fail");
                     }
                 }
             }, spot, Integer.parseInt(start_date), Integer.parseInt(end_date));
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("testt", "week_usage_analysis fail");
+            Log.d("testt", "day_usage_analysis fail");
         }
 
         return view;
