@@ -14,21 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.TreeMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,14 +93,15 @@ public class TabFragment4 extends BaseFragment {
 //                    Log.d("testt", "날짜별 분석 시작");
                     ArrayList<PieEntry> pieData = new ArrayList<PieEntry>();
 
-                    //TreeMap<String, Integer> for_sort = new TreeMap<>(map);       //맵 정렬을 위해 트리맵 사용
-                    //Iterator<Integer> iterator_key = for_sort.keySet().iterator(); //키값 기준 오름차순 정렬
-
+                    /* 정렬 */
+                    Iterator sort_val = sortFromVal(map).iterator();
                     try {
-                        for (String key : map.keySet()) {
-//                            Log.d("testt", "가져온 week_map: " + key + "   " + map.get(key));
-                            if(map.get(key) >0){
-                                pieData.add(new PieEntry((float)(map.get(key)), key));   // 값, 라벨
+                        /* 정렬된 값들을 찾아서 차례대로 add하기 */
+                        String key_val = null;
+                        while(sort_val.hasNext()){
+                            key_val = (String)sort_val.next();
+                            if(map.get(key_val) >0){
+                                pieData.add(new PieEntry((float)(map.get(key_val)), key_val));   // 값, 라벨
                             }
                         }
                     } catch (Exception e) {
@@ -116,7 +113,7 @@ public class TabFragment4 extends BaseFragment {
                         Draw_chart pi_chart = new Draw_chart();
                         pi_chart.setPieData(pieData);
                         pi_chart.setPieChart(piechart);
-                        pi_chart.Draw_piechart();
+                        pi_chart.Draw_piechart("날씨별 이용수", "날씨");
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "draw fail");
@@ -151,5 +148,20 @@ public class TabFragment4 extends BaseFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    /* 정렬에 쓰이는 것 */
+    public static List sortFromVal(final Map map){
+        List<String> list = new ArrayList<String>();
+        list.addAll(map.keySet());
+
+        Collections.sort(list, new Comparator(){
+            public int compare(Object o1, Object o2){
+                Object v1 = map.get(o1);
+                Object v2 = map.get(o2);
+                return ((Comparable) v2).compareTo(v1);
+            }
+        });
+        return list;
     }
 }

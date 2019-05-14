@@ -128,7 +128,7 @@ public class Draw_chart {
         linechart.invalidate();
     }
 
-    public void Draw_piechart() {
+    public void Draw_piechart(String graphName, String subName) {
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
         pieChart.setExtraOffsets(5,10,5,5);
@@ -143,7 +143,7 @@ public class Draw_chart {
         Collections.sort(pieData, new EntryXComparator());
 
         Description description = new Description();
-        description.setText("날씨별 이용수"); //라벨
+        description.setText(graphName); //라벨
         description.setTextSize(15);
         description.setTextColor(Color.WHITE);
         pieChart.setDescription(description);
@@ -160,7 +160,7 @@ public class Draw_chart {
 //        yValues.add(new PieEntry(40f,"Dust"));
 
         /*차트내 색깔, 설정 및 데이터 넣기*/
-        PieDataSet dataSet = new PieDataSet(pieData, "날씨");
+        PieDataSet dataSet = new PieDataSet(pieData, subName);
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -249,6 +249,7 @@ public class Draw_chart {
         horizontalbarchart.animateXY(1000,1000);
         horizontalbarchart.invalidate();
     }
+
 
 }
 

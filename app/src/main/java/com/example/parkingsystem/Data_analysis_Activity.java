@@ -45,7 +45,6 @@ public class Data_analysis_Activity extends AppCompatActivity {
         adapter.add("요일별", TabFragment3.newInstance(spot, start_date, end_date));
         adapter.add("날씨별", TabFragment4.newInstance(spot, start_date, end_date));
         adapter.add("주차별", TabFragment5.newInstance(spot, start_date, end_date));
-        adapter.add("위치별", TabFragment6.newInstance(spot, start_date, end_date));
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);

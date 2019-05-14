@@ -28,9 +28,9 @@ public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adap
     public void onBindViewHolder(@NonNull ViewHolder holder, int pose) {
         holder.mspot_name.setText(mitems.get(pose).getSpot_name());
         if(mitems.get(pose).isUse()) {
-            //holder.mspot_name.setBackgroundColor(Color.parseColor("#01DF01"));
-            holder.mspot_name.setBackgroundColor(Color.WHITE);
-            holder.mspot_name.setBackgroundResource(R.drawable.car111);
+            holder.mspot_name.setBackgroundColor(Color.parseColor("#01DF01"));
+//            holder.mspot_name.setBackgroundColor(Color.WHITE);
+//            holder.mspot_name.setBackgroundResource(R.drawable.car111);
         } else {
             holder.mspot_name.setBackgroundColor(Color.WHITE);
         }
