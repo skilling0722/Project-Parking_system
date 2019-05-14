@@ -45,25 +45,17 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
         init_voicelist();
 
         TextToSpeechManager.getInstance().initializeLibrary(this);
-//        Log.d("testt", "spot_check activity start");
         String spot = "";
-//        String space = "";
+
         try {
             Intent intent = getIntent();
             spot = intent.getStringExtra("spot");
-//            space = intent.getStringExtra("space");
-//            Log.d("testt", "spot_check: " +spot + "    " +space);
             spot_check_name.setText(spot + " 주차장");
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("testt", "intent getString fail");
         }
 
-//        if ( prefs.getBoolean("voice_notify", true) ) {
-//            call_tts(spot, space);
-//        } else {
-//            Log.d("testt", "음성 합성 비활성화 상태");
-//        }
         final String spot_param = spot;
 
         read_spots(new Callback_read_spots() {

@@ -60,12 +60,9 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
         TextToSpeechManager.getInstance().initializeLibrary(this);
 
         String spot = "";
-//        String space = "";
         try {
             Intent intent = getIntent();
             spot = intent.getStringExtra("spot");
-//            space = intent.getStringExtra("space");
-//            Log.d("testt", "spot_check: " +spot + "    " +space);
             spot_check_name.setText(spot + " 주차장");
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,13 +70,6 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
         }
 
         final String spot_param = spot;
-
-//        if ( prefs.getBoolean("voice_notify", true) ) {
-//            call_tts(spot, space);
-//
-//        } else {
-//            Log.d("testt", "음성 합성 비활성화 상태");
-//        }
 
         spot_check.read_spots(new spot_check.Callback_read_spots() {
             @Override
@@ -94,7 +84,6 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
                     int use_lot = 0;
 
                     for(String key : spot_info.keySet()){
-//                        Log.d("testt", key+" : "+spot_info.get(key));
                         TextView view = parkinglot_map.get(key);
                         Boolean isuse = spot_info.get(key);
 

@@ -41,19 +41,6 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
     private ServiceConnection conn;
     private SharedPreferences prefs;
 
-//    ServiceConnection conn = new ServiceConnection() {
-//        public void onServiceConnected(ComponentName name, IBinder service) {
-//            speech_recognition_service.speech_recognition_binder srs_binder = (speech_recognition_service.speech_recognition_binder) service;
-//            srs_service = srs_binder.getService();
-//            isService = true;
-//            srs_service.setCallbacks(MainActivity.this);
-//        }
-//        public void onServiceDisconnected(ComponentName name) {
-//            srs_service = null;
-//            isService = false;
-//        }
-//    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +89,9 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
         editor.putBoolean("usage", false);
         editor.commit();
 
-
+        /*
+        키 얻기
+         */
 //        mContext = getApplicationContext();
 //        String key = getKeyHash(mContext);
 //        Log.d("testt", "Key:" + key);
@@ -124,8 +113,8 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
 
     @OnClick(R.id.test_btn2)
     void  button13131Click() {
-        Intent intent = new Intent(this, spot_check_sample.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, spot_check_sample.class);
+//        startActivity(intent);
 //        use_service();
     }
 
@@ -294,7 +283,10 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
         this.recreate();
     }
 
-//    key 얻기
+
+    /*
+    키 얻기
+     */
 //    public static String getKeyHash(final Context context) {
 //        PackageInfo packageInfo = getPackageInfo(context, PackageManager.GET_SIGNATURES);
 //        if (packageInfo == null)
