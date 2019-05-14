@@ -85,7 +85,7 @@ public class TabFragment4 extends BaseFragment {
         /* 오잉? */
         Data_analysis_assistant analysis_assistant = new Data_analysis_assistant();
         Integer[] date_arr = analysis_assistant.date_swap(Integer.parseInt(start_date), Integer.parseInt(end_date));
-        tv_title.setText(date_arr[0] + " ~ " + date_arr[1]);
+        tv_title.setText(date_arr[0] + " ~ " + date_arr[1] + " 날씨별 분석");
 
 
 
@@ -116,7 +116,7 @@ public class TabFragment4 extends BaseFragment {
                         Draw_chart pi_chart = new Draw_chart();
                         pi_chart.setPieData(pieData);
                         pi_chart.setPieChart(piechart);
-                        pi_chart.Draw_piechart("날씨별 이용수", "날씨");
+                        pi_chart.Draw_piechart("날씨별 이용률", "날씨");
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "draw fail");

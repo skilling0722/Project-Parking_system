@@ -22,17 +22,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/line1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:text=""
-            android:background="#FFFFFF"/>
+
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/day_usage_barchart"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
+
+            <TextView
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:text=""
+                android:background="#FFFFFF"/>
 
             <TextView
                 android:id="@+id/title"

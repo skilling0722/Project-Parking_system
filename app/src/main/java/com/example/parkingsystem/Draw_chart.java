@@ -135,6 +135,9 @@ public class Draw_chart {
 
         pieChart.setDragDecelerationFrictionCoef(0.95f);
 
+        Legend legend = pieChart.getLegend();
+        legend.setTextColor(Color.WHITE);
+
         pieChart.setDrawHoleEnabled(false);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setTransparentCircleRadius(61f);

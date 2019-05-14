@@ -142,7 +142,7 @@ public class TabFragment5 extends BaseFragment {
                         Draw_chart pi_chart = new Draw_chart();
                         pi_chart.setPieData(pieData);
                         pi_chart.setPieChart(surface_chart);
-                        pi_chart.Draw_piechart("주차별 이용수", "주차면 종류");
+                        pi_chart.Draw_piechart("주차별 이용률", "주차면 종류");
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d("testt", "draw fail");

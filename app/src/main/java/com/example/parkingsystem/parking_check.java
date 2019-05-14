@@ -96,15 +96,21 @@ public class parking_check extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listview_item item = (listview_item) parent.getItemAtPosition(position);
 
-                String spot = item.getSpot_title();
-                String remain = item.getRemain_title();
+                String spot_name = item.getSpot_title();
+                String spare = item.getRemain_title();
 //                Drawable iconDrawable = item.getIcon();
 
-                Intent intent = new Intent(getApplicationContext(), spot_check.class);
-                intent.putExtra("spot", spot);
-                intent.putExtra("space", remain);
-
-                startActivity(intent);
+                if ( spot_name.equals("55호관") ) {
+                    Intent intent = new Intent(getApplicationContext(), spot_check_sample.class);
+                    intent.putExtra("spot", spot_name);
+                    intent.putExtra("space", spare);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), spot_check.class);
+                    intent.putExtra("spot", spot_name);
+                    intent.putExtra("space", spare);
+                    startActivity(intent);
+                }
             }
         });
     }
