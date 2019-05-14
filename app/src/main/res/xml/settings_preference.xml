@@ -2,9 +2,6 @@
 <!-- 환경설정 화면에서 레이아웃을 나타낸다. -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="설정">
-        <SwitchPreference
-            android:key="message"
-            android:title="메시지 알림" />
 
         <PreferenceScreen
             android:key="voice_screen"

@@ -27,7 +27,7 @@
         android:id="@+id/explanation"
         android:layout_width="329dp"
         android:layout_height="76dp"
-        android:text="주차 정보 분석 설정창입니다. \n분석 대상과 기간을 정한 뒤 분석시작을 눌러주세요. \n월별, 시간대별, 요일별로 분석됩니다."
+        android:text="주차 정보 분석 설정창입니다. \n분석 대상과 기간을 정한 뒤 분석시작을 눌러주세요. \n월, 시간대, 요일, 날씨, 종류별로 분석됩니다."
         android:textSize="15dp"
         app:layout_constraintBottom_toTopOf="@+id/pick_parkingspot"
         app:layout_constraintEnd_toEndOf="parent"

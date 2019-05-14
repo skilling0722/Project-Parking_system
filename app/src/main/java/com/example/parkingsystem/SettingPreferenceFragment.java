@@ -73,14 +73,14 @@ public class SettingPreferenceFragment extends PreferenceFragment {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             String tmp = null;
             //메시지 알림(message) 이벤트 처리
-            if(key.equals("message")){
-                if(prefs.getBoolean("message",false)){
-                    Toast.makeText(getActivity(), "ON 되었을 때, 처리하는 이벤트", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(getActivity(), "OFF 되었을 때, 처리하는 이벤트", Toast.LENGTH_SHORT).show();
-                }
-            }
+//            if(key.equals("message")){
+//                if(prefs.getBoolean("message",false)){
+//                    Toast.makeText(getActivity(), "ON 되었을 때, 처리하는 이벤트", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    Toast.makeText(getActivity(), "OFF 되었을 때, 처리하는 이벤트", Toast.LENGTH_SHORT).show();
+//                }
+//            }
 
             //음성알림() 이벤트 처리
             if(key.equals("keyword_voice_list")){

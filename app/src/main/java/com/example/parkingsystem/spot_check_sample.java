@@ -37,11 +37,17 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
     @BindView(R.id.spot_check_name) TextView spot_check_name;
     @BindView(R.id.realmap_button) Button realmap_button;
     @BindView(R.id.parkinglot1) TextView parkinglot1;
+    @BindView(R.id.parkinglot2) TextView parkinglot2;
     @BindView(R.id.parkinglot3) TextView parkinglot3;
     @BindView(R.id.parkinglot4) TextView parkinglot4;
+    @BindView(R.id.parkinglot5) TextView parkinglot5;
+    @BindView(R.id.parkinglot6) TextView parkinglot6;
     @BindView(R.id.parkinglot7) TextView parkinglot7;
     @BindView(R.id.parkinglot8) TextView parkinglot8;
+    @BindView(R.id.parkinglot9) TextView parkinglot9;
     @BindView(R.id.parkinglot10) TextView parkinglot10;
+    @BindView(R.id.parkinglot11) TextView parkinglot11;
+    @BindView(R.id.parkinglot12) TextView parkinglot12;
     @BindView(R.id.parkinglot13) TextView parkinglot13;
 
     private SharedPreferences prefs;
@@ -103,7 +109,7 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d("testt", "recyclerview fail");
+                    Log.d("testt", "view fail");
                 }
             }
         }, spot);
@@ -115,10 +121,10 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
     private void update_ui(TextView view, Boolean isuse) {
         if ( isuse ) {
             /* 사용중             */
-            view.setBackgroundColor(Color.BLUE);
+            view.setBackgroundColor(Color.parseColor("#01DF01"));
         } else {
             /* 비어있음             */
-            view.setBackgroundColor(Color.RED);
+            view.setBackgroundColor(Color.WHITE);
         }
     }
 
@@ -127,13 +133,26 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
      */
     private HashMap<String, TextView> init_parkinglot() {
         HashMap<String, TextView> parkinglot_map = new HashMap<>();
+//        parkinglot_map.put("1", parkinglot1);
+//        parkinglot_map.put("2", parkinglot3);
+//        parkinglot_map.put("3", parkinglot4);
+//        parkinglot_map.put("4", parkinglot7);
+//        parkinglot_map.put("5", parkinglot8);
+//        parkinglot_map.put("6", parkinglot10);
+//        parkinglot_map.put("7", parkinglot13);
         parkinglot_map.put("1", parkinglot1);
-        parkinglot_map.put("2", parkinglot3);
-        parkinglot_map.put("3", parkinglot4);
-        parkinglot_map.put("4", parkinglot7);
-        parkinglot_map.put("5", parkinglot8);
-        parkinglot_map.put("6", parkinglot10);
-        parkinglot_map.put("7", parkinglot13);
+        parkinglot_map.put("2", parkinglot2);
+        parkinglot_map.put("3", parkinglot3);
+        parkinglot_map.put("4", parkinglot4);
+        parkinglot_map.put("5", parkinglot5);
+        parkinglot_map.put("6", parkinglot6);
+        parkinglot_map.put("7", parkinglot7);
+        parkinglot_map.put("8", parkinglot8);
+        parkinglot_map.put("9", parkinglot9);
+        parkinglot_map.put("10", parkinglot10);
+        parkinglot_map.put("11", parkinglot11);
+        parkinglot_map.put("12", parkinglot12);
+        parkinglot_map.put("13", parkinglot13);
         return parkinglot_map;
     }
 

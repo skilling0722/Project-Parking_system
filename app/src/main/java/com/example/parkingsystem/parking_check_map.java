@@ -316,7 +316,6 @@ public class parking_check_map extends FragmentActivity implements OnMapReadyCal
             startActivity(intent);
         }
 
-
 //        Log.d("testt", "spot: "+spot_name);
 //        Log.d("testt", "spare: " + spare);
         return true;
