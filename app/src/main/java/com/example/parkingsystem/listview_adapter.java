@@ -32,6 +32,7 @@ public class listview_adapter extends BaseAdapter {
         final int pos = position;
         final Context context = parent.getContext();
 
+        /*각 item을 생성하고 거기에 값을 넣는다. */
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.check_listview_item, parent, false);
