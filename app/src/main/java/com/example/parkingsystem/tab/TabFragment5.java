@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.parkingsystem.BaseFragment;
 import com.example.parkingsystem.Data_analysis_assistant;
+import com.example.parkingsystem.Draw_MarkerView;
 import com.example.parkingsystem.Draw_chart;
 import com.example.parkingsystem.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -142,6 +143,10 @@ public class TabFragment5 extends BaseFragment {
                         Draw_chart pi_chart = new Draw_chart();
                         pi_chart.setPieData(pieData);
                         pi_chart.setPieChart(surface_chart);
+                        /* markerview make */
+                        Draw_MarkerView marker = new Draw_MarkerView(getContext() ,R.layout.markerview);
+                        marker.setChartView(pi_chart.getPieChart());
+                        pi_chart.getPieChart().setMarker(marker);
                         pi_chart.Draw_piechart("주차별 이용률", "주차면 종류");
                     } catch (Exception e) {
                         e.printStackTrace();

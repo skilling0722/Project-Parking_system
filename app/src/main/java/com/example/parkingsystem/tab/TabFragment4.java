@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.parkingsystem.BaseFragment;
 import com.example.parkingsystem.Data_analysis_assistant;
+import com.example.parkingsystem.Draw_MarkerView;
 import com.example.parkingsystem.Draw_chart;
 import com.example.parkingsystem.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -113,9 +114,16 @@ public class TabFragment4 extends BaseFragment {
                     }
 
                     try {
+                        /* pi_chart표에 관한 설정 */
                         Draw_chart pi_chart = new Draw_chart();
                         pi_chart.setPieData(pieData);
                         pi_chart.setPieChart(piechart);
+
+                        /* markerview make */
+                        Draw_MarkerView marker = new Draw_MarkerView(getContext() ,R.layout.markerview);
+                        marker.setChartView(pi_chart.getPieChart());
+                        pi_chart.getPieChart().setMarker(marker);
+
                         pi_chart.Draw_piechart("날씨별 이용률", "날씨");
                     } catch (Exception e) {
                         e.printStackTrace();
