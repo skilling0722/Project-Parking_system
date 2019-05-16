@@ -1,6 +1,8 @@
 package com.example.parkingsystem;
 
 import android.graphics.Color;
+import android.util.Log;
+import android.view.MotionEvent;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -23,6 +25,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.EntryXComparator;
 
@@ -133,7 +137,61 @@ public class Draw_chart {
         pieChart.getDescription().setEnabled(false);
         pieChart.setExtraOffsets(5,10,5,5);
 
+        pieChart.setDragDecelerationEnabled(false);
         pieChart.setDragDecelerationFrictionCoef(0.95f);
+        //파이차트 추가적인 사항
+        pieChart.setTouchEnabled(true);
+        /* listenr start */
+
+        pieChart.setOnChartGestureListener(new OnChartGestureListener(){
+            @Override
+            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                Log.d("pidchart","onChartGestureStart");
+
+                return;
+            }
+            @Override
+            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                Log.d("pidchart","onChartGestureEnd");
+                return;
+            }
+
+            @Override
+            public void onChartLongPressed(MotionEvent me) {
+                Log.d("pidchart","onChartLongPressed");
+                return;
+            }
+
+            @Override
+            public void onChartDoubleTapped(MotionEvent me) {
+                Log.d("pidchart","onChartDoubleTapped");
+                return;
+            }
+
+            @Override
+            public void onChartSingleTapped(MotionEvent me) {
+                Log.d("pidchart","onChartSingleTapped");
+
+                return;
+            }
+
+            @Override
+            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+                Log.d("pidchart","onChartFling");
+            }
+
+            @Override
+            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+                Log.d("pidchart", "onChartScale");
+                return;
+            }
+
+            @Override
+            public void onChartTranslate(MotionEvent me, float dX, float dY) {
+                Log.d("pidchart", "onChartTranslate");
+                return;
+            }
+        });
 
         Legend legend = pieChart.getLegend();
         legend.setTextColor(Color.WHITE);
@@ -173,6 +231,7 @@ public class Draw_chart {
         data.setValueTextSize(10f);
         data.setValueTextColor(Color.YELLOW);
 
+        /* 최종 데이터 셋 */
         pieChart.setData(data);
         pieChart.notifyDataSetChanged();
         pieChart.invalidate();
