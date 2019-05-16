@@ -29,6 +29,7 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
     @BindView(R.id.button2) Button btn2;
     @BindView(R.id.button3) Button btn3;
     @BindView(R.id.firebase_test) Button firebase_test_btn;
+    @BindView(R.id.speech_guide) Button speech_guide_btn;
 
     @BindView(R.id.test_btn1) Button test_btn11;
     @BindView(R.id.test_btn2) Button test_btn22;
@@ -155,6 +156,12 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
 
     }
 
+    @OnClick(R.id.speech_guide)
+    void speech_guide() {
+        Intent intent = new Intent(this, guide_speech.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.firebase_test)
     void test_db() {
         /* 샘플 데이터 생성 */
@@ -250,6 +257,9 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
         }
         else if ( result.equals("db") ) {
             test_db();
+        }
+        else if ( result.equals("가이드") ) {
+
         }
         else if ( result.equals("뒤로") ) {
             Process.killProcess(Process.myPid());

@@ -79,12 +79,28 @@
         android:textSize="20dp"
         android:drawableLeft="@drawable/config"
         android:drawablePadding="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/firebase_test"
+        app:layout_constraintBottom_toTopOf="@+id/speech_guide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
+    <Button
+        android:id="@+id/speech_guide"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:background="#00FF0000"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="5dp"
+        android:text="음성 조작 가이드"
+        android:textSize="20dp"
+        android:drawableLeft="@drawable/guide"
+        android:drawablePadding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <Button
         android:id="@+id/firebase_test"
@@ -95,6 +111,7 @@
         android:paddingLeft="5dp"
         android:text="DB 테스트"
         android:textSize="20dp"
+        android:visibility="gone"
         android:drawableLeft="@drawable/database"
         android:drawablePadding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
