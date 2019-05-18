@@ -49,7 +49,7 @@ public class Data_analysis_Activity extends AppCompatActivity {
         TabPagerAdapter adapter =  new TabPagerAdapter(getSupportFragmentManager());
         //탭레이아웃에 추가 3번째param에 1은 값넘기는 것.
         adapter.add("월별", TabFragment1.newInstance(spot, start_date, end_date));
-        adapter.add("시간대별", TabFragment2.newInstance(spot, start_date, end_date));
+        adapter.add("시간별", TabFragment2.newInstance(spot, start_date, end_date));
         adapter.add("요일별", TabFragment3.newInstance(spot, start_date, end_date));
         adapter.add("날씨별", TabFragment4.newInstance(spot, start_date, end_date));
         adapter.add("주차별", TabFragment5.newInstance(spot, start_date, end_date));
