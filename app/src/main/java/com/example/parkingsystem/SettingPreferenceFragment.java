@@ -114,9 +114,9 @@ public class SettingPreferenceFragment extends PreferenceFragment {
             //음성 명령(voice_command) 이벤트 처리
             if(key.equals("voice_command")){
                 if(prefs.getBoolean("voice_command",true)){
-                    Toast.makeText(getActivity(), "음성 명령이 설정되었습니다.\n재시작 후 적용됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "음성 조작이 설정되었습니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "음성 명령이 해제되었습니다.\n재시작 후 적용됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "음성 조작이 해제되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 

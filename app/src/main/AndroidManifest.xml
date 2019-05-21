@@ -22,7 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_car_round"
         android:supportsRtl="true"
         android:theme="@style/blackTheme">
-        <activity android:name=".guide_speech"></activity>
+        <activity android:name=".Speech_guide"></activity>
         <activity android:name=".spot_check_sample" /> <!-- 임시로 메모리 누수 막음 위험위험!!!! -->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

@@ -158,7 +158,7 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
 
     @OnClick(R.id.speech_guide)
     void speech_guide() {
-        Intent intent = new Intent(this, guide_speech.class);
+        Intent intent = new Intent(this, Speech_guide.class);
         startActivity(intent);
     }
 
@@ -276,10 +276,17 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
         음성 인식으로 주차장 확인
          */
         else if ( spots_map.containsKey(result) ) {
-            Intent intent = new Intent(getApplicationContext(), spot_check.class);
-            intent.putExtra("spot", result);
-            intent.putExtra("space", spots_map.get(result));
-            startActivity(intent);
+            if ( result.equals("55호관") ) {
+                Intent intent = new Intent(getApplicationContext(), spot_check_sample.class);
+                intent.putExtra("spot", result);
+                intent.putExtra("space", spots_map.get(result));
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(getApplicationContext(), spot_check.class);
+                intent.putExtra("spot", result);
+                intent.putExtra("space", spots_map.get(result));
+                startActivity(intent);
+            }
         }
         else {
             Log.d("testt", "음성 인식에 해당되는 것 없음");
