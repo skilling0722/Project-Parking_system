@@ -271,6 +271,11 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
             System.runFinalization();
             System.exit(0);
         }
+        else if ( result.equals("home") ) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
 
         /*
         음성 인식으로 주차장 확인
@@ -299,7 +304,6 @@ public class MainActivity extends BaseActivity implements speech_recognition_ser
         // put your code here...
         this.recreate();
     }
-
 
     /*
     키 얻기

@@ -70,7 +70,15 @@ public class spot_check extends AppCompatActivity implements TextToSpeechListene
                     int space = create_recyclerview(spot_info);
 
                     if (prefs.getBoolean("voice_notify", true)) {
-                        call_tts(spot_param,space + " / " + spot_info.size());
+                        //음성 합성 도중 음성 합성 시작 방지 istts: Boolean
+                        //합성 중에 새로 시작시 충돌 발생
+                        SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
+                        Boolean istts = shared_tts.getBoolean("usage", false);
+                        if ( !istts) {
+                            call_tts(spot_param,space + " / " + spot_info.size());
+                        } else {
+                            Log.d("testt", "음성 합성중->음성 합성 실행 방지");
+                        }
                     } else {
                         Log.d("testt", "음성 합성 비활성화 상태");
                         Toast.makeText(getApplicationContext(), "음성 알림이 비활성화 상태입니다..", Toast.LENGTH_SHORT).show();

@@ -22,8 +22,11 @@
         android:roundIcon="@mipmap/ic_launcher_car_round"
         android:supportsRtl="true"
         android:theme="@style/blackTheme">
-        <activity android:name=".Speech_guide"></activity>
-        <activity android:name=".spot_check_sample" /> <!-- 임시로 메모리 누수 막음 위험위험!!!! -->
+        <activity android:name=".Speech_guide"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".spot_check_sample"
+            android:launchMode="singleTop"/>
+        <!-- 임시로 메모리 누수 막음 위험위험!!!! -->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,19 +41,33 @@
 
         <activity
             android:name=".parking_check_map"
-            android:label="@string/title_activity_map_test2" />
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".newtontalk_test" />
-        <activity android:name=".newton_test" />
-        <activity android:name=".Config_Activity" />
-        <activity android:name=".tab.Data_analysis_Activity" />
-        <activity android:name=".spot_check" />
-        <activity android:name=".DB_test" />
-        <activity android:name=".menu_analysis_Activity" />
-        <activity android:name=".parking_check" />
-        <activity android:name=".Data_analysis" />
-        <activity android:name=".test" />
-        <activity android:name=".MainActivity" />
+            android:label="@string/title_activity_map_test2"
+            android:launchMode="singleTop"/>
+        <activity android:name=".BaseActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".newtontalk_test"
+            android:launchMode="singleTop"/>
+        <activity android:name=".newton_test"
+            android:launchMode="singleTop"/>
+        <activity android:name=".Config_Activity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".tab.Data_analysis_Activity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".spot_check"
+            android:launchMode="singleTop"/>
+        <activity android:name=".DB_test"
+            android:launchMode="singleTop"/>
+        <activity android:name=".menu_analysis_Activity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".parking_check"
+            android:launchMode="singleTop"/>
+        <activity android:name=".Data_analysis"
+            android:launchMode="singleTop"/>
+        <activity android:name=".test"
+            android:launchMode="singleTop"/>
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTop"
+            />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">

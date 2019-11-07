@@ -101,7 +101,15 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
                     }
 
                     if ( prefs.getBoolean("voice_notify", true) ){
-                        call_tts(spot_param, use_lot + " / " + total_lot);
+                        //음성 합성 도중 음성 합성 시작 방지 istts: Boolean
+                        //합성 중에 새로 시작시 충돌 발생
+                        SharedPreferences shared_tts = getSharedPreferences("istts", MODE_PRIVATE);
+                        Boolean istts = shared_tts.getBoolean("usage", false);
+                        if ( !istts) {
+                            call_tts(spot_param, use_lot + " / " + total_lot);
+                        } else {
+                            Log.d("testt", "음성 합성중->음성 합성 실행 방지");
+                        }
                     } else {
                         Log.d("testt", "음성 합성 비활성화 상태");
                         Toast.makeText(getApplicationContext(), "음성 알림이 비활성화 상태입니다.", Toast.LENGTH_SHORT).show();
@@ -133,13 +141,6 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
      */
     private HashMap<String, TextView> init_parkinglot() {
         HashMap<String, TextView> parkinglot_map = new HashMap<>();
-//        parkinglot_map.put("1", parkinglot1);
-//        parkinglot_map.put("2", parkinglot3);
-//        parkinglot_map.put("3", parkinglot4);
-//        parkinglot_map.put("4", parkinglot7);
-//        parkinglot_map.put("5", parkinglot8);
-//        parkinglot_map.put("6", parkinglot10);
-//        parkinglot_map.put("7", parkinglot13);
         parkinglot_map.put("1", parkinglot1);
         parkinglot_map.put("2", parkinglot2);
         parkinglot_map.put("3", parkinglot3);
@@ -254,6 +255,7 @@ public class spot_check_sample extends AppCompatActivity implements TextToSpeech
      */
     public void onDestroy() {
         super.onDestroy();
+//        Log.d("testt", "istts false 쓰기 ");
         write_istts(false); //뒤로가기시 음성 합성 istts 값 false로
         TextToSpeechManager.getInstance().finalizeLibrary();
     }
