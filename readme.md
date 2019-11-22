@@ -49,3 +49,8 @@ compilesdkversion 28
 5. [Google Map API](https://developers.google.com/maps/documentation)
 6. [Material date range picker](https://github.com/heysupratim/MaterialDateRangePicker)
 7. [Firebase](https://firebase.google.com/)
+
+
+### IoT & Parking spot model
+![12](https://user-images.githubusercontent.com/41464934/69431058-48657000-0d7a-11ea-9024-33df3714e0c0.jpg)
+![13](https://user-images.githubusercontent.com/41464934/69431065-4a2f3380-0d7a-11ea-961b-3078b3c48d8c.jpg)
